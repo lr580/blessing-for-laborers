@@ -38,31 +38,34 @@ modu.lr581() //如果有必要，调试是否加载成功，成功后删掉即�
 ## 对象格式
 
 用户对象
-uid : number
-realName : string
-nickName : string
-school : string
-schoolArea : string
-grade : string
-major : string
-image : string(?)
-userType : number //1学生，2管理员，3教师
-browseLog : array(object:(number, Date))
-collect : array(number)
-publish : array(number)
-thumbs : array(number)
+
+- uid : number //与_id一致
+- realName : string
+- nickName : string
+- school : string
+- schoolArea : string
+- grade : string
+- major : string
+- image : string(?)
+- userType : number //1学生，2管理员，3教师
+- browseLog : array(object:(number, Date))
+- collect : array(number)
+- publish : array(number)
+- thumbs : array(number)
 
 帖子对象
-id : number
-type : number
-releaseTime : Date
-editTime : Date
-activeTime : Date
-tag : array(string)
-user : number
-thumbs : number //点赞数
-content : array( [number, string] ) 
-comment : array(number)
+
+- id : number //与_id一致
+- type : number //0~4是回复，问答，交流，分享，日志
+- releaseTime : Date
+- editTime : Date
+- activeTime : Date
+- tag : string
+- user : number
+- title : string
+- thumbs : number //点赞数
+- content : array( [number, string] ) 
+  comment : array(number)
 
 注释：
 
@@ -70,4 +73,4 @@ comment : array(number)
 >
 > 1. 常规文本
 > 2. 加粗文本
-> 3. 图片(相对路径，如a.png)
+> 3. 图片(相对路径，如a.png)，存在后端的postpic文件夹里
