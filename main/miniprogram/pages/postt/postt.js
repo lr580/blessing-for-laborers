@@ -1,5 +1,6 @@
 //帖子的主显示页面
 // miniprogram/pages/postt/postt.js
+var lr = require('../../lrfx.js')
 Page({
 
   /**
@@ -13,7 +14,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    this.data.postt=lr.loadPost('1')
+    this.setData({postt:this.data.postt})
+    console.log(this.data.postt)
   },
 
   /**
@@ -65,5 +68,4 @@ Page({
 
   }
 })
-var lr = require('../../lrfx.js')
 //lr.lr581()
