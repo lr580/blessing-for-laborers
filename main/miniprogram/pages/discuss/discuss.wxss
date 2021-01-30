@@ -1,0 +1,18 @@
+/* pages/discuss/discuss.wxss */
+.discussPic1 {
+  display: flex;
+}
+
+.discussPic1 image{
+  width: 120rpx;
+  height: 120rpx;
+  margin-left: 45%;
+}
+
+.discussPic2 image{
+  width: 60rpx;
+  height:  60rpx;
+  margin-left: 200rpx;
+  margin-top:40rpx;
+}
+

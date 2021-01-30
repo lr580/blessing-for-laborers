@@ -1,0 +1,93 @@
+{
+  "miniprogramRoot": "miniprogram/",
+  "cloudfunctionRoot": "cloudfunctions/",
+  "setting": {
+    "urlCheck": true,
+    "es6": true,
+    "enhance": true,
+    "postcss": true,
+    "preloadBackgroundData": false,
+    "minified": true,
+    "newFeature": true,
+    "coverView": true,
+    "nodeModules": false,
+    "autoAudits": false,
+    "showShadowRootInWxmlPanel": true,
+    "scopeDataCheck": false,
+    "uglifyFileName": false,
+    "checkInvalidKey": true,
+    "checkSiteMap": true,
+    "uploadWithSourceMap": true,
+    "compileHotReLoad": false,
+    "useMultiFrameRuntime": true,
+    "useApiHook": true,
+    "useApiHostProcess": false,
+    "babelSetting": {
+      "ignore": [],
+      "disablePlugins": [],
+      "outputPath": ""
+    },
+    "enableEngineNative": false,
+    "bundle": false,
+    "useIsolateContext": true,
+    "useCompilerModule": true,
+    "userConfirmedUseCompilerModuleSwitch": false,
+    "userConfirmedBundleSwitch": false,
+    "packNpmManually": false,
+    "packNpmRelationList": [],
+    "minifyWXSS": true
+  },
+  "appid": "wx62bf88f7371aa99a",
+  "projectname": "%E7%A6%8F%E6%8A%A5%E6%B0%91%E5%B7%A5",
+  "libVersion": "2.14.4",
+  "condition": {
+    "plugin": {
+      "list": []
+    },
+    "game": {
+      "list": []
+    },
+    "gamePlugin": {
+      "list": []
+    },
+    "miniprogram": {
+      "list": [
+        {
+          "id": -1,
+          "name": "db guide",
+          "pathName": "pages/databaseGuide/databaseGuide",
+          "query": ""
+        },
+        {
+          "name": "cover",
+          "pathName": "pages/cover/cover",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "scrollBarTest",
+          "pathName": "pages/scrollBar/scrollBar",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "discuss",
+          "pathName": "pages/discuss/discuss",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "buttonTest",
+          "pathName": "pages/buttonTest/buttonTest",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "tabbarTest",
+          "pathName": "pages/tabBar/tabBar",
+          "scene": null
+        }
+      ]
+    }
+  }
+}

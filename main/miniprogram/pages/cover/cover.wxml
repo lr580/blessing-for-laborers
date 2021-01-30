@@ -1,0 +1,4 @@
+<!--pages/cover/cover.wxml-->
+<view>
+<image src="cloud://scnuyjx-7gmvlqwfe64c446a.7363-scnuyjx-7gmvlqwfe64c446a-1304878008/pic/cover.png"  class="coverImg" mode="widthFix"></image>
+</view>

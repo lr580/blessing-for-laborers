@@ -1,0 +1,4 @@
+/* pages/cover/cover.wxss */
+.coverImg{
+  margin-top: 20%;
+}

@@ -1,0 +1,56 @@
+{
+  "tabBar": {
+    "color": "#000",
+    "selectedColor": "#1296db",
+    "list": [
+      {
+        "pagePath": "pages/discuss/discuss",
+        "text": "交流",
+        "iconPath": "/img/dicuss.png",
+        "selectedIconPath": "/img/discuss!.png"
+      },
+      {
+        "pagePath": "pages/quesAndans/quesAndans",
+        "text": "问答",
+        "iconPath": "/img/q&a.png",
+        "selectedIconPath": "/img/q&a!.png"
+      },
+      {
+        "pagePath": "pages/me/me",
+        "text": "我",
+        "iconPath": "/img/me.png",
+        "selectedIconPath": "/img/me!.png"
+      }
+    ]
+  },
+  "pages": [
+    "pages/index/index",
+    "pages/userConsole/userConsole",
+    "pages/storageConsole/storageConsole",
+    "pages/databaseGuide/databaseGuide",
+    "pages/addFunction/addFunction",
+    "pages/deployFunctions/deployFunctions",
+    "pages/chooseLib/chooseLib",
+    "pages/openapi/openapi",
+    "pages/openapi/serverapi/serverapi",
+    "pages/openapi/callback/callback",
+    "pages/openapi/cloudid/cloudid",
+    "pages/im/im",
+    "pages/im/room/room",
+    "pages/cover/cover",
+    "pages/discuss/discuss",
+    "pages/scrollBar/scrollBar",
+    "pages/tabBar/tabBar",
+    "pages/me/me",
+    "pages/quesAndans/quesAndans"
+  ],
+  "window": {
+    "backgroundColor": "#FFFFFF",
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#FFFFFF",
+    "navigationBarTitleText": "appName",
+    "navigationBarTextStyle": "black"
+  },
+  "sitemapLocation": "sitemap.json",
+  "style": "v2"
+}

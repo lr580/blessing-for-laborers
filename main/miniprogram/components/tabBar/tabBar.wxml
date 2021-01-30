@@ -1,0 +1,28 @@
+<view class="page" data-weui-theme="{{theme}}">
+	<view class="page__bd" style="height: 100%;">
+		<view class="weui-tab">
+			<view class="weui-tab__panel">
+			</view>
+			<view class="weui-tabbar">
+				<view class="weui-tabbar__item weui-bar__item_on">
+					<view style="display: inline-block; position: relative;">
+						<image src="cloud://scnuyjx-7gmvlqwfe64c446a.7363-scnuyjx-7gmvlqwfe64c446a-1304878008/pic/q&a.png"></image>
+						<text class="weui-badge" style="position: absolute; top: -2px; right: -13px;">8</text>
+					</view>
+					<view class="weui-tabbar__label">问答</view>
+				</view>
+				<view class="weui-tabbar__item">
+					<view style="display: inline-block; position: relative;">
+						<image src="cloud://scnuyjx-7gmvlqwfe64c446a.7363-scnuyjx-7gmvlqwfe64c446a-1304878008/pic/discuss!.png"></image>
+						<text class="weui-badge weui-badge_dot" style="position: absolute; top: 0; right: -6px;"></text>
+					</view>
+					<view class="weui-tabbar__label">交流</view>
+				</view>
+				<view class="weui-tabbar__item">
+					<image src="cloud://scnuyjx-7gmvlqwfe64c446a.7363-scnuyjx-7gmvlqwfe64c446a-1304878008/pic/me.png"></image>
+					<view class="weui-tabbar__label">我</view>
+				</view>
+			</view>
+		</view>
+	</view>
+</view>

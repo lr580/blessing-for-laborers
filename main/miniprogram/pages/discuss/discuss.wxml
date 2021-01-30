@@ -1,0 +1,12 @@
+<!--pages/discuss/discuss.wxml-->
+<view class="discussPic1">
+  <image src="cloud://scnuyjx-7gmvlqwfe64c446a.7363-scnuyjx-7gmvlqwfe64c446a-1304878008/pic/cover.png"></image>
+<view class="discussPic2">
+<image src="cloud://scnuyjx-7gmvlqwfe64c446a.7363-scnuyjx-7gmvlqwfe64c446a-1304878008/pic/add.png"></image>
+</view>
+</view>
+<view>
+  <searchBar></searchBar>
+</view>
+
+
