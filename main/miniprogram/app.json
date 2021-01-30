@@ -27,7 +27,8 @@
     "pages/discuss/discuss",
     "pages/me/me",
     "pages/quesAndans/quesAndans",
-    "pages/quesAndans/cover"
+    "pages/quesAndans/cover",
+    "pages/postt/postt"
   ],
   "window": {
     "backgroundColor": "#FFFFFF",

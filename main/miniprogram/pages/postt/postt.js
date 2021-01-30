@@ -1,17 +1,14 @@
-// miniprogram/pages/quesAndans/quesAndans.js
+//帖子的主显示页面
+// miniprogram/pages/postt/postt.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+    postt:{},
+  },
 
-  },
-  navToPost: function(e){
-    wx.navigateTo({
-      url: '../postt/postt',
-    })
-  },
   /**
    * 生命周期函数--监听页面加载
    */
@@ -68,3 +65,5 @@ Page({
 
   }
 })
+var lr = require('../../lrfx.js')
+//lr.lr581()

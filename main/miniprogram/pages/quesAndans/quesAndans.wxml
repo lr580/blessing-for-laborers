@@ -11,3 +11,4 @@
 <view>
   <image src="/img/diary.png"></image>
 </view>
+<button bindtap="navToPost">调试</button>
