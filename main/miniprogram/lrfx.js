@@ -9,17 +9,47 @@ function lr581()//用以测试该模块是否加载成功
 function logPost() {
 
 }
+
+//暂用，以后可以由其他函数替代
 function loadPost(uid) {
-  //wx.cloud.init({env:'scnuyjx-7gmvlqwfe64c446a'})
- const db = wx.cloud.database()
- //const po = db.collection(uid)
- //.log('po',po)
- const po = db.collection('post').doc(uid)
- //const po = db.collection('post').get().then(res =>{
- //  console.log('res',res.data)
- //})
- console.log('po',po)
- return po
+  /*//wx.cloud.init({env:'scnuyjx-7gmvlqwfe64c446a'})
+  
+  //exports.main = async (event,context) => {
+  //  var po = {}
+  //  wx.cloud.database().collection('post').doc(uid).get().then(res =>{
+      //console.log(typeof res.data)
+  //    for(let k in res.data) po[k]=res.data[k]//,console.log(res.data[k])
+  //  })
+  //getApp().globalData.tempO = po
+  //}*/
+  //假设我调用某个函数得到了这个对象
+  return   {
+    "_id": "1",
+    "activeTime": "2021-01-30T07:31:01.000Z",
+    "comment": [],
+    "content": [
+      [
+        1,
+        "想问一道微积分的题"
+      ],
+      [
+        2,
+        "很难"
+      ],
+      [
+        3,
+        "server-icon2.png"
+      ]
+    ],
+    "editTime": "2021-01-30T07:31:01.000Z",
+    "id": 1,
+    "releaseTime": "2021-01-30T07:31:01.713Z",
+    "tag": "微积分",
+    "thumbs": 0,
+    "title": "微积分救救孩子！",
+    "type": 1,
+    "user": 1
+  }
 }
 function publishPost(p) {
 

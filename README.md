@@ -1,6 +1,6 @@
 **不要在master分支直接上传压缩包；如果上传压缩包请传至backup分支**，master分支只传代码
 
-请确保开始写代码之前，你当前项目代码的版本跟github上一致(如不一致更新为master分支的版本)
+为了减少同步代码的麻烦，请确保开始写代码之前，你当前项目代码的版本跟github上一致(如不一致更新为master分支的版本)，
 
 # 项目配置
 
@@ -54,7 +54,7 @@ modu.lr581() //如果有必要，调试是否加载成功，成功后删掉即�
 - schoolArea : string
 - grade : string
 - major : string
-- image : string(?)
+- image : string //不含目录的路径，如'a.png'
 - userType : number //1学生，2管理员，3教师
 - browseLog : array(object:(number, Date))
 - collect : array(number)
@@ -64,21 +64,31 @@ modu.lr581() //如果有必要，调试是否加载成功，成功后删掉即�
 帖子对象
 
 - id : number //与_id一致
+
 - type : number //0~4是回复，问答，交流，分享，日志
+
 - releaseTime : Date
+
 - editTime : Date
+
 - activeTime : Date
+
 - tag : string
+
 - user : number
+
 - title : string
+
 - thumbs : number //点赞数
-- content : array( [number, string] ) 
-  comment : array(number)
+
+- content : array( [number, string] )
+
+  >  对content：number为下列时，内容意义如下：
+  >
+  > 1. 常规文本
+  > 2. 加粗文本
+  > 3. 图片(相对路径，如a.png)，存在后端的postpic文件夹里
+
+- comment : array(number)
 
 注释：
-
-> 对content：number为下列时，内容意义如下：
->
-> 1. 常规文本
-> 2. 加粗文本
-> 3. 图片(相对路径，如a.png)，存在后端的postpic文件夹里
