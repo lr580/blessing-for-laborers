@@ -45,7 +45,7 @@ Page({
       {
         var fin=0 //回帖的帖子加载完毕数
         var finu=0 //回帖的用户加载完毕数
-        var temp=[] //帖子与用户、头像地址放在同一个(以数组实现结构体，便于结构体排序)
+        var temp=[] //帖子与用户、头像地址、回帖嵌套者放在同一个(以数组实现结构体，便于结构体排序)
         for(let i=0;i<res.data.comment.length;++i) temp[i]=[]
 
         //头像预设为默认头像
@@ -67,7 +67,7 @@ Page({
               ++fin
               temp[i][1]=rev.data
               temp[i][2]=rev.data.image
-              if(fin==res.data.comment.length<<1) {//异步的某一次全部回帖帖子和回帖用户均加载完毕
+              if(fin==res.data.comment.length*3) {//异步的某一次全部回帖帖子和回帖用户和嵌套用户均加载完毕
                 temp.sort(cmp())
                 this.setData({
                   reply:temp,
@@ -75,10 +75,25 @@ Page({
                 })
               }
             })
+            if(reu.data.reply)
+            {
+              wx.cloud.database().collection('user').doc(String(reu.data.reply)).get().then(rew=>{
+                ++fin
+                temp[i][3]=rew.data.nickName
+                if(fin==res.data.comment.length*3) {//异步的某一次全部回帖帖子和回帖用户和嵌套用户均加载完毕
+                  temp.sort(cmp())
+                  this.setData({
+                    reply:temp,
+                    replys:res.data.comment.length
+                  })
+                }
+              })
+            }
+            else ++fin
 
             ++fin
             temp[i][0]=reu.data
-            if(fin==res.data.comment.length<<1){//异步的某一次全部回帖帖子和回帖用户均加载完毕(实验表明不会在这里结束异步，但保险起见还是放着吧)
+            if(fin==res.data.comment.length*3){//异步的某一次全部回帖帖子和回帖用户和嵌套用户均加载完毕(实验表明不会在这里结束异步，但保险起见还是放着吧)
               temp.sort(cmp())
               this.setData({
                 reply:temp,
