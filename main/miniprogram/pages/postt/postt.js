@@ -79,7 +79,7 @@ Page({
             {
               wx.cloud.database().collection('user').doc(String(reu.data.reply)).get().then(rew=>{
                 ++fin
-                temp[i][3]=rew.data.nickName
+                temp[i][3]=rew.data
                 if(fin==res.data.comment.length*3) {//异步的某一次全部回帖帖子和回帖用户和嵌套用户均加载完毕
                   temp.sort(cmp())
                   this.setData({

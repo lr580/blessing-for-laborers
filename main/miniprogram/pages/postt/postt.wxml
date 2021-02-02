@@ -24,7 +24,7 @@
   <view wx:if="{{replys}}">
     <view wx:for="{{reply}}" wx:for-index="i" wx:for-item="v">
       <view>序号：{{i+1}}</view>
-      <view wx:if="{{v[0].reply}}"> 回复{{v[3]}}</view>
+      <view wx:if="{{v[0].reply}}"> 回复{{v[3].nickName}}</view>
       <view>回帖人昵称：{{v[1].nickName}}</view>
       <view>回帖人头像：</view>
       <image src="{{pathp+v[2]}}"></image>
