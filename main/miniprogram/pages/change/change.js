@@ -1,36 +1,32 @@
-// pages/changeInfo/changeInfo.js
+// miniprogram/pages/changeInfo/change.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    userinfo:{ },
-    area: '无',
-    zhuanye:'无',
-    year:'无',
-    school:'无'
-  },
-/*获取昵称头像，无作用*/
-  onLoad: function (options) {
-    this.setData({
-        userinfo: wx.getStorageSync('userInfo')
-      })
-  },
-  choseImage:function(){
-    this.openAlert('头像暂不支持修改')
-  },
-
-  openAlert:function(e){
-    wx.showToast({
-      title: e,
-      icon:"none"
-    })
+    placeholder:'',
+    infoArray:{
+      nickName:'昵称',
+      school:'学校',
+      area:'校区',
+      zhuanye:'专业',
+       year:'年级' 
+    }
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
+  onLoad: function (options) {
+    console.log(options)
+    this.setData({
+      placeholder:'请输入'+this.data.infoArray[options.changeWhat]
+    })
+    wx.setNavigationBarTitle({
+      title: '修改'+ this.data.infoArray[options.changeWhat],
+    })
+  },
 
 
   /**
