@@ -11,4 +11,5 @@
 <view>
   <image src="/img/diary.png"></image>
 </view>
-<button bindtap="navToPost">调试</button>
+<!--<button bindtap="navToPost">调试看帖</button>-->
+<button bindtap="navToPostP">调试发帖(尚未完成请勿点击)</button>

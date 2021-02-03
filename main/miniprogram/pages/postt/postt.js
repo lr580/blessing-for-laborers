@@ -26,8 +26,7 @@ Page({
    */
   onLoad: function (options) {
     this.setData({me:getApp().globalData.userID})
-   //这个'1'到时候根据打开的帖子传入的信息修改
-    wx.cloud.database().collection('post').doc('4').get().then(res=>{
+    wx.cloud.database().collection('post').doc(options.id).get().then(res=>{
       this.setData({
         postt:res.data,
         pdate:[res.data.activeTime.getFullYear(),

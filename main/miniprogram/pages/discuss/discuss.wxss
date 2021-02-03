@@ -18,7 +18,7 @@
 
 .postPart{
   margin: 20px 20px;
-  border: 10rpx solid rgb(86, 92, 94);
+  border: 8rpx solid rgb(86, 92, 94);
   border-radius: 20rpx;
 }
 
@@ -27,14 +27,22 @@
 }
 
 .nickName{
-  font-size: 30rpx;
+  font-size: 35rpx;
   margin-top: 20rpx;
+  width: 500rpx;
+  overflow:hidden;
+  white-space:nowrap;
+  text-overflow:ellipsis;
 }
+
 
 .title{
   margin: 20rpx 20rpx;
- 
   font-size: 40rpx;
+  width: 600rpx;
+  overflow:hidden;
+  white-space:nowrap;
+  text-overflow:ellipsis;
 }
 
 .title image{
@@ -59,25 +67,50 @@
   margin-left: 20rpx;
   margin-right: 20rpx;
   border-bottom: 6rpx solid rgb(86, 92, 94);
+  
 }
+
+.contentText {
+  width: 100%;
+  display: -webkit-box;
+  word-break: break-all;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  }
 
 .state{
   margin-left: 20rpx;
-  height: 80rpx;
+  height: 50rpx;
   font-size: 25rpx;
   display: flex;
 }
 
-.activity{
-  margin-left: 150rpx;
+.tag{
+  width: 280rpx;
 }
+
 
 .like{
   margin-left: 30rpx;
 }
 
 .state image{
-  margin-top: 20rpx;
+  margin-top: 5rpx;
+  width: 30rpx;
+  height: 30rpx;
+}
+
+.tip{
+  margin: 0 200rpx;
+  border: 2rpx solid rgb(230, 173, 50);
+  border-radius: 30rpx;
+  display: flex;
+  justify-content: center;
+}
+
+.tip image{
   width: 40rpx;
   height: 40rpx;
 }

@@ -7,11 +7,19 @@ Page({
   data: {
 
   },
+
   navToPost: function(e){
     wx.navigateTo({
-      url: '../postt/postt',
+      url: '../postt/postt?id=1',
     })
   },
+
+  navToPostP: function(e){
+    wx.navigateTo({
+      url: '../postp/postp',
+    })
+  },
+
   /**
    * 生命周期函数--监听页面加载
    */

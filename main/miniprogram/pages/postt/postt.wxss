@@ -1,1 +1,86 @@
 /* miniprogram/pages/postt/postt.wxss */
+.postInfo{
+  margin-top: 20rpx;
+  margin-left: 20rpx;
+  margin-right: 20rpx;
+}
+
+.postTitle{
+  font-size: 40rpx;
+  font-weight: 600;
+  display: flex;
+  flex-wrap: wrap;
+  align-items:center;
+  border-bottom: 2rpx solid grey;
+}
+
+.tag image{
+  width: 30rpx;
+  height: 30rpx;
+}
+
+.tag{
+  margin-left: 100rpx;
+  font-size: 30rpx;
+  font-weight:400;
+  color: rgb(35, 133, 136);
+}
+
+
+
+.user{
+  margin-top: 20rpx;
+  display: flex;
+}
+
+.userName{
+  margin-left: 20rpx;
+  display: flex;
+  align-items:center;
+  justify-content:center;
+  font-size: 40rpx;
+}
+
+.userHead image{
+  height: 100rpx;
+  width: 100rpx;
+  border-radius: 50%;
+  border: 8rpx solid rgb(134, 216, 241);
+}
+
+.postContent{
+  margin-left: 20rpx;
+  margin-right: 20rpx;
+  font-size: 30rpx;
+  font-weight: 500;
+}
+
+.postState{
+  /* margin: 20rpx; */
+  display: flex;
+  align-items:center;
+  justify-content: space-evenly;
+  border-bottom: 2rpx solid rgb(194, 188, 188);
+  border-top:  2rpx solid rgb(194, 188, 188);
+ height: 70rpx;
+}
+
+.postState image{
+  width: 50rpx;
+  height: 50rpx;
+}
+
+.activity{
+  display: flex;
+  align-items:center;
+}
+
+.like{
+  display: flex;
+  align-items:center;
+}
+
+.share{
+  display: flex;
+  align-items:center;
+}

@@ -1,0 +1,3 @@
+<!--pages/postp/postp.wxml-->
+<text>发布帖子(调试)</text>
+<button bindtap="selectImage">选择图片</button>

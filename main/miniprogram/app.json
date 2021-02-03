@@ -28,7 +28,12 @@
     "pages/me/me",
     "pages/quesAndans/quesAndans",
     "pages/quesAndans/cover",
-    "pages/postt/postt"
+    "pages/postt/postt",
+    "pages/mypost/mypost",
+    "pages/history/history",
+    "pages/help/help",
+    "pages/getUserInfo/getUserInfo",
+    "pages/postp/postp"
   ],
   "window": {
     "backgroundColor": "#FFFFFF",

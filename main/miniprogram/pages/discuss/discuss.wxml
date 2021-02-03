@@ -12,7 +12,7 @@
 <view wx:if="{{!postn}}">暂无帖子(点击发布第一个帖子?)</view>
 <view wx:else>
   <view wx:for="{{posts}}" wx:for-index="i" wx:for-item="v">
-    <view class="postPart">
+    <view class="postPart" bindtap="gotoPost" id="{{v[0].id}}">
       <view class="title">
         <image src="/img/title.png"></image>
         {{v[0].title}}
@@ -27,9 +27,9 @@
       </view>
       <view class="content">
         <view wx:for="{{v[0].content}}">
-          <text wx:if="{{item[0]==1}}">{{item[1]}}</text>
+          <text wx:if="{{item[0]==1}}" class="contentText">{{item[1]}}</text>
           <text wx:if="{{item[0]==2}}">[假装加粗]{{item[1]}}[假装加粗]</text>
-          <image wx:if="{{item[0]==3}}" src="{{pathtp+item[1]}}"></image>
+          <text wx:if="{{item[0]==3}}">[图片]</text>
         </view>
       </view>
       <view class="state">
@@ -49,4 +49,7 @@
     </view>
   </view>
 </view>
-<view wx:if="{{alreadyAll}}">已经到达底端啦！</view>
+<view wx:if="{{alreadyAll}}" class="tip">
+  <image src="/img/tip.png"></image>
+  <view>已经到达底端啦！</view>
+</view>

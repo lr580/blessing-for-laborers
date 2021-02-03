@@ -103,6 +103,13 @@ Page({
     })
   },
 
+  gotoPost:function(e){
+    console.log(e.currentTarget.id)
+    wx.navigateTo({
+      url: '/pages/postt/postt?id='+String(e.currentTarget.id),
+    })
+  },
+
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
