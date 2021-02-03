@@ -17,12 +17,14 @@ Page({
     reply:[],//回帖帖子对象
     replyer:[],//回帖回帖者
     rdate:[],
+    me:0,//当前用户uid
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    this.setData({me:getApp().globalData.userID})
    //这个'1'到时候根据打开的帖子传入的信息修改
     wx.cloud.database().collection('post').doc('1').get().then(res=>{
       this.setData({

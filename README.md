@@ -75,8 +75,8 @@ modu.lr581() //如果有必要，调试是否加载成功，成功后删掉即�
 用户对象
 
 - uid : number //与_id一致
-- realName : string
-- nickName : string
+- realName : string //大于2字符小于16字符
+- nickName : string //不可以设为"匿名用户"，大于2字符小于16字符
 - school : string
 - schoolArea : string
 - grade : string
@@ -104,7 +104,7 @@ modu.lr581() //如果有必要，调试是否加载成功，成功后删掉即�
 
 - user : number
 
-- title : string
+- title : string //大于1字符小于40(?)字符
 
 - thumbs : number //点赞数
 

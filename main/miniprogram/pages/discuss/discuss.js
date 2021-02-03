@@ -12,12 +12,14 @@ Page({
     posts: [],//所有帖子（第二层下标 0为帖子对象 1用户对象 2最后活跃时间）
     postn: 0,//目前展示的帖子数
     alreadyAll: false,//已经读完了全部帖子
+    me:0,//当前用户uid
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    this.setData({me:getApp().globalData.userID})
     wx.cloud.database().collection('post').where({
       type: wx.cloud.database().command.neq(0)
     }).limit(this.data.initLoads)
