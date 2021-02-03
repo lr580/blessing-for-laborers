@@ -7,9 +7,13 @@
   </view>
   <view class="user">
     <view class="userHead">
-      <image src="{{pathp+pathq}}"></image>
+      <image src="{{pathp+'default.jpg'}}" wx:if="{{postt.anonymity&&me!=postt.user}}"></image>
+      <image src="{{pathp+pathq}}" wx:else></image>
     </view>
-    <view class="userName"><text>{{poster.nickName}}</text></view>
+    <view class="userName">
+      <text wx:if="{{postt.anonymity&&me!=postt.user}}">{{poster.nickName}}</text>
+      <text wx:else>匿名用户</text>
+    </view>
   </view>
   <view style="height:40rpx"></view>
 </view>
@@ -41,10 +45,13 @@
     <view wx:if="{{replys}}">
       <view wx:for="{{reply}}" wx:for-index="i" wx:for-item="v">
         <view>序号：{{i+1}}</view>
-        <view wx:if="{{v[0].reply}}"> 回复{{v[3].nickName}}</view>
-        <view>回帖人昵称：{{v[1].nickName}}</view>
-        <view>回帖人头像：</view>
-        <image src="{{pathp+v[2]}}"></image>
+        <view wx:if="{{v[0].reply &&(!v[5].anonymity||me==v[5].user)}}"> 回复{{v[3].nickName}}</view>
+      <view wx:elif="{{v[0].reply&&v[5].anonymity&&me!=v[5].user}}"> 回复匿名用户</view>
+      <view wx:if="{{v[0].anonymity&&me!=v[0].user}}">回帖人昵称：匿名用户</view>
+      <view wx:else>回帖人昵称：{{v[1].nickName}}</view>
+      <view>回帖人头像：</view>
+      <image src="{{pathp+'default.jpg'}}" wx:if="{{v[0].anonymity&&me!=v[0].user}}"></image>
+      <image src="{{pathp+v[2]}}" wx:else></image>
         <view wx:for="{{v[0].content}}">
           <text wx:if="{{item[0]==1}}">{{item[1]}}</text>
           <text wx:if="{{item[0]==2}}">[假装加粗]{{item[1]}}[假装加粗]</text>
