@@ -45,7 +45,7 @@ Page({
       {
         var fin=0 //回帖的帖子加载完毕数
         var finu=0 //回帖的用户加载完毕数
-        var temp=[] //帖子(0)与用户(1)、头像地址(2)、被回复用户(3)、回帖时间(4)放在同一个(以数组实现结构体，便于结构体排序)
+        var temp=[] //帖子(0)与用户(1)、头像地址(2)、被回复用户(3)、回帖时间(4)、被回复帖子(5)放在同一个(以数组实现结构体，便于结构体排序)
         for(let i=0;i<res.data.comment.length;++i) temp[i]=[]
 
         //头像预设为默认头像
@@ -67,7 +67,7 @@ Page({
               ++fin
               temp[i][1]=rev.data
               temp[i][2]=rev.data.image
-              if(fin==res.data.comment.length*3) {//异步的某一次全部回帖帖子和回帖用户和嵌套用户均加载完毕
+              if(fin==res.data.comment.length*4) {//异步的某一次全部回帖帖子和回帖用户和嵌套用户均加载完毕
                 temp.sort(cmp())
                 this.setData({
                   reply:temp,
@@ -77,10 +77,21 @@ Page({
             })
             if(reu.data.reply)
             {
-              wx.cloud.database().collection('user').doc(String(reu.data.reply)).get().then(rew=>{
+              wx.cloud.database().collection('post').doc(String(reu.data.reply)).get().then(rex=>{
+                wx.cloud.database().collection('user').doc(String(rex.data.user)).get().then(rew=>{
+                  ++fin
+                  temp[i][3]=rew.data
+                  if(fin==res.data.comment.length*4) {//异步的某一次全部回帖帖子和回帖用户和嵌套用户均加载完毕
+                    temp.sort(cmp())
+                    this.setData({
+                      reply:temp,
+                      replys:res.data.comment.length
+                    })
+                  }
+                })
                 ++fin
-                temp[i][3]=rew.data
-                if(fin==res.data.comment.length*3) {//异步的某一次全部回帖帖子和回帖用户和嵌套用户均加载完毕
+                temp[i][5]=rex.data
+                if(fin==res.data.comment.length*4) {//异步的某一次全部回帖帖子和回帖用户和嵌套用户均加载完毕
                   temp.sort(cmp())
                   this.setData({
                     reply:temp,
@@ -89,7 +100,7 @@ Page({
                 }
               })
             }
-            else ++fin
+            else fin+=2
 
             ++fin
             temp[i][0]=reu.data
@@ -101,7 +112,7 @@ Page({
               reu.data.editTime.getMinutes(),
               reu.data.editTime.getSeconds()
             ]
-            if(fin==res.data.comment.length*3){//异步的某一次全部回帖帖子和回帖用户和嵌套用户均加载完毕(实验表明不会在这里结束异步，但保险起见还是放着吧)
+            if(fin==res.data.comment.length*4){//异步的某一次全部回帖帖子和回帖用户和嵌套用户均加载完毕(实验表明不会在这里结束异步，但保险起见还是放着吧)
               temp.sort(cmp())
               this.setData({
                 reply:temp,
