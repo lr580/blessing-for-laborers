@@ -3,5 +3,7 @@
   "usingComponents": {
     "searchBar":"/components/searchBar/searchBar",
     "tabBar":"/components/tabBar/tabBar"
-  }
+  },
+  "enablePullDownRefresh":true,
+  "onReachBottomDistance":100
 }
