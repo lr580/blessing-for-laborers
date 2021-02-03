@@ -17,8 +17,9 @@
 }
 
 .postPart{
+  background-color: white;
   margin: 20px 20px;
-  border: 8rpx solid rgb(86, 92, 94);
+  border: 4rpx solid rgb(86, 92, 94);
   border-radius: 20rpx;
 }
 
@@ -67,7 +68,7 @@
   margin-left: 20rpx;
   margin-right: 20rpx;
   border-bottom: 6rpx solid rgb(86, 92, 94);
-  
+
 }
 
 .contentText {
