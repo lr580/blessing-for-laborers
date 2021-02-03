@@ -18,6 +18,7 @@ Page({
     replyer:[],//回帖回帖者
     rdate:[],
     me:0,//当前用户uid
+    thumbBusy:false,//防止频繁点赞引发点赞数概率云
   },
 
   /**
@@ -26,7 +27,7 @@ Page({
   onLoad: function (options) {
     this.setData({me:getApp().globalData.userID})
    //这个'1'到时候根据打开的帖子传入的信息修改
-    wx.cloud.database().collection('post').doc('1').get().then(res=>{
+    wx.cloud.database().collection('post').doc('4').get().then(res=>{
       this.setData({
         postt:res.data,
         pdate:[res.data.activeTime.getFullYear(),
@@ -129,20 +130,86 @@ Page({
   },
 
   thumbize:function(){
-    u=getApp().globalData.userID
-    p=1 //暂定
+    var u=this.data.me//点赞者uid，即me
+    var p=this.data.postt //被点赞的帖子对象
+    if(this.data.thumbBusy)
+    {
+      wx.showToast({
+        title: '您点赞的频率过快，请稍后再操作',
+        icon:'none',
+        duration: 1500,
+      })
+      return
+    }
+    if(u==p.user)
+    {
+      wx.showToast({
+        title: '您不能给自己点赞',
+        icon:'none',
+        duration: 1500,
+      })
+      return
+    }
+    this.setData({thumbBusy:true})
     wx.cloud.database().collection('user').doc(String(u)).get().then(res=>{
       var thumbLen = res.data.thumbs.length
+      var find = false
       for(let i=0;i<thumbLen;++i)
       {
-        if(p==res.data.thumbs[i])
+        if(p.id==res.data.thumbs[i])
         {
-          wx.showToast({
-            title:"您已点赞",
-            duration:2000
+          find=true
+          var t2=[]
+          for(let j=0;j<thumbLen;++j) if(p.id!=res.data.thumbs[j]) t2.push(res.data.thumbs[j])
+
+          wx.cloud.database().collection('user').doc(String(u)).update({
+            data:{
+              thumbs:t2
+            }
+          }).then(res=>{
+            wx.cloud.database().collection('post').doc(String(p.id)).update({
+              data:{
+                thumbs:wx.cloud.database().command.inc(-1)
+              }
+            }).then(ret=>{
+              var temp = this.data.postt
+              --temp.thumbs
+              this.setData({
+                postt:temp,
+                thumbBusy:false,
+              })
+              wx.showToast({
+                title:"取消点赞成功",
+                duration:1500,
+              })
+            })
           })
-          console.log('已经点赞')
         }
+      }
+      if(!find)
+      {
+        wx.cloud.database().collection('user').doc(String(u)).update({
+          data:{
+            thumbs:wx.cloud.database().command.push(p.id)
+          }
+        }).then(res=>{
+          wx.cloud.database().collection('post').doc(String(p.id)).update({
+            data:{
+              thumbs:wx.cloud.database().command.inc(1)
+            }
+          }).then(ret=>{
+            wx.showToast({
+              title:"点赞成功",
+              duration:1500,
+            })
+            var temp = this.data.postt
+            ++temp.thumbs
+            this.setData({
+              postt:temp,
+              thumbBusy:false,
+            })
+          })
+        })
       }
     })
   },

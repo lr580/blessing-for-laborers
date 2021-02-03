@@ -19,6 +19,7 @@
 <!--</view>-->
 <text>最后活跃日期：{{pdate[0]}}/{{pdate[1]}}/{{pdate[2]}} {{pdate[3]}}:{{pdate[4]}}:{{pdate[5]}}</text>
 <text>点赞数：{{postt.thumbs}}</text>
+<button bindtap="thumbize">点我模拟点赞</button>
 <view style="height:40rpx"></view>
 
 <text>回复区：</text><!--回复区尚未做完-->
