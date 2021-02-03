@@ -19,11 +19,11 @@
       </view>
       <view class="userInfo">
         <view class="userHead">
-          <image src="{{pathp+v[1].image}}"></image>
+          <image src="{{pathp+'default.jpg'}}" wx:if="{{v[0].anonymity}}"></image>
+          <image src="{{pathp+v[1].image}}" wx:else></image>
         </view>
-        <view class="nickName">
-          {{v[1].nickName}}
-        </view>
+        <view class="nickName" wx:if="{{v[0].anonymity}}">匿名用户</view>
+        <view class="nickName" wx:else>{{v[1].nickName}}</view>
       </view>
       <view class="content">
         <view wx:for="{{v[0].content}}">
