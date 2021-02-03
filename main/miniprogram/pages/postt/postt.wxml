@@ -33,6 +33,7 @@
         <text wx:if="{{item[0]==2}}">[假装加粗]{{item[1]}}[假装加粗]</text>
         <image wx:if="{{item[0]==3}}" src="{{pathtp+item[1]}}"></image>
       </view>
+      <view>回帖时间：{{v[4][0]}}/{{v[4][1]}}/{{v[4][2]}} {{v[4][3]}}:{{v[4][4]}}:{{v[4][5]}}</view>
       <view style="height:40rpx"></view>
     </view>
   </view>

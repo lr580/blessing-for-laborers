@@ -14,9 +14,17 @@ App({
         traceUser: true,
       })
     }
-
+    if(false) //暂时不需要用到的时候先不读，减少云开发次数消耗
+    wx.cloud.database().collection('global').doc('default').get().then(res=>{
+      this.globalData.maxuid=res.data.maxuid
+      this.globalData.maxpid=res.data.maxpid
+    })
     this.globalData = {
-      tempO : {}
+      userID:1,//调试状态默认
+      maxuid:0,
+      maxpid:0,
     }
+
+
   }
 })

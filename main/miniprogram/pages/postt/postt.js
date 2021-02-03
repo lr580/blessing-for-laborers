@@ -45,7 +45,7 @@ Page({
       {
         var fin=0 //回帖的帖子加载完毕数
         var finu=0 //回帖的用户加载完毕数
-        var temp=[] //帖子与用户、头像地址、回帖嵌套者放在同一个(以数组实现结构体，便于结构体排序)
+        var temp=[] //帖子(0)与用户(1)、头像地址(2)、被回复用户(3)、回帖时间(4)放在同一个(以数组实现结构体，便于结构体排序)
         for(let i=0;i<res.data.comment.length;++i) temp[i]=[]
 
         //头像预设为默认头像
@@ -93,6 +93,14 @@ Page({
 
             ++fin
             temp[i][0]=reu.data
+            temp[i][4]=[
+              reu.data.editTime.getFullYear(),
+              reu.data.editTime.getMonth()+1,
+              reu.data.editTime.getDate(),
+              reu.data.editTime.getHours(),
+              reu.data.editTime.getMinutes(),
+              reu.data.editTime.getSeconds()
+            ]
             if(fin==res.data.comment.length*3){//异步的某一次全部回帖帖子和回帖用户和嵌套用户均加载完毕(实验表明不会在这里结束异步，但保险起见还是放着吧)
               temp.sort(cmp())
               this.setData({
@@ -107,6 +115,24 @@ Page({
     
   },
 
+  thumbize:function(){
+    u=getApp().globalData.userID
+    p=1 //暂定
+    wx.cloud.database().collection('user').doc(String(u)).get().then(res=>{
+      var thumbLen = res.data.thumbs.length
+      for(let i=0;i<thumbLen;++i)
+      {
+        if(p==res.data.thumbs[i])
+        {
+          wx.showToast({
+            title:"您已点赞",
+            duration:2000
+          })
+          console.log('已经点赞')
+        }
+      }
+    })
+  },
 
   /**
    * 生命周期函数--监听页面初次渲染完成

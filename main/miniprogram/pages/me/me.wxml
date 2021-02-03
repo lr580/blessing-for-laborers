@@ -1,3 +1,54 @@
+<block class="containerInfo">
 <view class="discussPic1">
   <image src="cloud://scnuyjx-7gmvlqwfe64c446a.7363-scnuyjx-7gmvlqwfe64c446a-1304878008/pic/cover.png"></image>
 </view>
+  <view> 
+    <button type="default" open-type="getUserInfo" bindtap="FgetuserInfo" hidden="{{loadKey}}">载入个人信息</button>
+  </view>
+  <navigator  url="/pages/changeInfo/changeInfo">
+    <view class="userInfo" wx:if="{{loadKey}}">
+      <view class="userImg">
+        <image src="{{avatarUrl}}" mode="cover"></image>
+      </view>
+    <view class="Info">
+      <text class="userName">昵称: {{nickName}}</text>
+        <text class="gender">性别: {{gender}}</text>
+        <text class="city">城市: {{userCity}}</text>
+      </view>
+      <view class="goinPic">
+      <image src="/img/goin.png"></image>
+    </view>
+    </view>
+  </navigator>
+</block>
+<view class="function" wx:if="{{loadKey}}">
+  <view class="mypost">
+    <button size="mini" bindtap="gotoMypost">
+      <image src="/img/mypost.png"></image>
+      <view>我的帖子</view>
+    </button>
+  </view>
+  <view class="history">
+    <button size="mini" bindtap="gotoHistory">
+      <image src="/img/history.png"></image>
+      <view>浏览记录</view>
+    </button>
+  </view>
+  <view class="collect">
+    <button size="mini" bindtap="gotoCollect">
+      <image src="/img/collect.png"></image>
+      <view>收藏列表</view>
+    </button>
+  </view>
+  <view class="help">
+    <button size="mini" bindtap="gotoHelp">
+      <image src="/img/help.png"></image>
+      <view>帮助</view>
+    </button>
+  </view>
+</view>
+
+  
+    
+    
+

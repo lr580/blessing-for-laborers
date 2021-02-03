@@ -5,7 +5,69 @@ Page({
    * 页面的初始数据
    */
   data: {
+    nickName:'',
+    userImg:'',
+    userCity:'',
+    school:'',
+    schoolArea:'',
+    gender:'',
+    loadKey:false,
+    changeInfokey:false
+  },
 
+  gotoMypost:function(){
+wx.navigateTo({
+  url: '/pages/mypost/mypost',
+})
+  },
+  
+gotoHistory:function(){
+    wx.navigateTo({
+      url: '/pages/history/history',
+    })
+      },
+
+gotoCollect:function(){
+    wx.navigateTo({
+      url: '/pages/collect/collect',
+      })
+        },
+
+        gotoHelp:function(){
+          wx.navigateTo({
+            url: '/pages/help/help',
+          })
+            },
+  //获取用户授权信息
+  FgetuserInfo:function(){
+    
+    var that = this;
+    wx.getUserInfo({
+      success: function(res){
+        console.log(res);
+        var userInfo = res.userInfo
+        console.log(userInfo);
+        var nickName = userInfo.nickName
+        var avatarUrl = userInfo.avatarUrl
+        var userCity = userInfo.city
+        var gender = userInfo.gender
+        if(gender==1){
+          gender = '男'
+        }else if(gender==2){
+          gender = '女'
+        }else{
+          gender = '未知'
+        }
+        that.setData({
+          nickName:nickName,
+          avatarUrl:avatarUrl,
+          gender:gender,
+          userCity:userCity,
+          loadKey:true,
+          changeInfokey:true
+        })
+      },
+    })
   },
 
   /**

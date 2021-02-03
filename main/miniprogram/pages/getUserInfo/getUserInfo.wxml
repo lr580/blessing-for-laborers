@@ -1,0 +1,12 @@
+<view class="container1">
+  <button type="primary" open-type="getUserInfo" bindgetuserinfo="auth" class="getUserbutton" hidden="{{goinKey}}">获取头像昵称</button>
+<view class="userInfo">
+
+<image class="userImg" src="{{userInfo.avatarUrl}}" mode="cover"></image>
+<text class="userName">{{userInfo.nickName}}</text>
+
+</view>
+<view class="userMotto">
+  <button size="mini" type="default" wx:if="{{goinKey}}" bindtap="gotoApp">进入学习世界</button>
+</view>
+</view>

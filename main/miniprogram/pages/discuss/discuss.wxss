@@ -16,3 +16,68 @@
   margin-top:40rpx;
 }
 
+.postPart{
+  margin: 20px 20px;
+  border: 10rpx solid rgb(86, 92, 94);
+  border-radius: 20rpx;
+}
+
+.userInfo{
+  display: flex;
+}
+
+.nickName{
+  font-size: 30rpx;
+  margin-top: 20rpx;
+}
+
+.title{
+  margin: 20rpx 20rpx;
+ 
+  font-size: 40rpx;
+}
+
+.title image{
+  width: 30rpx;
+  height: 30rpx;
+}
+
+.userHead{
+  margin: 20rpx 20rpx;
+  width: 110rpx;
+  height: 110rpx;
+}
+
+.userHead image{
+  height: 80rpx;
+  width: 80rpx;
+  border-radius: 50%;
+  border: 8rpx solid rgb(134, 216, 241);
+}
+
+.content{
+  margin-left: 20rpx;
+  margin-right: 20rpx;
+  border-bottom: 6rpx solid rgb(86, 92, 94);
+}
+
+.state{
+  margin-left: 20rpx;
+  height: 80rpx;
+  font-size: 25rpx;
+  display: flex;
+}
+
+.activity{
+  margin-left: 150rpx;
+}
+
+.like{
+  margin-left: 30rpx;
+}
+
+.state image{
+  margin-top: 20rpx;
+  width: 40rpx;
+  height: 40rpx;
+}

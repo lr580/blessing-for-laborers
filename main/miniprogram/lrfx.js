@@ -6,6 +6,21 @@ function lr581()//用以测试该模块是否加载成功
   //modu.lr581()
   console.log('successfully got lrfx.js')
 }
+
+function thumbz(u,p){ //用户(id)u给帖子(uid)p点赞，返回是否成功
+  wx.cloud.database().collection('user').doc(String(u)).get().then(res=>{
+    var thumbLen = res.data.thumbs.length
+    for(let i=0;i<thumbLen;++i)
+    {
+      if(p==res.data.thumbs[i])
+      {
+        console.log('已经点赞')
+        
+      }
+    }
+  })
+}
+
 function logPost() {
 
 }
@@ -58,5 +73,6 @@ module.exports = {
   lr581: lr581,
   logPost: logPost,
   publishPost: publishPost,
-  loadPost: loadPost
+  loadPost: loadPost,
+  thumbz: thumbz,
 }
