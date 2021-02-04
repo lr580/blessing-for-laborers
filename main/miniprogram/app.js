@@ -22,7 +22,7 @@ App({
     this.globalData = {
       pathp: "cloud://scnuyjx-7gmvlqwfe64c446a.7363-scnuyjx-7gmvlqwfe64c446a-1304878008/userpic/",//头像图片绝对路径一部分
       pathtp: "cloud://scnuyjx-7gmvlqwfe64c446a.7363-scnuyjx-7gmvlqwfe64c446a-1304878008/postpic/",//帖子图片绝对路径一部分
-      userID:1,//调试状态默认1
+      userID:3,//调试状态默认1
       maxuid:0,
       maxpid:0,
     }

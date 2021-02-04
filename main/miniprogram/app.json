@@ -33,7 +33,8 @@
     "pages/history/history",
     "pages/help/help",
     "pages/getUserInfo/getUserInfo",
-    "pages/postp/postp"
+    "pages/postp/postp",
+    "pages/commentTest/commentTest"
   ],
   "window": {
     "backgroundColor": "#FFFFFF",

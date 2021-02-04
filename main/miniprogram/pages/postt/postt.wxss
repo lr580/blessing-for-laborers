@@ -6,8 +6,8 @@
 }
 
 .postTitle{
-  font-size: 40rpx;
-  font-weight: 600;
+  font-size:60rpx;
+  font-weight: 800;
   display: flex;
   flex-wrap: wrap;
   align-items:center;
@@ -35,6 +35,7 @@
 
 .userName{
   margin-left: 20rpx;
+  font-weight:600;
   display: flex;
   align-items:center;
   justify-content:center;
@@ -55,6 +56,7 @@
   font-weight: 500;
 }
 
+
 .postState{
   /* margin: 20rpx; */
   display: flex;
@@ -68,6 +70,20 @@
 .postState image{
   width: 50rpx;
   height: 50rpx;
+}
+
+.replyButton{
+  margin-top: 20rpx;
+  display: flex;
+  justify-content: center;
+  /* background-color: rgb(128, 255, 185);
+  background-color: rgb(101, 219, 248);  */
+}
+
+.section{
+  margin: 50rpx 30rpx 20rpx 30rpx;
+  background-color: rgba(243, 243, 243, 0.479);
+  border-radius: 30rpx;
 }
 
 .activity{
@@ -84,3 +100,70 @@
   display: flex;
   align-items:center;
 }
+
+.reuserInfo{
+  margin-left: 20rpx;
+  display: flex;
+  align-items:center;
+}
+
+.reuserName{
+  margin-left: 10rpx;
+}
+
+.reuserInfo image{
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 50%;
+}
+
+.doubleToright image{
+  margin-left: 50rpx;
+  margin-right: 50rpx;
+  height: 50rpx;
+  width: 50rpx;
+  border-radius: 0;
+}
+
+.reContent{
+  margin-left: 40rpx;
+  margin-right: 40rpx;
+}
+
+.restate{
+  margin-top: 20rpx;
+  display: flex;
+  align-items: center;
+  color: darkgrey;
+  border-bottom: 2rpx solid rgb(209, 209, 209);
+}
+
+.floor{
+  margin-left: 40rpx;
+}
+
+.floor image{
+  width: 30rpx;
+  height: 30rpx;
+}
+
+.time image{
+  width: 30rpx;
+  height: 30rpx;
+}
+
+.time{
+  margin-left: 100rpx;
+}
+
+.like image{
+  margin-left: 100rpx;
+  width: 30rpx;
+  height: 30rpx;
+}
+
+
+
+
+
+

@@ -38,7 +38,7 @@
     "minifyWXSS": true
   },
   "appid": "wx62bf88f7371aa99a",
-  "projectname": "%E7%A6%8F%E6%8A%A5%E6%B0%91%E5%B7%A5",
+  "projectname": "main2.4",
   "libVersion": "2.14.4",
   "condition": {
     "plugin": {
@@ -85,6 +85,18 @@
         {
           "name": "tabbarTest",
           "pathName": "pages/tabBar/tabBar",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "postt",
+          "pathName": "pages/postt/postt",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "commentTest",
+          "pathName": "pages/commentTest/commentTest",
           "scene": null
         }
       ]

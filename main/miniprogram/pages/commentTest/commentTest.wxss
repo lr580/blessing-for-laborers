@@ -1,0 +1,5 @@
+.section{
+  margin: 50rpx 30rpx 20rpx 30rpx;
+  background-color: rgba(243, 243, 243, 0.479);
+  border-radius: 30rpx;
+}

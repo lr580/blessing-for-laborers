@@ -1,0 +1,16 @@
+<!-- <van-cell title="展示弹出层" is-link  /> -->
+<van-button color="linear-gradient(to right, rgb(128, 255, 185), rgb(101, 219, 248))" round bind:click="showPopup">我要回帖</van-button>
+<van-popup
+  show="{{ show }}"
+  round
+  position="bottom"
+  custom-style="height: 50%"
+  bind:close="onClose"
+>
+<view class="section">
+  <form bindsubmit="bindFormSubmit">
+    <textarea placeholder="form 中的 textarea" name="textarea"/>
+    <button form-type="submit">发表</button>
+  </form>
+</view>
+</van-popup>

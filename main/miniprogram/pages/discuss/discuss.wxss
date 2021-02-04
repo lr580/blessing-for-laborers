@@ -24,11 +24,16 @@
 }
 
 .userInfo{
+  border: 4rpx solid #e2e2e2af;
+  border-radius: 15rpx;
   display: flex;
+  height: 110rpx;
+  margin: 5rpx 15rpx 30rpx 15rpx ;
 }
 
 .nickName{
   font-size: 35rpx;
+  font-weight: 400;
   margin-top: 20rpx;
   width: 500rpx;
   overflow:hidden;
@@ -38,9 +43,10 @@
 
 
 .title{
-  margin: 20rpx 20rpx;
-  font-size: 40rpx;
-  width: 600rpx;
+  margin-top: 20rpx;
+  margin-left: 20rpx;
+  font-size: 45rpx;
+  font-weight: 600;
   overflow:hidden;
   white-space:nowrap;
   text-overflow:ellipsis;
@@ -52,9 +58,9 @@
 }
 
 .userHead{
-  margin: 20rpx 20rpx;
-  width: 110rpx;
-  height: 110rpx;
+  margin: 10rpx 10rpx;
+  width: 100rpx;
+  height: 100rpx;
 }
 
 .userHead image{
@@ -64,11 +70,21 @@
   border: 8rpx solid rgb(134, 216, 241);
 }
 
+.sumText{
+  display: -webkit-box;
+  word-break: break-all;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .content{
   margin-left: 20rpx;
   margin-right: 20rpx;
   border-bottom: 6rpx solid rgb(86, 92, 94);
-
+  display: flex;
+ flex-wrap: wrap;
 }
 
 .contentText {
@@ -109,6 +125,8 @@
   border-radius: 30rpx;
   display: flex;
   justify-content: center;
+  align-items:center;
+  font-size: 30rpx;
 }
 
 .tip image{
