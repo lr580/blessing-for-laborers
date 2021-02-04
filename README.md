@@ -57,7 +57,10 @@ global 全局信息
 - maxpid: (number)当前最大帖子id
 - users: (number)当前用户总数 [待定是否有用]
 
+##### catagory
 
+- cat:(array:(number,string) ) 标签优先级(大的最先显示)和标签名
+  暂定优先级=使用次数；同次数时按拼音序排序
 
 ## 函数接口
 

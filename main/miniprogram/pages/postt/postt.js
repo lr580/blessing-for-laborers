@@ -242,7 +242,7 @@ Page({
     })
   },
 
-  replyize:function(e){
+  replyize:function(e){//自己可以回复自己的帖子或回帖
     var u=this.data.me
     var pid=Number(e.currentTarget.id)
     console.log('回帖',u,pid)
@@ -258,6 +258,12 @@ Page({
     var u=this.data.me
     var pid=Number(e.currentTarget.id)
     console.log('删除',u,pid)
+  },
+
+  starPost:function(e){//自己可以收藏自己的帖子
+    var u=this.data.me
+    var pid=Number(e.currentTarget.id)
+    console.log('收藏',u,pid)
   },
 
   /**

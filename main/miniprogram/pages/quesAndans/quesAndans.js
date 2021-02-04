@@ -16,7 +16,7 @@ Page({
 
   navToPostP: function(e){
     wx.navigateTo({
-      url: '../postp/postp',
+      url: '../postp/postp?reply=0&type=1',
     })
   },
 

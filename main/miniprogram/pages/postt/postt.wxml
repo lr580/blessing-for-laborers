@@ -38,6 +38,7 @@
   <view style="height:40rpx"></view>
 </view>
 <view bindtap="replyize" id="{{postt.id}}">(点击)回复</view>
+<view bindtap="starPost" id="{{postt.id}}">(点击)收藏</view>
 <view bindtap="editPost" id="{{postt.id}}" wx:if="{{me==postt.user}}">(点击)编辑</view>
 <view bindtap="delPost" id="{{postt.id}}" wx:if="{{me==postt.user}}">(点击)删除</view>
 <view style="height:40rpx"></view>
