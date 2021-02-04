@@ -14,7 +14,7 @@ Page({
     pathtp:"cloud://scnuyjx-7gmvlqwfe64c446a.7363-scnuyjx-7gmvlqwfe64c446a-1304878008/postpic/",//帖子图片绝对路径一部分
     pdate:[],//正文最后活跃时间
     replys:0,//回帖数
-    reply:[],//回帖帖子对象
+    reply:[],//回帖的帖子(0)与用户(1)、头像地址(2)、被回复用户(3)、回帖时间(4)、被回复帖子(5)放在同一个(以数组实现结构体，便于结构体排序)
     replyer:[],//回帖回帖者
     rdate:[],
     me:0,//当前用户uid
@@ -128,9 +128,27 @@ Page({
     
   },
 
-  thumbize:function(){
+  thumbize:function(e){
     var u=this.data.me//点赞者uid，即me
-    var p=this.data.postt //被点赞的帖子对象
+    var pid=Number(e.currentTarget.id) //被点赞帖子id
+    var pii=-1 //若是回帖，被点赞帖子的下标，若不是，为-1
+    var p={}//被点赞的帖子对象
+    if(pid==this.data.postt.id) p=this.data.postt
+    else for(let i=0;i<this.data.reply.length;++i) if(pid==this.data.reply[i][0].id)
+    {
+      p=this.data.reply[i][0]
+      pii=i
+    }
+
+    if(p=={})
+    {
+      wx.showToast({
+        title: '系统错误：该帖子不存在！',
+        icon:'none',
+        duration: 1500,
+      })
+      return
+    }
     if(this.data.thumbBusy)
     {
       wx.showToast({
@@ -149,32 +167,36 @@ Page({
       })
       return
     }
+
     this.setData({thumbBusy:true})
     wx.cloud.database().collection('user').doc(String(u)).get().then(res=>{
       var thumbLen = res.data.thumbs.length
       var find = false
       for(let i=0;i<thumbLen;++i)
       {
-        if(p.id==res.data.thumbs[i])
+        if(pid==res.data.thumbs[i])
         {
           find=true
           var t2=[]
-          for(let j=0;j<thumbLen;++j) if(p.id!=res.data.thumbs[j]) t2.push(res.data.thumbs[j])
+          for(let j=0;j<thumbLen;++j) if(pid!=res.data.thumbs[j]) t2.push(res.data.thumbs[j])
 
           wx.cloud.database().collection('user').doc(String(u)).update({
             data:{
               thumbs:t2
             }
           }).then(res=>{
-            wx.cloud.database().collection('post').doc(String(p.id)).update({
+            wx.cloud.database().collection('post').doc(String(pid)).update({
               data:{
                 thumbs:wx.cloud.database().command.inc(-1)
               }
             }).then(ret=>{
               var temp = this.data.postt
-              --temp.thumbs
+              var temr = this.data.reply
+              if(pii==-1) --temp.thumbs
+              else --temr[pii][0].thumbs
               this.setData({
                 postt:temp,
+                reply:temr,
                 thumbBusy:false,
               })
               wx.showToast({
@@ -189,10 +211,10 @@ Page({
       {
         wx.cloud.database().collection('user').doc(String(u)).update({
           data:{
-            thumbs:wx.cloud.database().command.push(p.id)
+            thumbs:wx.cloud.database().command.push(pid)
           }
         }).then(res=>{
-          wx.cloud.database().collection('post').doc(String(p.id)).update({
+          wx.cloud.database().collection('post').doc(String(pid)).update({
             data:{
               thumbs:wx.cloud.database().command.inc(1)
             }
@@ -202,7 +224,14 @@ Page({
               duration:1500,
             })
             var temp = this.data.postt
-            ++temp.thumbs
+            var temr = this.data.reply
+            if(pii==-1) ++temp.thumbs
+            else ++temr[pii][0].thumbs
+            this.setData({
+              postt:temp,
+              reply:temr,
+              thumbBusy:false,
+            })
             this.setData({
               postt:temp,
               thumbBusy:false,

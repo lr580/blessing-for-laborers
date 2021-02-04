@@ -29,7 +29,7 @@
     <image src="/img/activity.png"></image>
     <text>{{pdate[0]}}/{{pdate[1]}}/{{pdate[2]}} {{pdate[3]}}:{{pdate[4]}}:{{pdate[5]}}</text>
   </view>
-  <view class="like">
+  <view class="like" bindtap="thumbize" id="{{postt.id}}">
     <image src="/img/like!.png"></image><text>{{postt.thumbs}}</text>
   </view>
   <view class="share">
@@ -58,6 +58,10 @@
           <image wx:if="{{item[0]==3}}" src="{{pathtp+item[1]}}"></image>
         </view>
         <view>回帖时间：{{v[4][0]}}/{{v[4][1]}}/{{v[4][2]}} {{v[4][3]}}:{{v[4][4]}}:{{v[4][5]}}</view>
+        <view class="like" bindtap="thumbize" id="{{v[0].id}}">
+          <image src="/img/like!.png"></image>
+          <text>{{v[0].thumbs}}</text>
+        </view>
         <view style="height:40rpx"></view>
       </view>
     </view>
