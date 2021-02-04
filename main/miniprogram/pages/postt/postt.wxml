@@ -21,8 +21,8 @@
   <view wx:for="{{postt.content}}">
     <text wx:if="{{item[0]==1}}">{{item[1]}}</text>
     <text wx:if="{{item[0]==2}}">[假装加粗]{{item[1]}}[假装加粗]</text>
-    <image wx:if="{{item[0]==3}}" src="{{pathtp+item[1]}}" bindload="imageLoad" data-index="{{ index }}" 
-style="width:{{ images[index].width }}rpx; height:{{ images[index].height }}rpx;"></image>
+    <image wx:if="{{item[0]==3}}" src="{{pathtp+item[1]}}" bindload="imageLoad" data-index="{{ index }}"
+      style="width:{{ images[index].width }}rpx; height:{{ images[index].height }}rpx;"></image>
   </view>
 </view>
 <view class="postState">
@@ -40,23 +40,19 @@ style="width:{{ images[index].width }}rpx; height:{{ images[index].height }}rpx;
 </view>
 
 <view class="replyButton">
-  <van-button color="linear-gradient(to right, rgb(128, 255, 185), rgb(101, 219, 248))" round bind:click="showPopup">我要回帖</van-button>
-  <van-popup
-  show="{{ show }}"
-  round
-  position="bottom"
-  custom-style="height: 50%"
-  bind:close="onClose"
->
-<view class="section">
-  <form bindsubmit="bindFormSubmit">
-    <textarea placeholder="form 中的 textarea" name="textarea"/>
-    <button form-type="submit">发表</button>
+  <van-button color="linear-gradient(to right, rgb(128, 255, 185), rgb(101, 219, 248))" round bind:click="showPopup">
+    我要回帖</van-button>
+  <van-popup show="{{ show }}" round position="bottom" custom-style="height: 50%" bind:close="onClose">
+    <view class="section">
+      <form bindsubmit="bindFormSubmit">
+        <textarea placeholder="form 中的 textarea" name="textarea" />
+        <button form-type="submit">发表</button>
   </form>
 </view>
 </van-popup>
 </view>
 
+<view bindtap="starPost" id="{{postt.id}}" wx:if="{{me==postt.user}}">(点击)收藏</view>
 <view bindtap="editPost" id="{{postt.id}}" wx:if="{{me==postt.user}}">(点击)编辑</view>
 <view bindtap="delPost" id="{{postt.id}}" wx:if="{{me==postt.user}}">(点击)删除</view>
 <view style="height:40rpx"></view>
@@ -66,9 +62,7 @@ style="width:{{ images[index].width }}rpx; height:{{ images[index].height }}rpx;
   <view>
     <view wx:if="{{replys}}">
       <view wx:for="{{reply}}" wx:for-index="i" wx:for-item="v">
-        <!-- <view>序号：{{i+1}}</view> -->
-        
-        
+
         <view class="reuserInfo">
           <view class="reuserHead">
         <image src="{{pathp+'default.jpg'}}" wx:if="{{v[0].anonymity&&me!=v[0].user}}"></image>
@@ -90,7 +84,7 @@ style="width:{{ images[index].width }}rpx; height:{{ images[index].height }}rpx;
       
           <view class="floor">
             <image src="/img/floor.png"></image>
-            <text>1楼</text>
+            <text>{{replys-i}}楼</text>
           </view>
           <view class="time">
           <image src="/img/time.png"></image>
@@ -103,11 +97,6 @@ style="width:{{ images[index].width }}rpx; height:{{ images[index].height }}rpx;
         </view>
       </view>
   
-        
-        <!-- <view class="like" bindtap="thumbize" id="{{v[0].id}}">
-          <image src="/img/like!.png"></image>
-          <text>{{v[0].thumbs}}</text>
-        </view> -->
         <view bindtap="replyize" id="{{v[0].id}}">
           (点击)回复{{v[0].anonymity&&me!=v[0].user?"匿名用户":v[1].nickName}}
         </view>
@@ -120,5 +109,5 @@ style="width:{{ images[index].width }}rpx; height:{{ images[index].height }}rpx;
   </view>
 </view>
 <view bindtap="replyize" id="{{postt.id}}">
-  (点击)回复
+  (点击)回复(=我要回帖)
 </view>

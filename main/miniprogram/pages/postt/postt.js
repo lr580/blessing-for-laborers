@@ -7,9 +7,6 @@ Page({
    * 页面的初始数据
    */
   data: {
-
-    show: false,//与“我要回帖有关”
-    focus: false,//与“我要回帖有关”
     postt:{},//正文帖子对象
     poster:{},//正文发帖人对象
     pathp:"cloud://scnuyjx-7gmvlqwfe64c446a.7363-scnuyjx-7gmvlqwfe64c446a-1304878008/userpic/",//头像图片绝对路径一部分
@@ -22,7 +19,9 @@ Page({
     rdate:[],
     me:0,//当前用户uid
     thumbBusy:false,//防止频繁点赞引发点赞数概率云
-    images:{},
+    show: false,//与“我要回帖有关”
+    focus: false,//与“我要回帖有关”
+    images:{},//?
   },
 
   showPopup() {
@@ -44,8 +43,6 @@ Page({
   bindFormSubmit: function(e) {
     console.log(e.detail.value.textarea)
   },//打印出输入框输入的内容
-
-
 
   imageLoad: function(e) {
     var $width=e.detail.width,    //获取图片真实宽度
@@ -285,7 +282,7 @@ Page({
     })
   },
 
-  replyize:function(e){
+  replyize:function(e){//自己可以回复自己的帖子或回帖
     var u=this.data.me
     var pid=Number(e.currentTarget.id)
     console.log('回帖',u,pid)
@@ -303,6 +300,13 @@ Page({
     console.log('删除',u,pid)
   },
 
+  starPost:function(e){//自己可以收藏自己的帖子
+    var u=this.data.me
+    var pid=Number(e.currentTarget.id)
+    console.log('收藏',u,pid)
+  },
+
+  
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
