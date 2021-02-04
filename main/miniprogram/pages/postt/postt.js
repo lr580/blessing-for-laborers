@@ -242,6 +242,24 @@ Page({
     })
   },
 
+  replyize:function(e){
+    var u=this.data.me
+    var pid=Number(e.currentTarget.id)
+    console.log('回帖',u,pid)
+  },
+
+  editPost:function(e){
+    var u=this.data.me
+    var pid=Number(e.currentTarget.id)
+    console.log('编辑',u,pid)
+  },
+
+  delPost:function(e){
+    var u=this.data.me
+    var pid=Number(e.currentTarget.id)
+    console.log('删除',u,pid)
+  },
+
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
