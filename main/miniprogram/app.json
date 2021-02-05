@@ -33,6 +33,7 @@
     "pages/history/history",
     "pages/help/help",
     "pages/getUserInfo/getUserInfo",
+    "pages/changeInfo/changeInfo",
     "pages/postp/postp",
     "pages/commentTest/commentTest"
   ],
