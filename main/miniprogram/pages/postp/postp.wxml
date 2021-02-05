@@ -1,25 +1,28 @@
 <!--pages/postp/postp.wxml-->
 <text>发布帖子(调试)</text>
-<view wx:if="{{!type}}">回复{{fatherPageInfo}}</view>
-<view>
-  <text>标题输入：</text><input type="text" placeholder="请输入标题" bindinput="inputTitle" />
-</view>
-<text>标签选择:</text>
-<radio-group bindchange="selectTag">
-  <view wx:for="{{tags}}">
-    <radio value="{{item[1]}}">{{item[1]}}</radio>
+<view wx:if="{{!type}}">回复帖子：{{replyPost}}</view>
+<view wx:if="{{reply}}">->回复回帖用户：{{replyReply}}</view>
+<view wx:if="{{type}}">
+  <view>
+    <text>标题输入：</text><input type="text" placeholder="请输入标题" bindinput="inputTitle" value="{{title}}" />
   </view>
-</radio-group>
+  <text>标签选择:</text>
+  <radio-group bindchange="selectTag">
+    <view wx:for="{{tags}}">
+      <radio value="{{item[1]}}" checked="{{item[1]==tag}}">{{item[1]}}</radio>
+    </view>
+  </radio-group>
+</view>
 <button bindtap="selectImage">选择图片</button>
 <!--以上内容不会随着屏幕下拉而下拉，永远在屏幕头上-->
 
 <view wx:for="{{tx}}" wx:for-index="i" wx:for-item="v">
-  <textarea wx:if="{{v[0]==1}}" placeholder="请输入文本" value="{{v[1]}}" bindblur="inputText" id="{{i}}" 
-  maxlength="-1"></textarea>
+  <textarea wx:if="{{v[0]==1}}" placeholder="请输入文本" value="{{v[1]}}" bindblur="inputText" id="{{i}}"
+    maxlength="-1"></textarea>
   <image wx:if="{{v[0]==3}}" src="{{pathtp+v[1]}}"></image>
   <button wx:if="{{v[0]==3}}" bindtap="delImage" id="{{i}}">[删除图片]</button>
 </view>
 <checkbox-group bindchange="switchCB">
-  <checkbox value="anonymity">匿名发布</checkbox>
+  <checkbox value="anonymity" checked="{{anonymity}}">匿名发布</checkbox>
 </checkbox-group>
 <button bindtap="publistPost">发表</button>

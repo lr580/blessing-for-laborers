@@ -21,7 +21,8 @@ Page({
   onLoad: function (options) {
     this.setData({me:getApp().globalData.userID})
     wx.cloud.database().collection('post').where({
-      type: wx.cloud.database().command.neq(0)
+      type: wx.cloud.database().command.neq(0),
+      hide: false,
     }).limit(this.data.initLoads)
       .orderBy('activeTime', 'desc').get().then(res => {
         var fina = 0
