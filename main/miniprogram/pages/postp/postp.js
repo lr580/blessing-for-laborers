@@ -297,6 +297,7 @@ Page({
         user: u.uid,
         title: this.data.title,
         content: nr,
+        hide: false,
       }
       if(!this.data.type){
         wx.cloud.database().collection('post').doc(String(this.data.fatherPost)).update({

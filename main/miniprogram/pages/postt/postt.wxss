@@ -11,7 +11,6 @@
   display: flex;
   flex-wrap: wrap;
   align-items:center;
-  border-bottom: 2rpx solid grey;
 }
 
 .tag image{
@@ -23,7 +22,9 @@
   margin-left: 100rpx;
   font-size: 30rpx;
   font-weight:400;
-  color: rgb(35, 133, 136);
+  color: rgb(255, 160, 17);
+  position: absolute;
+  left: 550rpx;
 }
 
 
@@ -59,17 +60,22 @@
 
 .postState{
   /* margin: 20rpx; */
+  margin-left: 20rpx;
+  margin-right: 20rpx;
   display: flex;
   align-items:center;
   justify-content: space-evenly;
   border-bottom: 2rpx solid rgb(194, 188, 188);
   border-top:  2rpx solid rgb(194, 188, 188);
  height: 70rpx;
+ font-size: 30rpx;
+ font-weight: 200;
+ color: darkgray;
 }
 
 .postState image{
-  width: 50rpx;
-  height: 50rpx;
+  width: 40rpx;
+  height: 40rpx;
 }
 
 .replyButton{
@@ -91,12 +97,26 @@
   align-items:center;
 }
 
+.collect{
+  display: flex;
+  align-items:center;
+}
+
 .like{
   display: flex;
   align-items:center;
 }
 
+.like text{
+  margin-left: 5rpx;
+}
+
 .share{
+  display: flex;
+  align-items:center;
+}
+
+.delete{
   display: flex;
   align-items:center;
 }
@@ -109,11 +129,35 @@
 
 .reuserName{
   margin-left: 10rpx;
+  width: 150rpx;
+  font-size: 30rpx;
+  font-weight: 200;
+  display: -webkit-box;
+  word-break: break-all;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  flex-wrap: wrap;
+  text-overflow: ellipsis;
+}
+
+.bereuserName{
+  margin-left: 10rpx;
+  width: 150rpx;
+  font-size: 30rpx;
+  font-weight: 200;
+  display: -webkit-box;
+  word-break: break-all;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  flex-wrap: wrap;
+  text-overflow: ellipsis;
 }
 
 .reuserInfo image{
-  width: 80rpx;
-  height: 80rpx;
+  width: 60rpx;
+  height: 60rpx;
   border-radius: 50%;
 }
 
@@ -126,20 +170,32 @@
 }
 
 .reContent{
-  margin-left: 40rpx;
+  margin-left: 100rpx;
   margin-right: 40rpx;
 }
 
 .restate{
+  margin-left: 100rpx;
   margin-top: 20rpx;
   display: flex;
   align-items: center;
+  justify-content: space-evenly;
   color: darkgrey;
   border-bottom: 2rpx solid rgb(209, 209, 209);
 }
 
+.restate image{
+  width: 30rpx;
+  height: 30rpx;
+}
+
 .floor{
-  margin-left: 40rpx;
+  margin-left:80rpx;
+  font-size: 30rpx;
+  color: darkgray;
+  flex-direction: row-reverse;
+  position: absolute;
+  left: 550rpx;
 }
 
 .floor image{
@@ -152,12 +208,4 @@
   height: 30rpx;
 }
 
-.time{
-  margin-left: 100rpx;
-}
 
-.like image{
-  margin-left: 100rpx;
-  width: 30rpx;
-  height: 30rpx;
-}

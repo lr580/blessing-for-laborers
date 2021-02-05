@@ -34,7 +34,8 @@
     "pages/help/help",
     "pages/getUserInfo/getUserInfo",
     "pages/postp/postp",
-    "pages/commentTest/commentTest"
+    "pages/commentTest/commentTest",
+    "pages/changeInfo/changeInfo"
   ],
   "window": {
     "backgroundColor": "#FFFFFF",

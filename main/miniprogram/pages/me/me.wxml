@@ -5,7 +5,7 @@
   <view> 
     <button type="default" open-type="getUserInfo" bindtap="FgetuserInfo" hidden="{{loadKey}}">载入个人信息</button>
   </view>
-  <navigator  url="/pages/changeInfo/changeInfo">
+  <navigator bindtap="console1" url="/pages/changeInfo/changeInfo">
     <view class="userInfo" wx:if="{{loadKey}}">
       <view class="userImg">
         <image src="{{avatarUrl}}" mode="cover"></image>

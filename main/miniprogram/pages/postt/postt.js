@@ -7,6 +7,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    imgKey:true,//前端使用
     postt:{},//正文帖子对象
     poster:{},//正文发帖人对象
     pathp:"cloud://scnuyjx-7gmvlqwfe64c446a.7363-scnuyjx-7gmvlqwfe64c446a-1304878008/userpic/",//头像图片绝对路径一部分

@@ -15,6 +15,10 @@ Page({
     changeInfokey:false
   },
 
+  console1:function(){
+console.log(1)
+  },
+
   gotoMypost:function(){
 wx.navigateTo({
   url: '/pages/mypost/mypost',

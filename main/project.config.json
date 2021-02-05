@@ -97,6 +97,18 @@
         {
           "name": "commentTest",
           "pathName": "pages/commentTest/commentTest",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "postp",
+          "pathName": "pages/postp/postp",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "me",
+          "pathName": "pages/me/me",
           "scene": null
         }
       ]
