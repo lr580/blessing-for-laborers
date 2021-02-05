@@ -69,12 +69,15 @@
   border-radius: 50%;
   border: 8rpx solid rgb(134, 216, 241);
 }
-/* 
-.sumText{
 
-  word-break: keep-all;
-  word-wrap: break-word;
-} */
+.sumText{
+  display: -webkit-box;
+  word-break: break-all;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 
 .content{
   margin-left: 20rpx;
@@ -91,7 +94,6 @@
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 4;
   overflow: hidden;
-  flex-wrap: wrap;
   text-overflow: ellipsis;
   }
 

@@ -29,8 +29,8 @@
         <view wx:for="{{v[0].content}}">
           <text class="sumText">
             <text wx:if="{{item[0]==1}}" class="contentText">{{item[1]}}</text>
-            <text wx:elif="{{item[0]==2}}">[假装加粗]{{item[1]}}[假装加粗]</text>
-            <text wx:elif="{{item[0]==3}}">[图片]</text>
+            <text wx:if="{{item[0]==2}}">[假装加粗]{{item[1]}}[假装加粗]</text>
+            <text wx:if="{{item[0]==3}}">[图片]</text>
           </text>
         </view>
       </view>

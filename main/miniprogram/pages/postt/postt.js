@@ -7,7 +7,6 @@ Page({
    * 页面的初始数据
    */
   data: {
-    imgKey:true,
     postt:{},//正文帖子对象
     poster:{},//正文发帖人对象
     pathp:"cloud://scnuyjx-7gmvlqwfe64c446a.7363-scnuyjx-7gmvlqwfe64c446a-1304878008/userpic/",//头像图片绝对路径一部分
@@ -15,16 +14,21 @@ Page({
     pathtp:"cloud://scnuyjx-7gmvlqwfe64c446a.7363-scnuyjx-7gmvlqwfe64c446a-1304878008/postpic/",//帖子图片绝对路径一部分
     pdate:[],//正文最后活跃时间
     replys:0,//回帖数
-    reply:[],//回帖的帖子(0)与用户(1)、头像地址(2)、被回复用户(3)、回帖时间(4)、被回复帖子(5)放在同一个(以数组实现结构体，便于结构体排序)
+    Treplys:0,//未被删除的回帖数
+    reply:[],//回帖的帖子(0)与用户(1)、头像地址(2)、被回复用户(3)、回帖时间(4)、被回复帖子(5)、是否被点赞(6)放在同一个(以数组实现结构体，便于结构体排序)
     replyer:[],//回帖回帖者
     rdate:[],
     me:0,//当前用户uid
+    meo:{},//当前用户对象
+    thumbpost:false,//是否点赞了主贴
+    starpost:false,//是否收藏了主贴
     thumbBusy:false,//防止频繁点赞引发点赞数概率云
+    starBusy:false,//同上理，收藏
+    delBusy:false,//同上，删帖
     show: false,//与“我要回帖有关”
     focus: false,//与“我要回帖有关”
     images:{},//?
   },
-
 
   showPopup() {
     this.setData({ show: true });
@@ -67,7 +71,29 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    /*wx.cloud.database().collection('post').doc('-1').get({
+      fail:ret=>{
+        console.log('not found',ret)
+      },
+      success:ret=>{
+        console.log('nani')
+      }
+    })*/
+    /*var suca=0
+    for(let i=3;i<=65;++i){
+      wx.cloud.database().collection('post').doc(String(i)).update({
+        data:{hide:false}
+      }).then(res=>{console.log(i,++suca)})
+    }*/
+
     this.setData({me:getApp().globalData.userID})
+    wx.cloud.database().collection('user').doc(String(this.data.me)).get().then(rer=>{
+      this.setData({
+        meo:rer.data,
+        thumbpost:rer.data.thumbs.includes(Number(options.id)),
+        starpost:rer.data.collect.includes(Number(options.id)),
+      })
+    })
     wx.cloud.database().collection('post').doc(options.id).get().then(res=>{
       this.setData({
         postt:res.data,
@@ -89,7 +115,8 @@ Page({
       {
         var fin=0 //回帖的帖子加载完毕数
         var finu=0 //回帖的用户加载完毕数
-        var temp=[] //帖子(0)与用户(1)、头像地址(2)、被回复用户(3)、回帖时间(4)、被回复帖子(5)放在同一个(以数组实现结构体，便于结构体排序)
+        var temp=[] //见reply
+        var tlen=0 //未被删除有效帖子数
         for(let i=0;i<res.data.comment.length;++i) temp[i]=[]
 
         //头像预设为默认头像
@@ -115,7 +142,8 @@ Page({
                 temp.sort(cmp())
                 this.setData({
                   reply:temp,
-                  replys:res.data.comment.length
+                  replys:res.data.comment.length,
+                  Treplys:tlen,
                 })
               }
             })
@@ -129,7 +157,8 @@ Page({
                     temp.sort(cmp())
                     this.setData({
                       reply:temp,
-                      replys:res.data.comment.length
+                      replys:res.data.comment.length,
+                      Treplys:tlen,
                     })
                   }
                 })
@@ -139,7 +168,8 @@ Page({
                   temp.sort(cmp())
                   this.setData({
                     reply:temp,
-                    replys:res.data.comment.length
+                    replys:res.data.comment.length,
+                    Treplys:tlen,
                   })
                 }
               })
@@ -156,11 +186,14 @@ Page({
               reu.data.editTime.getMinutes(),
               reu.data.editTime.getSeconds()
             ]
+            temp[i][6]=this.data.meo.thumbs.includes(temp[i][0].id)
+            if(!temp[i][0].hide) ++tlen
             if(fin==res.data.comment.length*4){//异步的某一次全部回帖帖子和回帖用户和嵌套用户均加载完毕(实验表明不会在这里结束异步，但保险起见还是放着吧)
               temp.sort(cmp())
               this.setData({
                 reply:temp,
-                replys:res.data.comment.length
+                replys:res.data.comment.length,
+                Treplys:tlen,
               })
             }
           })
@@ -222,6 +255,7 @@ Page({
           var t2=[]
           for(let j=0;j<thumbLen;++j) if(pid!=res.data.thumbs[j]) t2.push(res.data.thumbs[j])
 
+          this.setData({'meo.thumbs':t2})
           wx.cloud.database().collection('user').doc(String(u)).update({
             data:{
               thumbs:t2
@@ -234,8 +268,15 @@ Page({
             }).then(ret=>{
               var temp = this.data.postt
               var temr = this.data.reply
-              if(pii==-1) --temp.thumbs
-              else --temr[pii][0].thumbs
+              if(pii==-1)
+              {
+                --temp.thumbs
+                this.setData({thumbpost:false})
+              }
+              else {
+                --temr[pii][0].thumbs
+                temr[pii][6]=false
+              }
               this.setData({
                 postt:temp,
                 reply:temr,
@@ -267,16 +308,27 @@ Page({
             })
             var temp = this.data.postt
             var temr = this.data.reply
-            if(pii==-1) ++temp.thumbs
-            else ++temr[pii][0].thumbs
+            var tems = this.data.meo.thumbs
+            //console.log('??????????',tems)
+            tems.push(pid)
+
+            //if(pii==-1) ++temp.thumbs
+            //else ++temr[pii][0].thumbs
+
+            if(pii==-1)
+              {
+                ++temp.thumbs
+                this.setData({thumbpost:true})
+              }
+              else {
+                ++temr[pii][0].thumbs
+                temr[pii][6]=true
+              }
             this.setData({
               postt:temp,
               reply:temr,
               thumbBusy:false,
-            })
-            this.setData({
-              postt:temp,
-              thumbBusy:false,
+              'meo.thumbs':tems,
             })
           })
         })
@@ -286,35 +338,79 @@ Page({
 
   replyize:function(e){//自己可以回复自己的帖子或回帖
     var u=this.data.me
-    var pid=Number(e.currentTarget.id)
-    console.log('回帖',u,pid)
+    var pid=this.data.postt.id//主贴
+    var cid=Number(e.currentTarget.id)//嵌套回帖
+    var reply=0
+    var rp=this.data.postt.title
+    var rr=''
+    console.log(this.data.reply)
+    if(cid!=this.data.postt.id) for(let i=0;i<this.data.reply.length;++i) if(cid==this.data.reply[i][0].id){
+      reply=this.data.reply[i][0].id
+      if(this.data.reply[i][0].anonymity&&this.data.me!=this.data.reply[i][0].user) rr='匿名用户'
+      else rr=this.data.reply[i][1].nickName
+    }
+    wx.navigateTo({
+      url: '../postp/postp?reply='+String(reply)+'&type=0&edit=false&pid='+String(pid)+'&rp='+rp+'&rr='+rr,
+    })
   },
 
   editPost:function(e){
     var u=this.data.me
     var pid=Number(e.currentTarget.id)
-    console.log('编辑',u,pid)
+    var ty=1
+    if(pid==this.data.postt.id) ty=this.data.postt.type
+    else for(let i=0;i<this.data.reply.length;++i) if(pid==this.data.reply[i][0].id) ty=this.data.reply[i][0].type
+    wx.navigateTo({
+      url: '../postp/postp?reply=0&type='+String(ty)+'&pid='+String(pid)+'&edit=true',
+    })
   },
 
   delPost:function(e){
     var u=this.data.me
     var pid=Number(e.currentTarget.id)
-    console.log('删除',u,pid)
-  },
-
-  cancelCollect:function(){
-    this.setData({
-      imgKey:true
+    wx.cloud.database().collection('post').doc(String(pid)).update({
+      data:{hide:true}
+    }).then(res=>{
+      if(pid==this.data.postt.id) wx.navigateBack({})
+      wx.showToast({
+        title: '删帖成功，刷新后不再看到自己的帖子/回帖！',
+        icon:'none',
+        duration:1500,
+      })
     })
   },
 
   starPost:function(e){//自己可以收藏自己的帖子
+    if(this.data.starBusy){
+      wx.showToast({
+        title: '请勿频繁操作',
+        duration:1500,
+      })
+    }
+    this.setData({starBusy:true})
     var u=this.data.me
-    var pid=Number(e.currentTarget.id)
-    console.log('收藏',u,pid)
-   this.setData({
-     imgKey:false
-   })
+    var pid=this.data.postt.id
+    var col=this.data.meo.collect
+    var dol=[]
+    if(this.data.starpost){//取消收藏
+      for(let i=0;i<col.length;++i) if(col[i]!=pid) dol.push(col[i])
+    } else { //收藏
+      dol=col
+      dol.push(pid)
+    }
+    wx.cloud.database().collection('user').doc(String(u)).update({
+      data:{collect:dol}
+    }).then(res=>{
+      wx.showToast({
+        title: (this.data.starpost?'取消':'')+'收藏成功',
+        duration:1500,
+      })
+      this.setData({
+        starpost:!this.data.starpost,
+        'meo.collect':dol,
+        starBusy:false,
+      })
+    })
   },
 
   
