@@ -9,6 +9,24 @@
   <searchBar></searchBar>
 </view>
 
+<view style="flex-wrap: wrap">
+  <view>
+    <view>显示帖子：</view>
+  <radio-group bindchange="selectType">
+    <view wx:for="{{types}}">
+      <radio value="{{index+0}}" checked="{{index==type}}">{{item}}</radio>
+    </view>
+  </radio-group>
+  </view>
+  <view>
+    <view>时间排序方式：</view>
+    <radio-group bindchange="selectST">
+      <radio value="1" checked="{{'desc'==order}}">最新在前</radio>
+      <radio value="0" checked="{{'asc'==order}}">最新在后</radio>
+    </radio-group>
+  </view>
+</view>
+
 <view wx:if="{{!postn}}">暂无帖子(点击发布第一个帖子?)</view>
 <view wx:else>
   <view wx:for="{{posts}}" wx:for-index="i" wx:for-item="v">
@@ -26,12 +44,13 @@
         <view class="nickName" wx:else>{{v[1].nickName}}</view>
       </view>
       <view class="content">
-        <view wx:for="{{v[0].content}}">
-          <text class="sumText">
+        <view wx:for="{{v[3]}}"> 
+          <view>{{item}}</view>
+          <!--<text class="sumText">
             <text wx:if="{{item[0]==1}}" class="contentText">{{item[1]}}</text>
             <text wx:elif="{{item[0]==2}}">[假装加粗]{{item[1]}}[假装加粗]</text>
             <text wx:elif="{{item[0]==3}}">[图片]</text>
-          </text>
+          </text>-->
         </view>
       </view>
       <view class="state">
@@ -51,7 +70,7 @@
     </view>
   </view>
 </view>
-<view wx:if="{{alreadyAll}}" class="tip">
+<view wx:if="{{alreadyAll||postn<=initLoads}}" class="tip">
   <image src="/img/tip.png"></image>
   <view>已经到达底端啦！</view>
 </view>

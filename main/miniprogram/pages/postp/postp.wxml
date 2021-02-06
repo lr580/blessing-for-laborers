@@ -6,10 +6,16 @@
   <view>
     <text>标题输入：</text><input type="text" placeholder="请输入标题" bindinput="inputTitle" value="{{title}}" />
   </view>
-  <text>标签选择:</text>
+  <text>标签选择:</text><!--这个要改成下拉框-->
   <radio-group bindchange="selectTag">
     <view wx:for="{{tags}}">
       <radio value="{{item[1]}}" checked="{{item[1]==tag}}">{{item[1]}}</radio>
+    </view>
+  </radio-group>
+  <text>帖子类型选择：</text>
+  <radio-group bindchange="selectType">
+    <view wx:for="{{types}}">
+      <radio value="{{index+1}}" checked="{{index+1==type}}">{{item}}</radio>
     </view>
   </radio-group>
 </view>
@@ -17,7 +23,7 @@
 <!--以上内容不会随着屏幕下拉而下拉，永远在屏幕头上-->
 
 <view wx:for="{{tx}}" wx:for-index="i" wx:for-item="v">
-  <textarea wx:if="{{v[0]==1}}" placeholder="请输入文本" value="{{v[1]}}" bindblur="inputText" id="{{i}}"
+  <textarea wx:if="{{v[0]==1}}" placeholder="请输入文本" value="{{v[1]}}" bindblur="inputText" bindinput="inputText" id="{{i}}"
     maxlength="-1"></textarea>
   <image wx:if="{{v[0]==3}}" src="{{pathtp+v[1]}}"></image>
   <button wx:if="{{v[0]==3}}" bindtap="delImage" id="{{i}}">[删除图片]</button>

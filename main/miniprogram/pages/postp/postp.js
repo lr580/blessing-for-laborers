@@ -23,8 +23,11 @@ Page({
     busy: false, //true则正在发帖，不能再点击一次发帖
     edit: false,//编辑状态
     pubTime: new Date(),//编辑原贴的发布时间
-    replyPost:'',//被回复帖子标题
-    replyReply:'',//被回复嵌套对象大纲
+    replyPost: '',//被回复帖子标题
+    replyReply: '',//被回复嵌套对象大纲
+    comment: [],//编辑帖子时可能不为空的回帖列表
+    thumbs: 0,//编辑帖子时可能不为0的点赞数
+    types: [],//帖子类型
   },
 
   /**
@@ -37,14 +40,15 @@ Page({
       reply: Number(options.reply),
       type: Number(options.type),
       edit: options.edit == 'true',
+      types: getApp().globalData.types,
     })
-    if(!this.data.type){
+    if (!this.data.type) {
       this.setData({
-        replyPost:options.rp,
-        fatherPost:Number(options.pid),
+        replyPost: options.rp,
+        fatherPost: Number(options.pid),
       })
-      if(this.data.reply){
-        this.setData({replyReply:options.rr})
+      if (this.data.reply) {
+        this.setData({ replyReply: options.rr })
       }
     }
 
@@ -79,7 +83,7 @@ Page({
           if (res.data.content[i][0] == 3) ++picNum
         }
         this.setData({
-          fatherPost: Number(options.pid),
+          fatherPost: Number(options.qid),
           pid: Number(options.pid),
           picn: picNum,
           tx: temp,
@@ -87,6 +91,8 @@ Page({
           title: res.data.title,
           tag: res.data.tag,
           anonymity: res.data.anonymity,
+          comment: res.data.comment,
+          thumbs: res.data.thumbs,
         })
       })
     }
@@ -123,7 +129,6 @@ Page({
               newActive = tmpa + 2
             }
 
-            console.log('temp', temp)
             ths.setData({
               tx: temp,
               activeTx: newActive,
@@ -134,7 +139,6 @@ Page({
             })
           },
           fail: function (ret) {
-            console.log('shit')
             wx.showToast({
               title: '上传失败',
               duration: 1000,
@@ -151,40 +155,46 @@ Page({
     var temp = this.data.tx
     var imgPath = temp[idx][1]//合并，删数
     var act = this.data.activeTx
-    console.log(idx,temp,imgPath)
-    if(idx<temp.length-1&&idx>0){
-      if(temp[idx-1][0]!=3&&temp[idx+1][0]!=3){//理论上必为true
-        console.log('nr',temp[idx-1][1],temp[idx+1][1])
-        if(temp[idx-1][1]!=''&&temp[idx+1][1]!='') temp[idx-1][1]+='\n'+temp[idx+1][1]
-        else if(temp[idx-1][1]=='') temp[idx-1][1]=temp[idx+1][1]
-        temp.splice(idx+1,1)
-        if(act==idx+1) act-=2
+    console.log('??', idx, temp, imgPath)
+    if (idx < temp.length - 1 && idx > 0) {//理论恒true
+      if (temp[idx - 1][0] != 3 && temp[idx + 1][0] != 3) {//理论上必为true
+        console.log('nr', temp[idx - 1][1], temp[idx + 1][1])
+        if (temp[idx - 1][1] != '' && temp[idx + 1][1] != '') temp[idx - 1][1] += '\n' + temp[idx + 1][1]
+        else if (temp[idx - 1][1] == '') temp[idx - 1][1] = temp[idx + 1][1]
+        temp.splice(idx + 1, 1)
+        if (act >= idx + 1) act -= 2
       }
     }
-    temp.splice(idx,1)
-    console.log('sss',temp)
+
+    temp.splice(idx, 1)
+    console.log('sss', temp)
+    this.setData({
+      tx: temp,
+      activeTx: act,
+    })
     wx.cloud.deleteFile({
-      fileList:['postpic/'+imgPath],
-      success:res=>{
-        wx.showToast({
-          title: '删除成功',
-          duration:1500,
-        })
-        console.log('fff',fileList)
+      fileList: ['postpic/' + imgPath],
+      success: res => {
+        console.log('fff', fileList)
         this.setData({
-          tx:temp,
-          activeTx:act,
+          tx: temp,
+          activeTx: act,
+        })
+        wx.showToast({
+          title: '删除成功，因网络延迟，稍等片刻后生效。',
+          icon: 'none',
+          duration: 1500,
         })
       },
-      fail:res=>{
+      fail: res => {
+        console.log('ffsdsdf', res)
+        this.setData({
+          tx: temp,
+          activeTx: act,
+        })
         wx.showToast({
           title: '删除失败',
-          duration:1500,
-        })
-        console.log('ffsdsdf',res)
-        this.setData({
-          tx:temp,
-          activeTx:act,
+          duration: 1500,
         })
       },
     })
@@ -210,6 +220,10 @@ Page({
     this.setData({ tag: e.detail.value })
   },
 
+  selectType: function (e) {
+    this.setData({type:Number(e.detail.value)})
+  },
+
   switchAnonymity: function (e) {
     this.setData({ anonymity: e.detail.value })
   },
@@ -221,7 +235,7 @@ Page({
   inputText: function (e) {
     var temp = this.data.tx
     var idx = Number(e.currentTarget.id)
-    if(idx<0||idx>=temp.length) {
+    if (idx < 0 || idx >= temp.length) {
       console.log('unknown bugs')
       return
     }
@@ -253,6 +267,24 @@ Page({
       })
       return
     }
+    if (this.data.title == '' && this.data.type) {
+      wx.showToast({
+        title: '请输入标题',
+      })
+      return
+    }
+    if (this.data.tag == '' && this.data.type) {
+      wx.showToast({
+        title: '请选择标签',
+      })
+      return
+    }
+    if (this.data.tx.length == 1 && this.data.tx[0][1] == '') {
+      wx.showToast({
+        title: '请输入正文',
+      })
+      return
+    }
 
     this.setData({ busy: true })
     var thee = this
@@ -264,7 +296,7 @@ Page({
         })
         wx.navigateBack({})
         wx.showToast({
-          title: (thee.data.edit ? '修改' : '发帖') + '成功！刷新后可以查看！',
+          title: (thee.data.edit ? '修改' : '发帖') + '成功！',
           icon: 'none',
           duration: 3000,
         })
@@ -288,8 +320,8 @@ Page({
         editTime: nowTime,
         releaseTime: release,
         tag: this.data.tag,
-        comment: [],
-        thumbs: 0,
+        comment: this.data.comment,
+        thumbs: this.data.thumbs,
         type: this.data.type,
         reply: this.data.reply,
         anonymity: this.data.anonymity,
@@ -298,20 +330,20 @@ Page({
         content: nr,
         hide: false,
       }
-      if(!this.data.type){
+      if (!this.data.type && !this.data.edit) {
         wx.cloud.database().collection('post').doc(String(this.data.fatherPost)).update({
-          data:{
+          data: {
             comment: wx.cloud.database().command.push(this.data.pid),
             activeTime: nowTime,
           }
-        }).then(rez=>{
-          console.log('suc5',rez)
-          if(++fin==finn) succ()
+        }).then(rez => {
+          console.log('suc5', rez)
+          if (++fin == finn) succ()
         })
-      }else {if(++fin==finn) succ()}
+      } else { if (++fin == finn) succ() }
 
       if (!this.data.edit) {
-        datax['_id']=String(this.data.pid)
+        datax['_id'] = String(this.data.pid)
         wx.cloud.database().collection('user').doc(String(this.data.me)).update({
           data: { publish: wx.cloud.database().command.push(this.data.pid) }
         }).then(rev => {
@@ -331,15 +363,23 @@ Page({
           if (++fin == finn) succ()
         })
       } else {
-        fin+=2
+        if (!this.data.type) {
+          wx.cloud.database().collection('post').doc(String(this.data.fatherPost)).update({
+            data: { activeTime: nowTime, }
+          }).then(rea => {
+            console.log('suc6', rea)
+            if (++fin == finn) succ()
+          })
+        } else { if (++fin == finn) succ() }
+        ++fin
         wx.cloud.database().collection('post').doc(String(this.data.pid)).update({
-          data:datax
-        }).then(rex=>{
+          data: datax
+        }).then(rex => {
           console.log('suc4', rex)
           if (++fin == finn) succ()
         })
       }
-      
+
     })
   },
 
