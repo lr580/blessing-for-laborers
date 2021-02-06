@@ -337,7 +337,7 @@ Page({
             activeTime: nowTime,
           }
         }).then(rez => {
-          console.log('suc5', rez)
+          //console.log('suc5', rez)
           if (++fin == finn) succ()
         })
       } else { if (++fin == finn) succ() }
@@ -347,19 +347,19 @@ Page({
         wx.cloud.database().collection('user').doc(String(this.data.me)).update({
           data: { publish: wx.cloud.database().command.push(this.data.pid) }
         }).then(rev => {
-          console.log('suc2', rev)
+          //console.log('suc2', rev)
           if (++fin == finn) succ()
         })
         wx.cloud.database().collection('global').doc('catagory').update({
           data: { cat: tagss }
         }).then(rew => {
-          console.log('suc3', rew)
+          //console.log('suc3', rew)
           if (++fin == finn) succ()
         })
         wx.cloud.database().collection('post').add({
           data: datax
         }).then(ret => {
-          console.log('suc', ret)
+          //console.log('suc', ret)
           if (++fin == finn) succ()
         })
       } else {
@@ -367,7 +367,7 @@ Page({
           wx.cloud.database().collection('post').doc(String(this.data.fatherPost)).update({
             data: { activeTime: nowTime, }
           }).then(rea => {
-            console.log('suc6', rea)
+            //console.log('suc6', rea)
             if (++fin == finn) succ()
           })
         } else { if (++fin == finn) succ() }
@@ -375,7 +375,7 @@ Page({
         wx.cloud.database().collection('post').doc(String(this.data.pid)).update({
           data: datax
         }).then(rex => {
-          console.log('suc4', rex)
+          //console.log('suc4', rex)
           if (++fin == finn) succ()
         })
       }

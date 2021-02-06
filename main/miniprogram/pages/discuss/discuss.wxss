@@ -80,7 +80,8 @@
   margin-left: 20rpx;
   margin-right: 20rpx;
   border-bottom: 6rpx solid rgb(86, 92, 94);
- flex-wrap: wrap;
+  /* display: flex; */
+  flex-wrap: wrap;
 }
 
 .contentText {

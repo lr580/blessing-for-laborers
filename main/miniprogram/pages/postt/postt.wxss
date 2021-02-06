@@ -53,12 +53,42 @@
 .postContent{
   margin-left: 20rpx;
   margin-right: 20rpx;
-  font-size: 30rpx;
+  font-size: 40rpx;
   font-weight: 500;
 }
 
+.functionState{
+  margin-left: 20rpx;
+  border: 4rpx solid darkgray;
+  border-radius: 30rpx;
+  width: 250rpx;
+  height: 70rpx;
+  display: flex;
+  align-content: center;
+  justify-content: space-evenly;
+}
 
-.postState{
+.functionState image{
+  margin-top: 5rpx;
+  width: 60rpx;
+  height: 60rpx;
+}
+.replyize{
+  display: flex;
+  align-content: center;
+}
+
+.editPost {
+  display: flex;
+  align-content: center;
+}
+
+.delPost {
+  display: flex;
+  align-content: center;
+}
+
+.postState {
   /* margin: 20rpx; */
   margin-left: 20rpx;
   margin-right: 20rpx;
@@ -67,23 +97,40 @@
   justify-content: space-evenly;
   border-bottom: 2rpx solid rgb(194, 188, 188);
   border-top:  2rpx solid rgb(194, 188, 188);
- height: 70rpx;
+  height: 70rpx;
  font-size: 30rpx;
  font-weight: 200;
  color: darkgray;
 }
 
 .postState image{
-  width: 40rpx;
-  height: 40rpx;
+  width:50rpx;
+  height: 50rpx;
 }
 
 .replyButton{
-  margin-top: 20rpx;
+  width: 100%;
+  height: 130rpx;
+  position:fixed;
+  z-index: 100;
+  bottom:0;
   display: flex;
-  justify-content: center;
-  /* background-color: rgb(128, 255, 185);
-  background-color: rgb(101, 219, 248);  */
+  align-content: center;
+  background-color: white;
+  justify-content: space-evenly;
+  border-top: 6rpx solid rgba(70, 70, 70, 0.425);
+  border-top-left-radius: 30rpx;
+  border-top-right-radius: 30rpx;
+
+}
+
+.replyButton image{
+  width: 60rpx;
+  height: 60rpx;
+}
+
+.button{
+  margin-top: 15rpx;
 }
 
 .section{
@@ -111,12 +158,21 @@
   margin-left: 5rpx;
 }
 
+.collect{
+  display: flex;
+  align-items:center;
+}
+
 .share{
   display: flex;
   align-items:center;
 }
 
 .delete{
+  display: flex;
+  align-items:center;
+}
+.edit{
   display: flex;
   align-items:center;
 }
@@ -169,19 +225,34 @@
   border-radius: 0;
 }
 
+.repostBody{
+  margin-right: 20rpx;
+}
+
 .reContent{
-  margin-left: 100rpx;
-  margin-right: 40rpx;
+  margin: 0 20rpx;
+  font-size: 40rpx;
+}
+
+.reContent image{
+  width: 715rpx;
+}
+
+.restateBody{
+  margin-top: 23rpx;
+  display: flex;
+  align-items: center;
 }
 
 .restate{
-  margin-left: 100rpx;
-  margin-top: 20rpx;
+  margin-left: 10rpx;
+  width: 500rpx;
   display: flex;
   align-items: center;
   justify-content: space-evenly;
   color: darkgrey;
-  border-bottom: 2rpx solid rgb(209, 209, 209);
+  border-bottom: 4rpx solid rgb(209, 209, 209);
+  font-size: 30rpx;
 }
 
 .restate image{
@@ -190,12 +261,10 @@
 }
 
 .floor{
-  margin-left:80rpx;
   font-size: 30rpx;
   color: darkgray;
-  flex-direction: row-reverse;
   position: absolute;
-  left: 550rpx;
+  left: 650rpx;
 }
 
 .floor image{
@@ -208,4 +277,14 @@
   height: 30rpx;
 }
 
+.empty{
+  justify-content: center;
+  margin-left: 30%;
+  color: darkgray;
+}
+
+.empty image{
+  width: 300rpx;
+  height: 300rpx;
+}
 

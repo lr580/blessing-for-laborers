@@ -430,7 +430,6 @@ Page({
   onShow: function () {
     var fr = this.data.unfresh
     if (fr) {
-      console.log(333333)
       this.onLoad(this.data.opt)
     }
   },
