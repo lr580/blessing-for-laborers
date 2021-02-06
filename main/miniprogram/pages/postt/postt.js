@@ -72,21 +72,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    /*wx.cloud.database().collection('post').doc('-1').get({
-      fail:ret=>{
-        console.log('not found',ret)
-      },
-      success:ret=>{
-        console.log('nani')
-      }
-    })*/
-    /*var suca=0
-    for(let i=3;i<=65;++i){
-      wx.cloud.database().collection('post').doc(String(i)).update({
-        data:{hide:false}
-      }).then(res=>{console.log(i,++suca)})
-    }*/
-
     this.setData({me:getApp().globalData.userID})
     wx.cloud.database().collection('user').doc(String(this.data.me)).get().then(rer=>{
       this.setData({
@@ -98,12 +83,12 @@ Page({
     wx.cloud.database().collection('post').doc(options.id).get().then(res=>{
       this.setData({
         postt:res.data,
-        pdate:[res.data.activeTime.getFullYear(),
-          res.data.activeTime.getMonth()+1,
-          res.data.activeTime.getDate(),
-          res.data.activeTime.getHours(),
-          res.data.activeTime.getMinutes(),
-          res.data.activeTime.getSeconds()],
+        pdate:[res.data.editTime.getFullYear(),//将正贴时间从最后活跃时间改成了编辑时间
+          res.data.editTime.getMonth()+1,
+          res.data.editTime.getDate(),
+          res.data.editTime.getHours(),
+          res.data.editTime.getMinutes(),
+          res.data.editTime.getSeconds()],
         replys:res.data.comment.length
       })
       wx.cloud.database().collection('user').doc(String(res.data.user)).get().then(ret=>{

@@ -282,7 +282,6 @@ Page({
       for (let i = 0; i < this.data.tx.length; ++i) {
         if (this.data.tx[i][0] == 3 || this.data.tx[i][1] != '') nr.push(this.data.tx[i])
       }
-      //console.log('nr', nr)
       var datax = {
         id: this.data.pid,
         activeTime: nowTime,
@@ -294,14 +293,17 @@ Page({
         type: this.data.type,
         reply: this.data.reply,
         anonymity: this.data.anonymity,
-        user: u.uid,
+        user: this.data.me,//修复了发帖人不对应的BUG
         title: this.data.title,
         content: nr,
         hide: false,
       }
       if(!this.data.type){
         wx.cloud.database().collection('post').doc(String(this.data.fatherPost)).update({
-          data:{comment: wx.cloud.database().command.push(this.data.pid)}
+          data:{
+            comment: wx.cloud.database().command.push(this.data.pid),
+            activeTime: nowTime,
+          }
         }).then(rez=>{
           console.log('suc5',rez)
           if(++fin==finn) succ()

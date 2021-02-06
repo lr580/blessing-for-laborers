@@ -60,7 +60,8 @@ Page({
     var olen = this.data.posts.length //原本加载了多少帖子
     wx.cloud.database().collection('post').where({
       type: wx.cloud.database().command.neq(0),
-      activeTime: wx.cloud.database().command.lt(lastLeastActiveTime)//就现实情况而言，不存在两个帖子同时发布
+      activeTime: wx.cloud.database().command.lt(lastLeastActiveTime),//就现实情况而言，不存在两个帖子同时发布
+      hide: false,//修复了BUGS
     }).limit(this.data.freshLoads)
       .orderBy('activeTime', 'desc').get().then(res => {
         var fina = 0

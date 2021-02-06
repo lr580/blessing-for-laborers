@@ -26,7 +26,8 @@
   </view>
 </view>
 <view class="postState">
-  <view class="activity"><!--?删了?-->
+  <view class="activity">
+    <!--?删了?-->
     <image src="/img/activity.png"></image>
     <text>{{pdate[0]}}/{{pdate[1]}}/{{pdate[2]}} {{pdate[3]}}:{{pdate[4]}}:{{pdate[5]}}</text>
   </view>
@@ -58,8 +59,9 @@
 </view>
 
 <!--<view class="replyButton" bindtap="replyize" id="{{postt.id}}">(点击)回帖</view>-->
-<van-button color="linear-gradient(to right, rgb(128, 255, 185), rgb(101, 219, 248))" round bind:click="replyize" id="{{postt.id}}">
-    我要回帖</van-button>
+<van-button color="linear-gradient(to right, rgb(128, 255, 185), rgb(101, 219, 248))" round bind:click="replyize"
+  id="{{postt.id}}">
+  我要回帖</van-button>
 
 <!--<view wx:if="{{thumbpost}}">已经点赞</view>
 <view wx:if="{{me==postt.user}}">不能给自己点赞</view>
@@ -76,24 +78,27 @@
       <view wx:for="{{reply}}" wx:for-index="i" wx:for-item="v">
         <view wx:if="{{!v[0].hide}}">
 
-          <view class="reuserInfo" wx:if="{{v[0].reply}}!=0"><!--?-->
+          <view class="reuserInfo" wx:if="{{v[0].reply}}!=0">
+            <!--?-->
             <view class="reuserHead">
               <image src="{{pathp+'default.jpg'}}" wx:if="{{v[0].anonymity&&me!=v[0].user}}"></image>
               <image src="{{pathp+v[2]}}" wx:else></image>
             </view>
-            <view wx:if="{{v[0].anonymity&&me!=v[0].user}}"  class="reuserName">匿名用户</view>
+            <view wx:if="{{v[0].anonymity&&me!=v[0].user}}" class="reuserName">匿名用户</view>
             <view wx:else class="reuserName">{{v[1].nickName}}</view>
             <view class="doubleToright" wx:if="{{v[0].reply}}">
               <image src="/img/doubletoright.png"></image>
             </view>
-            <view wx:if="{{v[0].reply&&v[5].hide}}" class="bereuserName" >(原楼层已删除)</view>
-            <view wx:elif="{{v[0].reply &&(!v[5].anonymity||me==v[5].user)}}" class="bereuserName">{{v[3].nickName}}</view>
+            <view wx:if="{{v[0].reply&&v[5].hide}}" class="bereuserName">(原楼层已删除)</view>
+            <view wx:elif="{{v[0].reply &&(!v[5].anonymity||me==v[5].user)}}" class="bereuserName">{{v[3].nickName}}
+            </view>
             <view wx:elif="{{v[0].reply&&v[5].anonymity&&me!=v[5].user}}" class="bereuserName"> 匿名用户</view>
+            <view class="floor">
+              <image src="/img/floor.png"></image>
+              <text>{{replys-i}}楼</text>
+            </view>
           </view>
-          <view class="floor">
-            <image src="/img/floor.png"></image>
-            <text>{{replys-i}}楼</text>
-          </view>
+
 
           <view wx:for="{{v[0].content}}" class="reContent">
             <text wx:if="{{item[0]==1}}">{{item[1]}}</text>
@@ -105,7 +110,7 @@
               <image src="/img/time.png"></image>
               {{v[4][0]}}/{{v[4][1]}}/{{v[4][2]}} {{v[4][3]}}:{{v[4][4]}}:{{v[4][5]}}
             </view>
-            
+
             <!--<view wx:if="{{v[6]}}">已经点赞</view>
             <view wx:if="{{v[0].user==me}}">无法给自己点赞</view>-->
             <view class="like" bindtap="thumbize" id="{{v[0].id}}">
@@ -118,7 +123,7 @@
           <view bindtap="replyize" id="{{v[0].id}}">
             (点击)回复{{v[0].anonymity&&me!=v[0].user?"匿名用户":v[1].nickName}}
           </view>
-          
+
           <view bindtap="editPost" id="{{v[0].id}}" wx:if="{{me==v[0].user}}">(点击)编辑</view>
           <view bindtap="delPost" id="{{v[0].id}}" wx:if="{{me==v[0].user}}">(点击)删除</view>
           <view style="height:40rpx"></view>
