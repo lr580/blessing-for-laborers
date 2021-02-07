@@ -2,8 +2,7 @@
   "tabBar": {
     "color": "#000",
     "selectedColor": "#1296db",
-    "list": [
-      {
+    "list": [{
         "pagePath": "pages/discuss/discuss",
         "text": "交流",
         "iconPath": "/img/dicuss.png",

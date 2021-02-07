@@ -14,16 +14,17 @@ App({
         traceUser: true,
       })
     }
-    if(false) //暂时不需要用到的时候先不读，减少云开发次数消耗
-    wx.cloud.database().collection('global').doc('default').get().then(res=>{
-      this.globalData.maxuid=res.data.maxuid
-      this.globalData.maxpid=res.data.maxpid
-    })
+    if (false) //暂时不需要用到的时候先不读，减少云开发次数消耗
+      wx.cloud.database().collection('global').doc('default').get().then(res => {
+        this.globalData.maxuid = res.data.maxuid
+        this.globalData.maxpid = res.data.maxpid
+      })
     this.globalData = {
-      pathp: "cloud://scnuyjx-7gmvlqwfe64c446a.7363-scnuyjx-7gmvlqwfe64c446a-1304878008/userpic/",//头像图片绝对路径一部分
-      pathtp: "cloud://scnuyjx-7gmvlqwfe64c446a.7363-scnuyjx-7gmvlqwfe64c446a-1304878008/postpic/",//帖子图片绝对路径一部分
-      types:['问答','交流','分享','日志'],//对应1~4(跟下标不对应)
-      userID:1,//调试状态默认1
+      pathp: "cloud://scnuyjx-7gmvlqwfe64c446a.7363-scnuyjx-7gmvlqwfe64c446a-1304878008/userpic/",//常量,头像图片绝对路径一部分
+      pathtp: "cloud://scnuyjx-7gmvlqwfe64c446a.7363-scnuyjx-7gmvlqwfe64c446a-1304878008/postpic/",//常量,帖子图片绝对路径一部分
+      types: ['问答', '交流', '分享', '日志'],//常量,对应1~4(跟下标不对应)
+      dayStamp: 86400000,//常量,一天的时间戳大小
+      userID: 1,//调试状态默认1
       //maxuid:0,
       //maxpid:0,
     }

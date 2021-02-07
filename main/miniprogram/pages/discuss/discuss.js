@@ -19,12 +19,41 @@ Page({
     dem: {},//帖子的筛选条件
     type: 0,//0代表全选，不代表回帖
     order: 'desc',//时间的筛选条件
+    distinctS: true,//搜索文本是否区分标题和正文
+    titleS: '',//搜索标题
+    contentS: '',//搜索正文
+    textS: '',//搜索文本
+    typesS: [false, false, true, false, false],//选中的搜索帖子类型
+    userS: '',//搜索用户名
+    dateBS: '2021-02-06',//搜索起始日期范围
+    dateES: '2021-02-06',//搜索结束时间范围
+    BGD: '2021-02-01',//起始日期
+    EGD: '2023-02-01',//终止日期
+    tags: [],//标签列表
+    tagsS: [],//搜索选中标签列表(布尔值数组)
+    replyS: false,//搜索包含回帖
+    anonymity: false,//搜索包含匿名用户
+    insearch: false,//是否在搜索
+    bgdt: new Date(),//搜索起始日期范围对象
+    eddt: new Date(),//搜索结束日期范围对象
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    /*var db=wx.cloud.database()
+    db.collection('post').where({
+      title:db.RegExp({
+        regexp:'.*测试.*',
+        options: 'is',
+      })
+    }).get().then(res=>{
+      console.log(res.data)
+    })*/
+    //var modu = require('../../datecal.js')
+    //console.log(modu.toDate(modu.getUnixTime('2021-2-7')+8640))
+
     var dem = {
       type: wx.cloud.database().command.neq(0),
       hide: false,
@@ -35,6 +64,22 @@ Page({
       pathtp: getApp().globalData.pathtp,
       types: ['全部'].concat(getApp().globalData.types),
       dem: dem,
+    })
+    wx.cloud.database().collection('global').doc('catagory').get().then(res => {
+      var temp = res.data.cat
+      var t2 = []
+      for (let i = 0; i < temp.length; ++i) t2.push(false)
+
+      function cmp() {//降序排列标签
+        return function (a, b) {
+          return b[0] - a[0]
+        }
+      }
+      temp.sort(cmp())
+      this.setData({
+        tags: temp,
+        tagsS: t2,
+      })
     })
     this.firstLoad()
   },
@@ -96,12 +141,37 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
+    if (!this.data.posts.length) return
     var lastLeastActiveTime = this.data.posts[this.data.posts.length - 1][0].activeTime
     var olen = this.data.posts.length //原本加载了多少帖子
     var dem = this.data.dem
-    if(this.data.order=='desc')//就现实情况而言，不存在两个帖子同时发布
-      dem['activeTime'] = wx.cloud.database().command.lt(lastLeastActiveTime)
-    else dem['activeTime'] = wx.cloud.database().command.gt(lastLeastActiveTime)
+    var bggt = this.data.bgdt
+    var edgt = this.data.eddt
+    console.log(bggt,edgt)
+    if (!this.data.insearch) {
+      if (this.data.order == 'desc')//就现实情况而言，不存在两个帖子同时发布
+        dem['activeTime'] = wx.cloud.database().command.lt(lastLeastActiveTime)
+      else dem['activeTime'] = wx.cloud.database().command.gt(lastLeastActiveTime)
+    } else {
+      const _ = wx.cloud.database().command
+      console.log('www',dem, typeof dem)
+      if (dem['operands']!=undefined) {
+        //console.log(1)
+        if (this.data.order = 'desc') {
+          dem.operands[0]['activeTime'] = _.gt(bggt).and(_.lt(lastLeastActiveTime))
+          dem.operands[1]['activeTime'] = _.gt(bggt).and(_.lt(lastLeastActiveTime))
+        } else {
+          dem.operands[0]['activeTime'] = _.gt(lastLeastActiveTime).and(_.lt(edgt))
+          dem.operands[1]['activeTime'] = _.gt(lastLeastActiveTime).and(_.lt(edgt))
+        }
+        console.log(dem)
+      } else {
+        //console.log(2)
+        if (this.data.order == 'desc')
+          dem['activeTime'] = _.gt(bggt).and(_.lt(lastLeastActiveTime))
+        else dem['activeTime'] = _.gt(lastLeastActiveTime).and(_.lt(edgt))
+      }
+    }
     wx.cloud.database().collection('post').where(dem).limit(this.data.freshLoads)
       .orderBy('activeTime', this.data.order).get().then(res => {
         var fina = 0
@@ -171,8 +241,8 @@ Page({
     this.firstLoad()
   },
 
-  selectST:function(e){
-    this.setData({order: e.detail.value})
+  selectST: function (e) {
+    this.setData({ order: e.detail.value })
     this.firstLoad()
   },
 
@@ -182,6 +252,161 @@ Page({
   onShow: function () {
     var fr = this.data.unfresh
     if (fr) this.onLoad([])
+  },
+
+  switchDI: function (e) {
+    this.setData({ distinctS: e.detail.value.includes('dist') })
+  },
+
+  inputTitle: function (e) {
+    this.setData({ titleS: e.detail.value })
+  },
+
+  inputContent: function (e) {
+    this.setData({ contentS: e.detail.value })
+  },
+
+  inputText: function (e) {
+    this.setData({
+      titleS: e.detail.value,
+      contentS: e.detail.value,
+      textS: e.detail.value,
+    })
+  },
+
+  inputUser: function (e) {
+    this.setData({ userS: e.detail.value })
+  },
+
+  switchType: function (e) {
+    var temp = [false, false, false, false, false]
+    var edv = e.detail.value
+    var ty = this.data.types
+    for (let i = 1; i <= 4; ++i) {
+      temp[i] = edv.includes(ty[i])
+    }
+    this.setData({ typesS: temp })
+  },
+
+  switchBS: function (e) {
+    this.setData({ dateBS: e.detail.value })
+  },
+
+  switchES: function (e) {
+    this.setData({ dateES: e.detail.value })
+  },
+
+  selectTag: function (e) {
+    var temp = []
+    var idx = e.currentTarget.id
+    var v = e.detail.value
+    for (let i = 0; i < this.data.tags.length; ++i) {
+      temp.push(v.includes(this.data.tags[i][1]))
+    }
+    this.setData({ tagsS: temp })
+  },
+
+  switchIR: function (e) {
+    this.setData({ replyS: e.detail.value.includes('replyS') })
+  },
+
+  switchAN: function (e) {
+    this.setData({ anonymityS: e.detail.value.includes('anonymityS') })
+  },
+
+  search: function (e) {
+    var _ = wx.cloud.database().command
+    var bgdt = new Date(this.data.dateBS)
+    var eddt = new Date(this.data.dateES)
+    eddt = eddt.setDate(eddt.getDate() + 1)
+    eddt = new Date(eddt)
+    var demp = {//共性要求
+      activeTime: _.gt(bgdt).and(_.lt(eddt)),
+      hide: false,
+    }
+
+    var ty = []
+    for (let i = 1; i <= 4; ++i) if (this.data.typesS[i]) ty.push(i)
+    if (this.data.replyS) ty.push(0)
+    if (ty.length) demp['type'] = _.in(ty)
+
+    var tagn = 0
+    var stag = []
+    for (let i = 0; i < this.data.tags.length; ++i) if (this.data.tagsS[i]) {
+      ++tagn
+      stag.push(this.data.tags[i])
+    }
+    if (tagn) demp['tag'] = _.in(stag)
+
+    //var dem1
+    /*if(this.data.anonymityS){
+      demp['anonymity']=false
+    }else{
+      demp['anonymity']=false
+      demp['user']
+    }*/
+
+    var dem1
+    if (this.data.distinctS) {
+      if (this.data.titleS) demp['title'] = wx.cloud.database().RegExp({
+        regexp: '.*' + this.data.titleS + '.*',
+        options: 'is',
+      })
+      if (this.data.contentS) demp['content'] = wx.cloud.database().RegExp({
+        regexp: '.*' + this.data.contentS + '.*',
+        options: 'is',
+      })
+      dem1 = demp
+    } else {
+      var d1 = {}, d2 = {}
+      for (let k in demp) {
+        d1[k] = demp[k]
+        d2[k] = demp[k]
+      }
+      if (this.data.textS) {
+        d1['title'] = wx.cloud.database().RegExp({
+          regexp: '.*' + this.data.titleS + '.*',
+          options: 'is',
+        })
+        d2['content'] = wx.cloud.database().RegExp({
+          regexp: '.*' + this.data.contentS + '.*',
+          options: 'is',
+        })
+      }
+      dem1 = _.or([d1, d2])
+    }
+
+    console.log(dem1)
+    this.setData({
+      dem: dem1,
+      insearch: true,
+      bgdt: bgdt,
+      eddt: eddt,
+    })
+    this.firstLoad()
+    /*wx.cloud.database().collection('post').where(dem1).limit(this.data.initLoads).get().then(res => {
+      console.log(res.data)
+    })*/
+    /*const LIM = 100
+    exports.main = async (event, content) => {
+      const cr = await wx.cloud.database().collection('post').count()
+      const tot = cr.total
+      const batchs = Math.ceil(tot / LIM)
+      var tasks = []
+      for (let i = 0; i < batchs; ++i) {
+        var promise = wx.cloud.database().collection('post').skip(i * LIM).limit(LIM).get()
+        tasks.push(promise)
+      }
+      return (await Promise.all(tasks)).reduce((acc, cur) => {
+        console.log('cur', cur.data)
+        return {
+          data: acc.data.concat(cur.data),
+          errMsg: acc.errMsg,
+        }
+      })
+    }*/
+
+
   },
 
   /**

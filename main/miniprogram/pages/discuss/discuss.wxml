@@ -1,22 +1,70 @@
-<!--pages/discuss/discuss.wxml-->
 <view class="discussPic1">
   <image src="cloud://scnuyjx-7gmvlqwfe64c446a.7363-scnuyjx-7gmvlqwfe64c446a-1304878008/pic/cover.png"></image>
-  <view class="discussPic2">
+  <!--<view class="discussPic2">
     <image src="cloud://scnuyjx-7gmvlqwfe64c446a.7363-scnuyjx-7gmvlqwfe64c446a-1304878008/pic/add.png"></image>
-  </view>
+  </view>-->
 </view>
-<view>
-  <searchBar></searchBar>
+<view><!--这堆内容全部点击后展开点别的地方收起来qwq-->
+  <!--<searchBar></searchBar>我不会用searchBar这个东西qwq-->
+  <view>(不输入内容的栏目代表该条件为任意)</view>
+  <button bindtap="search">点我搜索</button>
+  <checkbox-group bindchange="switchIR">
+    <checkbox value="replyS" checked="{{replyS}}">包含回帖</checkbox>
+  </checkbox-group>
+  <checkbox-group bindchange="switchDI">
+    <checkbox value="dist" checked="{{distinctS}}">区分标题和正文</checkbox>
+  </checkbox-group>
+  <view wx:if="{{distinctS}}">
+    <text>搜索标题文字：</text>
+    <input type="text" placeholder="任意标题" bindinput="inputTitle" value="{{titleS}}"/>
+    <text>搜索正文文字：</text>
+    <input type="text" placeholder="任意正文" bindinput="inputContent" value="{{contentS}}"/>
+  </view>
+  <view wx:else>
+    <text>搜索文字：</text>
+    <input type="text" placeholder="任意文字" bindinput="inputText" value="{{textS}}"/>
+  </view>
+  <view>
+    <text>帖子类型选择：</text>
+    <checkbox-group bindchange="switchType">
+      <view wx:for="{{types}}">
+        <view wx:if="{{index}}">
+          <checkbox value="{{item}}" checked="{{typesS[index]}}">{{item}}</checkbox>
+        </view>
+      </view>
+    </checkbox-group>
+  </view>
+  <view>
+    <text>搜索发帖者用户名：</text>
+    <input type="text" placeholder="任意发帖者" bindinput="inputUser" value="{{userS}}"/>
+  </view>
+  <checkbox-group bindchange="switchAN">
+    <checkbox value="anonymityS" checked="{{anonymityS}}">包含匿名用户</checkbox>
+  </checkbox-group>
+  <view>开始时间：</view>
+  <picker mode="date" value="{{dateBS}}" start="BGD" end="" bindchange="switchBS">
+    <input type="text" value="{{dateBS}}" disabled="true"/>
+  </picker>
+  <view>结束时间：</view>
+  <picker mode="date" value="{{dateES}}" start="EGD" end="" bindchange="switchES">
+    <input type="text" value="{{dateES}}" disabled="true"/>
+  </picker>
+  <text>标签选择:(未选代表任意)</text>  <!--这个要改成下拉框-->
+  <checkbox-group bindchange="selectTag">
+    <view wx:for="{{tags}}">
+      <checkbox value="{{item[1]}}" checked="{{tagsS[index]}}" id="{{index}}">{{item[1]}}</checkbox>
+    </view>
+  </checkbox-group>
 </view>
 
 <view style="flex-wrap: wrap">
   <view>
     <view>显示帖子：</view>
-  <radio-group bindchange="selectType">
-    <view wx:for="{{types}}">
-      <radio value="{{index+0}}" checked="{{index==type}}">{{item}}</radio>
-    </view>
-  </radio-group>
+    <radio-group bindchange="selectType">
+      <view wx:for="{{types}}">
+        <radio value="{{index+0}}" checked="{{index==type}}">{{item}}</radio>
+      </view>
+    </radio-group>
   </view>
   <view>
     <view>时间排序方式：</view>
@@ -44,7 +92,7 @@
         <view class="nickName" wx:else>{{v[1].nickName}}</view>
       </view>
       <view class="content">
-        <view wx:for="{{v[3]}}"> 
+        <view wx:for="{{v[3]}}">
           <view>{{item}}</view>
           <!--<text class="sumText">
             <text wx:if="{{item[0]==1}}" class="contentText">{{item[1]}}</text>
