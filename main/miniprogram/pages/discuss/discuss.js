@@ -41,6 +41,7 @@ Page({
 
   firstLoad: function () {//加载第一版帖子
     var dem = this.data.dem
+    delete dem['activeTime']
     var thee = this
     this.setData({ alreadyAll: false })
     //console.log(dem)
@@ -98,7 +99,7 @@ Page({
     var lastLeastActiveTime = this.data.posts[this.data.posts.length - 1][0].activeTime
     var olen = this.data.posts.length //原本加载了多少帖子
     var dem = this.data.dem
-    if(this.data.order)//就现实情况而言，不存在两个帖子同时发布
+    if(this.data.order=='desc')//就现实情况而言，不存在两个帖子同时发布
       dem['activeTime'] = wx.cloud.database().command.lt(lastLeastActiveTime)
     else dem['activeTime'] = wx.cloud.database().command.gt(lastLeastActiveTime)
     wx.cloud.database().collection('post').where(dem).limit(this.data.freshLoads)

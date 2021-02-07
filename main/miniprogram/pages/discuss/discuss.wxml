@@ -21,8 +21,8 @@
   <view>
     <view>时间排序方式：</view>
     <radio-group bindchange="selectST">
-      <radio value="1" checked="{{'desc'==order}}">最新在前</radio>
-      <radio value="0" checked="{{'asc'==order}}">最新在后</radio>
+      <radio value="desc" checked="{{'desc'==order}}">最新在前</radio>
+      <radio value="asc" checked="{{'asc'==order}}">最新在后</radio>
     </radio-group>
   </view>
 </view>
