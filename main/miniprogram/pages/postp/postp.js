@@ -221,7 +221,7 @@ Page({
   },
 
   selectType: function (e) {
-    this.setData({type:Number(e.detail.value)})
+    this.setData({ type: Number(e.detail.value) })
   },
 
   switchAnonymity: function (e) {
@@ -308,6 +308,8 @@ Page({
       var nr = []
       var tagss = this.data.tags
       var release = this.data.edit ? this.data.pubTime : nowTime
+      var fp = this.data.fatherPost
+      if (this.data.edit && this.data.type) fp = 0
       for (let i = 0; i < tagss.length; ++i) {
         if (tagss[i][1] == this.data.tag) ++tagss[i][0]
       }
@@ -329,6 +331,7 @@ Page({
         title: this.data.title,
         content: nr,
         hide: false,
+        fatherPost: fp,
       }
       if (!this.data.type && !this.data.edit) {
         wx.cloud.database().collection('post').doc(String(this.data.fatherPost)).update({

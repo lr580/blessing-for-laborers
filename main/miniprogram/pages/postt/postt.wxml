@@ -1,36 +1,37 @@
-<view wx:if="{{postt.hide}}">该帖子已被删除！</view>
-<view class="postInfo">
-  <view class="postTitle"><text>{{postt.title}}</text>
-  </view>
-  <van-divider contentPosition="right" borderColor="rgb(3, 146, 146)" textColor="rgb(3, 146, 146)">{{postt.tag}}
-  </van-divider>
+<view wx:if="{{postt.hide}}">原帖已被删除！</view>
+<view wx:else>
+  <view class="postInfo">
+    <view class="postTitle"><text>{{postt.title}}</text>
+    </view>
+    <van-divider contentPosition="right" borderColor="rgb(3, 146, 146)" textColor="rgb(3, 146, 146)">{{postt.tag}}
+    </van-divider>
 
-  <view class="user">
-    <view class="userHead">
-      <image src="{{pathp+'default.jpg'}}" wx:if="{{postt.anonymity&&me!=postt.user}}"></image>
-      <image src="{{pathp+pathq}}" wx:else></image>
+    <view class="user">
+      <view class="userHead">
+        <image src="{{pathp+'default.jpg'}}" wx:if="{{postt.anonymity&&me!=postt.user}}"></image>
+        <image src="{{pathp+pathq}}" wx:else></image>
+      </view>
+      <view class="userName">
+        <text wx:if="{{postt.anonymity&&me!=postt.user}}">匿名用户</text>
+        <text wx:else>{{poster.nickName}}</text>
+      </view>
     </view>
-    <view class="userName">
-      <text wx:if="{{postt.anonymity&&me!=postt.user}}">匿名用户</text>
-      <text wx:else>{{poster.nickName}}</text>
+    <view style="height:40rpx"></view>
+  </view>
+  <view class="postContent">
+    <view wx:for="{{postt.content}}">
+      <text wx:if="{{item[0]==1}}">{{item[1]}}</text>
+      <text wx:if="{{item[0]==2}}">[假装加粗]{{item[1]}}[假装加粗]</text>
+      <image wx:if="{{item[0]==3}}" src="{{pathtp+item[1]}}" bindload="imageLoad" data-index="{{ index }}"
+        style="width:{{ images[index].width }}rpx; height:{{ images[index].height }}rpx;"></image>
     </view>
   </view>
-  <view style="height:40rpx"></view>
-</view>
-<view class="postContent">
-  <view wx:for="{{postt.content}}">
-    <text wx:if="{{item[0]==1}}">{{item[1]}}</text>
-    <text wx:if="{{item[0]==2}}">[假装加粗]{{item[1]}}[假装加粗]</text>
-    <image wx:if="{{item[0]==3}}" src="{{pathtp+item[1]}}" bindload="imageLoad" data-index="{{ index }}"
-      style="width:{{ images[index].width }}rpx; height:{{ images[index].height }}rpx;"></image>
-  </view>
-</view>
-<view class="postState">
-  <view class="activity">
-    <image src="/img/activity.png"></image>
-    <text>{{pdate[0]}}/{{pdate[1]}}/{{pdate[2]}} {{pdate[3]}}:{{pdate[4]}}:{{pdate[5]}}</text>
-  </view>
-  <!--<view bindtap="starPost" bindlongpress="cancelCollect" id="{{postt.id}}">
+  <view class="postState">
+    <view class="activity">
+      <image src="/img/activity.png"></image>
+      <text>{{pdate[0]}}/{{pdate[1]}}/{{pdate[2]}} {{pdate[3]}}:{{pdate[4]}}:{{pdate[5]}}</text>
+    </view>
+    <!--<view bindtap="starPost" bindlongpress="cancelCollect" id="{{postt.id}}">
     <view wx:if="{{!starpost}}" class="collect">
       <image src="/img/collect.png"></image><text>收藏</text>
     </view>
@@ -49,51 +50,52 @@
   <view class="share">
     <image src="/img/transmit.png"></image><text>转发</text>
   </view>-->
-  <view class="delete" bindtap="delPost" id="{{postt.id}}" wx:if="{{me==postt.user}}">
-    <image src="/img/delete.png"></image><text>删除</text>
+    <view class="delete" bindtap="delPost" id="{{postt.id}}" wx:if="{{me==postt.user}}">
+      <image src="/img/delete.png"></image><text>删除</text>
+    </view>
+    <view class="edit" bindtap="editPost" id="{{postt.id}}" wx:if="{{me==postt.user}}">
+      <image src="/img/edit.png"></image>编辑
+    </view>
+    <view style="height:40rpx"></view>
   </view>
-  <view class="edit" bindtap="editPost" id="{{postt.id}}" wx:if="{{me==postt.user}}">
-    <image src="/img/edit.png"></image>编辑
-  </view>
-  <view style="height:40rpx"></view>
-</view>
 
-<view class="replyButton">
-  <view class="button">
-    <van-button color="linear-gradient(to right, rgb(128, 255, 185), rgb(101, 219, 248))" round bind:click="replyize"
-      id="{{postt.id}}">
-      我要回帖</van-button>
+  <view class="replyButton">
+    <view class="button">
+      <van-button color="linear-gradient(to right, rgb(128, 255, 185), rgb(101, 219, 248))" round bind:click="replyize"
+        id="{{postt.id}}">
+        我要回帖</van-button>
+    </view>
+    <view class="collect" bindtap="starPost" bindlongpress="cancelCollect" id="{{postt.id}}">
+      <view wx:if="{{!starpost}}">
+        <image src="/img/collect.png"></image>
+      </view>
+      <view wx:if="{{starpost}}">
+        <image src="/img/collect!.png"></image>
+      </view>
+    </view>
+    <view class="like" bindtap="thumbize" id="{{postt.id}}">
+      <view wx:if="{{!thumbpost}}">
+        <image src="/img/like.png"></image>
+      </view>
+      <view wx:else>
+        <image src="/img/like!.png"></image>
+      </view>
+      <text>{{postt.thumbs}}</text>
+    </view>
+    <view class="share">
+      <view>
+        <image src="/img/transmit.png"></image>
+      </view>
+    </view>
   </view>
-  <view class="collect" bindtap="starPost" bindlongpress="cancelCollect" id="{{postt.id}}">
-    <view wx:if="{{!starpost}}">
-      <image src="/img/collect.png"></image>
-    </view>
-    <view wx:if="{{starpost}}">
-      <image src="/img/collect!.png"></image>
-    </view>
-  </view>
-  <view class="like" bindtap="thumbize" id="{{postt.id}}">
-    <view wx:if="{{!thumbpost}}">
-      <image src="/img/like.png"></image>
-    </view>
-    <view wx:else>
-      <image src="/img/like!.png"></image>
-    </view>
-    <text>{{postt.thumbs}}</text>
-  </view>
-  <view class="share">
-    <view>
-      <image src="/img/transmit.png"></image>
-    </view>
-  </view>
-</view>
 
-<view>
-  <view>时间排序方式：</view>
-  <radio-group bindchange="selectST">
-    <radio value="1" checked="{{descTime}}">最新在前</radio>
-    <radio value="0" checked="{{!descTime}}">最新在后</radio>
-  </radio-group>
+  <view>
+    <view>时间排序方式：</view>
+    <radio-group bindchange="selectST">
+      <radio value="1" checked="{{descTime}}">最新在前</radio>
+      <radio value="0" checked="{{!descTime}}">最新在后</radio>
+    </radio-group>
+  </view>
 </view>
 
 <van-divider contentPosition="center" fontSize="15">交流区</van-divider>

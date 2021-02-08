@@ -23,10 +23,10 @@ Page({
     titleS: '',//搜索标题
     contentS: '',//搜索正文
     textS: '',//搜索文本
-    typesS: [false, false, true, false, false],//选中的搜索帖子类型
+    typesS: [false, true, true, false, false],//选中的搜索帖子类型
     userS: '',//搜索用户名
     dateBS: '2021-02-06',//搜索起始日期范围
-    dateES: '2021-02-06',//搜索结束时间范围
+    dateES: '2021-02-08',//搜索结束时间范围
     BGD: '2021-02-01',//起始日期
     EGD: '2023-02-01',//终止日期
     tags: [],//标签列表
@@ -36,23 +36,26 @@ Page({
     insearch: false,//是否在搜索
     bgdt: new Date(),//搜索起始日期范围对象
     eddt: new Date(),//搜索结束日期范围对象
+    username: [],//所有用户名与id对应列表
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    /*var db=wx.cloud.database()
-    db.collection('post').where({
-      title:db.RegExp({
-        regexp:'.*测试.*',
-        options: 'is',
+    /*var suc=0
+    const cc = wx.cloud.database().collection('post')
+    for(let i=1;i<=128;++i){
+      cc.doc(String(i)).get().then(res=>{
+        if(res.data.type==undefined||typeof res.data.type==typeof '123'){
+          var v=1
+          if(res.data.type==undefined) v=1
+          else v=Number(res.data.type)
+          cc.doc(String(i)).update({data:{type:v}}).then(rea=>{console.log(++suc,i)})
+        }
       })
-    }).get().then(res=>{
-      console.log(res.data)
-    })*/
-    //var modu = require('../../datecal.js')
-    //console.log(modu.toDate(modu.getUnixTime('2021-2-7')+8640))
+    }*/
+
 
     var dem = {
       type: wx.cloud.database().command.neq(0),
@@ -65,6 +68,7 @@ Page({
       types: ['全部'].concat(getApp().globalData.types),
       dem: dem,
     })
+
     wx.cloud.database().collection('global').doc('catagory').get().then(res => {
       var temp = res.data.cat
       var t2 = []
@@ -81,6 +85,11 @@ Page({
         tagsS: t2,
       })
     })
+
+    wx.cloud.database().collection('global').doc('username').get().then(res => {
+      this.setData({ username: res.data })
+    })
+
     this.firstLoad()
   },
 
@@ -147,15 +156,15 @@ Page({
     var dem = this.data.dem
     var bggt = this.data.bgdt
     var edgt = this.data.eddt
-    console.log(bggt,edgt)
+    //console.log(bggt, edgt)
     if (!this.data.insearch) {
       if (this.data.order == 'desc')//就现实情况而言，不存在两个帖子同时发布
         dem['activeTime'] = wx.cloud.database().command.lt(lastLeastActiveTime)
       else dem['activeTime'] = wx.cloud.database().command.gt(lastLeastActiveTime)
     } else {
       const _ = wx.cloud.database().command
-      console.log('www',dem, typeof dem)
-      if (dem['operands']!=undefined) {
+      console.log('www', dem, typeof dem)
+      if (dem['operands'] != undefined) {
         //console.log(1)
         if (this.data.order = 'desc') {
           dem.operands[0]['activeTime'] = _.gt(bggt).and(_.lt(lastLeastActiveTime))
@@ -216,9 +225,24 @@ Page({
   },
 
   gotoPost: function (e) {
-    wx.navigateTo({
-      url: '/pages/postt/postt?id=' + String(e.currentTarget.id),
-    })
+    var temp = this.data.posts
+    var idx = -1
+    for (let i = 0; i < this.data.postn; ++i) {
+      if (Number(e.currentTarget.id) == temp[i][0].id) {
+        idx = i
+        break
+      }
+    }
+    //console.log(temp[idx][0].type,temp[idx][0].fatherPost)
+    if (temp[idx][0].fatherPost) {
+      wx.navigateTo({
+        url: '/pages/postt/postt?id=' + String(temp[idx][0].fatherPost),
+      })
+    } else {
+      wx.navigateTo({
+        url: '/pages/postt/postt?id=' + String(e.currentTarget.id),
+      })
+    }
     this.setData({ unfresh: true })
   },
 
@@ -251,7 +275,7 @@ Page({
    */
   onShow: function () {
     var fr = this.data.unfresh
-    if (fr) this.onLoad([])
+    if (fr) this.firstLoad()
   },
 
   switchDI: function (e) {
@@ -275,6 +299,9 @@ Page({
   },
 
   inputUser: function (e) {
+    if (e.detail.value) {
+      this.setData({ anonymityS: false })
+    }
     this.setData({ userS: e.detail.value })
   },
 
@@ -311,6 +338,14 @@ Page({
   },
 
   switchAN: function (e) {
+    if(this.data.userS){
+      wx.showToast({
+        title: '搜索条件含发帖者时不能搜索匿名用户',
+        icon:'none',
+      })
+      this.setData({ anonymityS: false })
+      return
+    }
     this.setData({ anonymityS: e.detail.value.includes('anonymityS') })
   },
 
@@ -320,6 +355,7 @@ Page({
     var eddt = new Date(this.data.dateES)
     eddt = eddt.setDate(eddt.getDate() + 1)
     eddt = new Date(eddt)
+    //console.log(bgdt,eddt)
     var demp = {//共性要求
       activeTime: _.gt(bgdt).and(_.lt(eddt)),
       hide: false,
@@ -334,9 +370,24 @@ Page({
     var stag = []
     for (let i = 0; i < this.data.tags.length; ++i) if (this.data.tagsS[i]) {
       ++tagn
-      stag.push(this.data.tags[i])
+      stag.push(this.data.tags[i][1])
     }
     if (tagn) demp['tag'] = _.in(stag)
+
+    //if()
+
+    var user = []
+    if (this.data.userS) {
+      var un = this.data.username
+      var fx = new RegExp('.*' + this.data.userS + '.*', 'im')
+      for (var name in un) {
+        if (name.search(fx) == 0) {
+          user.push(un[name])
+        }
+      }
+      demp['user'] = _.in(user)
+      demp['anonymity'] = false
+    }
 
     //var dem1
     /*if(this.data.anonymityS){
@@ -352,7 +403,7 @@ Page({
         regexp: '.*' + this.data.titleS + '.*',
         options: 'is',
       })
-      if (this.data.contentS) demp['content'] = wx.cloud.database().RegExp({
+      if (this.data.contentS) demp['content.0.1'] = wx.cloud.database().RegExp({//该条件并不……好
         regexp: '.*' + this.data.contentS + '.*',
         options: 'is',
       })
@@ -368,7 +419,7 @@ Page({
           regexp: '.*' + this.data.titleS + '.*',
           options: 'is',
         })
-        d2['content'] = wx.cloud.database().RegExp({
+        d2['content.0.1'] = wx.cloud.database().RegExp({
           regexp: '.*' + this.data.contentS + '.*',
           options: 'is',
         })

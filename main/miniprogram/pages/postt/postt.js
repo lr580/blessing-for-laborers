@@ -360,6 +360,8 @@ Page({
     wx.navigateTo({
       url: '../postp/postp?reply=' + String(reply) + '&type=' + String(ty) + '&pid=' + String(pid) + '&edit=true&rp=' + rp + '&rr=' + rr + '&qid=' + qid,
     })
+    this.setData({ unfresh: true })
+    this.onShow()
   },
 
   delPost: function (e) {
@@ -375,7 +377,20 @@ Page({
           wx.cloud.database().collection('post').doc(String(pid)).update({
             data: { hide: true }
           }).then(res => {
-            if (pid == thee.data.postt.id) wx.navigateBack({})
+            if (pid == thee.data.postt.id){
+              var tagg = thee.data.postt.tag
+              wx.cloud.database().collection('global').doc('catagory').get().then(rea=>{
+                var ca = rea.data.cat
+                for(let i=0;i<ca.length;++i) if(ca[i][1]==tagg) {
+                  --ca[i][0]
+                  break
+                }
+                wx.cloud.database().collection('global').doc('catagory').update({
+                  data:{cat:ca}
+                }).then(reb=>{})
+              })
+              wx.navigateBack({})
+            }
             else {
               thee.setData({ unfresh: true })
               thee.onShow()
