@@ -32,7 +32,7 @@ Page({
     tags: [],//标签列表
     tagsS: [],//搜索选中标签列表(布尔值数组)
     replyS: false,//搜索包含回帖
-    anonymity: false,//搜索包含匿名用户
+    anonymityS: true,//搜索包含匿名用户
     insearch: false,//是否在搜索
     bgdt: new Date(),//搜索起始日期范围对象
     eddt: new Date(),//搜索结束日期范围对象
@@ -44,18 +44,17 @@ Page({
    */
   onLoad: function (options) {
     /*var suc=0
-    const cc = wx.cloud.database().collection('post')
-    for(let i=1;i<=128;++i){
+    const cc=wx.cloud.database().collection('post')
+    for(let i=1;i<=130;++i){
       cc.doc(String(i)).get().then(res=>{
-        if(res.data.type==undefined||typeof res.data.type==typeof '123'){
-          var v=1
-          if(res.data.type==undefined) v=1
-          else v=Number(res.data.type)
-          cc.doc(String(i)).update({data:{type:v}}).then(rea=>{console.log(++suc,i)})
+        var tx=''
+        var t=res.data.content
+        for(let j=0;j<t.length;++j){
+          if(t[j][0]!=3) tx+=t[j][1]+' '
         }
+        cc.doc(String(i)).update({data:{pureText:tx}}).then(rea=>{console.log(i,++suc)})
       })
     }*/
-
 
     var dem = {
       type: wx.cloud.database().command.neq(0),
@@ -373,6 +372,7 @@ Page({
       stag.push(this.data.tags[i][1])
     }
     if (tagn) demp['tag'] = _.in(stag)
+    if(!this.data.anonymityS) demp['anonymity']=false
 
     //if()
 
@@ -389,21 +389,13 @@ Page({
       demp['anonymity'] = false
     }
 
-    //var dem1
-    /*if(this.data.anonymityS){
-      demp['anonymity']=false
-    }else{
-      demp['anonymity']=false
-      demp['user']
-    }*/
-
     var dem1
     if (this.data.distinctS) {
       if (this.data.titleS) demp['title'] = wx.cloud.database().RegExp({
         regexp: '.*' + this.data.titleS + '.*',
         options: 'is',
       })
-      if (this.data.contentS) demp['content.0.1'] = wx.cloud.database().RegExp({//该条件并不……好
+      if (this.data.contentS) demp['pureText'] = wx.cloud.database().RegExp({//该条件并不……好
         regexp: '.*' + this.data.contentS + '.*',
         options: 'is',
       })
@@ -419,7 +411,7 @@ Page({
           regexp: '.*' + this.data.titleS + '.*',
           options: 'is',
         })
-        d2['content.0.1'] = wx.cloud.database().RegExp({
+        d2['pureText'] = wx.cloud.database().RegExp({
           regexp: '.*' + this.data.contentS + '.*',
           options: 'is',
         })
