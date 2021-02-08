@@ -112,7 +112,7 @@ Page({
         //头像预设为默认头像
         var tempImageDir = []
         for (let i = 0; i < res.data.comment.length; ++i) temp[i][2] = this.data.pathq
-        var thee=this
+        var thee = this
         //按发布时间降序排序依据函数
         function cmp() {
           if (thee.data.descTime) {
@@ -377,17 +377,17 @@ Page({
           wx.cloud.database().collection('post').doc(String(pid)).update({
             data: { hide: true }
           }).then(res => {
-            if (pid == thee.data.postt.id){
+            if (pid == thee.data.postt.id) {
               var tagg = thee.data.postt.tag
-              wx.cloud.database().collection('global').doc('catagory').get().then(rea=>{
+              wx.cloud.database().collection('global').doc('catagory').get().then(rea => {
                 var ca = rea.data.cat
-                for(let i=0;i<ca.length;++i) if(ca[i][1]==tagg) {
+                for (let i = 0; i < ca.length; ++i) if (ca[i][1] == tagg) {
                   --ca[i][0]
                   break
                 }
                 wx.cloud.database().collection('global').doc('catagory').update({
-                  data:{cat:ca}
-                }).then(reb=>{})
+                  data: { cat: ca }
+                }).then(reb => { })
               })
               wx.navigateBack({})
             }
@@ -452,7 +452,7 @@ Page({
   selectST: function (e) {
     this.setData({
       descTime: Number(e.detail.value) == 1,
-      unfresh:true,
+      unfresh: true,
     })
     this.onShow()
   },

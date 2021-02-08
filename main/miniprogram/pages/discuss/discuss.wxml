@@ -1,10 +1,14 @@
 <view class="discussPic1">
   <image src="cloud://scnuyjx-7gmvlqwfe64c446a.7363-scnuyjx-7gmvlqwfe64c446a-1304878008/pic/cover.png"></image>
-  <!--<view class="discussPic2">
-    <image src="cloud://scnuyjx-7gmvlqwfe64c446a.7363-scnuyjx-7gmvlqwfe64c446a-1304878008/pic/add.png"></image>
-  </view>-->
+  <view bindtap='postize'>
+    <text>我要发帖</text>
+    <view class="discussPic2">
+      <image src="cloud://scnuyjx-7gmvlqwfe64c446a.7363-scnuyjx-7gmvlqwfe64c446a-1304878008/pic/add.png"></image>
+    </view>
+  </view>
 </view>
-<view><!--这堆内容全部点击后展开点别的地方收起来qwq-->
+<view>
+  <!--这堆内容全部点击后展开点别的地方收起来qwq-->
   <!--<searchBar></searchBar>我不会用searchBar这个东西qwq-->
   <view>(不输入内容的栏目代表该条件为任意)</view>
   <button bindtap="search">点我搜索</button>
@@ -16,13 +20,13 @@
   </checkbox-group>
   <view wx:if="{{distinctS}}">
     <text>搜索标题文字：</text>
-    <input type="text" placeholder="任意标题" bindinput="inputTitle" value="{{titleS}}"/>
+    <input type="text" placeholder="任意标题" bindinput="inputTitle" value="{{titleS}}" />
     <text>搜索正文文字：</text>
-    <input type="text" placeholder="任意正文" bindinput="inputContent" value="{{contentS}}"/>
+    <input type="text" placeholder="任意正文" bindinput="inputContent" value="{{contentS}}" />
   </view>
   <view wx:else>
     <text>搜索文字：</text>
-    <input type="text" placeholder="任意文字" bindinput="inputText" value="{{textS}}"/>
+    <input type="text" placeholder="任意文字" bindinput="inputText" value="{{textS}}" />
   </view>
   <view>
     <text>帖子类型选择：</text>
@@ -36,20 +40,21 @@
   </view>
   <view>
     <text>搜索发帖者用户名：</text>
-    <input type="text" placeholder="任意发帖者" bindinput="inputUser" value="{{userS}}"/>
+    <input type="text" placeholder="任意发帖者" bindinput="inputUser" value="{{userS}}" />
   </view>
   <checkbox-group bindchange="switchAN">
     <checkbox value="anonymityS" checked="{{anonymityS}}">包含匿名用户</checkbox>
   </checkbox-group>
   <view>开始时间：</view>
   <picker mode="date" value="{{dateBS}}" start="BGD" end="" bindchange="switchBS">
-    <input type="text" value="{{dateBS}}" disabled="true"/>
+    <input type="text" value="{{dateBS}}" disabled="true" />
   </picker>
   <view>结束时间：</view>
   <picker mode="date" value="{{dateES}}" start="EGD" end="" bindchange="switchES">
-    <input type="text" value="{{dateES}}" disabled="true"/>
+    <input type="text" value="{{dateES}}" disabled="true" />
   </picker>
-  <text>标签选择:(未选代表任意)</text>  <!--这个要改成下拉框-->
+  <text>标签选择:(未选代表任意)</text>
+  <!--这个要改成下拉框-->
   <checkbox-group bindchange="selectTag">
     <view wx:for="{{tags}}">
       <checkbox value="{{item[1]}}" checked="{{tagsS[index]}}" id="{{index}}">{{item[1]}}</checkbox>
@@ -57,22 +62,43 @@
   </checkbox-group>
 </view>
 
-<view style="flex-wrap: wrap">
-  <view>
-    <view>显示帖子：</view>
-    <radio-group bindchange="selectType">
-      <view wx:for="{{types}}">
-        <radio value="{{index+0}}" checked="{{index==type}}">{{item}}</radio>
+<view class="selectState">
+  <van-dropdown-menu active-color="#1296db">
+    <van-dropdown-item title="{{'帖子类型：'+types[type]}}" wx:if="{{!pageType}}">
+      <view>
+        <view wx:for="{{types}}" class="postType">
+          <view>
+            <button bindtap="selectType" id="{{index+0}}">{{item}}</button>
+          </view>
+          <view class="buttonPic1" hidden="{{!(index==type)}}">
+            <image src="/img/leftsjx.png"></image>
+          </view>
+        </view>
       </view>
-    </radio-group>
-  </view>
-  <view>
-    <view>时间排序方式：</view>
-    <radio-group bindchange="selectST">
-      <radio value="desc" checked="{{'desc'==order}}">最新在前</radio>
-      <radio value="asc" checked="{{'asc'==order}}">最新在后</radio>
-    </radio-group>
-  </view>
+    </van-dropdown-item>
+    <van-dropdown-item title="{{'排序方式：'+('desc'==order?'最新在前':'最新在后')}}">
+      <view class="timeSelect">
+        <view class="item1">
+          <view class="buttonPic2" hidden="{{!('desc'==order)}}">
+            <image src="/img/rightsjx.png"></image>
+          </view>
+          <view>
+            <button bindtap="selectST" id="desc">最新在前</button>
+          </view>
+
+        </view>
+        <view class="item2">
+          <view class="buttonPic2" hidden="{{!('asc'==order)}}">
+            <image src="/img/rightsjx.png"></image>
+          </view>
+          <view>
+            <button bindtap="selectST" id="asc">最新在后</button>
+          </view>
+
+        </view>
+      </view>
+    </van-dropdown-item>
+  </van-dropdown-menu>
 </view>
 
 <view wx:if="{{!postn}}">暂无帖子(点击发布第一个帖子?)</view>
@@ -94,11 +120,6 @@
       <view class="content">
         <view wx:for="{{v[3]}}">
           <view>{{item}}</view>
-          <!--<text class="sumText">
-            <text wx:if="{{item[0]==1}}" class="contentText">{{item[1]}}</text>
-            <text wx:elif="{{item[0]==2}}">[假装加粗]{{item[1]}}[假装加粗]</text>
-            <text wx:elif="{{item[0]==3}}">[图片]</text>
-          </text>-->
         </view>
       </view>
       <view class="state">

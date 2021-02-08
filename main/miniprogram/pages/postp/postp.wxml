@@ -1,34 +1,64 @@
 <!--pages/postp/postp.wxml-->
-<text>发布帖子(调试)</text>
+<view style="height:50rpx"></view>
 <view wx:if="{{!type}}">回复帖子：{{replyPost}}</view>
 <view wx:if="{{reply}}">->回复回帖用户：{{replyReply}}</view>
 <view wx:if="{{type}}">
-  <view>
-    <text>标题输入：</text><input type="text" placeholder="请输入标题" bindinput="inputTitle" value="{{title}}" />
+  <view class="InputTitle">
+    <view class="titlePic">
+      <image src="/img/posttitle.png"></image>
+    </view>
+    <view class="titleText"><input class="titleInput" type="text" placeholder="好标题是成功的第一步" bindinput="inputTitle"
+        value="{{title}}" /></view>
   </view>
-  <text>标签选择:</text>  <!--这个要改成下拉框-->
-  <radio-group bindchange="selectTag">
-    <view wx:for="{{tags}}">
-      <radio value="{{item[1]}}" checked="{{item[1]==tag}}">{{item[1]}}</radio>
-    </view>
-  </radio-group>
-  <text>帖子类型选择：</text>
-  <radio-group bindchange="selectType">
-    <view wx:for="{{types}}">
-      <radio value="{{index+1}}" checked="{{index+1==type}}">{{item}}</radio>
-    </view>
-  </radio-group>
+  <van-divider></van-divider>
+  <van-cell title="{{'标签：'+tag}}" is-link bind:click="showPopup1" />
+  <van-popup custom-style="height: 100%;" position="right" show="{{ show1 }}" bind:close="onClose1">
+    <radio-group bindchange="selectTag">
+      <view class="selecTag">
+        <view wx:for="{{tags}}" class="tags">
+          <radio value="{{item[1]}}" checked="{{item[1]==tag}}">{{item[1]}}</radio>
+        </view>
+      </view>
+    </radio-group>
+  </van-popup>
+
+  <van-cell title="{{'帖子类型：'+types[type-1]}}" is-link bind:click="showPopup2" />
+  <van-popup custom-style="height: 100%;" position="right" show="{{ show2 }}" bind:close="onClose2">
+    <radio-group bindchange="selectType">
+      <view wx:for="{{types}}" class="types">
+        <radio value="{{index+1}}" checked="{{index+1==type}}">{{item}}</radio>
+      </view>
+    </radio-group>
+  </van-popup>
 </view>
-<button bindtap="selectImage">选择图片</button>
 <!--以上内容不会随着屏幕下拉而下拉，永远在屏幕头上-->
 
-<view wx:for="{{tx}}" wx:for-index="i" wx:for-item="v">
+<view wx:for="{{tx}}" wx:for-index="i" wx:for-item="v" class="inputContent">
   <textarea wx:if="{{v[0]==1}}" placeholder="请输入文本" value="{{v[1]}}" bindblur="inputText" bindinput="inputText"
     id="{{i}}" maxlength="-1"></textarea>
   <image wx:if="{{v[0]==3}}" src="{{pathtp+v[1]}}"></image>
   <button wx:if="{{v[0]==3}}" bindtap="delImage" id="{{i}}">[删除图片]</button>
 </view>
-<checkbox-group bindchange="switchCB">
-  <checkbox value="anonymity" checked="{{anonymity}}">匿名发布</checkbox>
-</checkbox-group>
-<button bindtap="publistPost">发表</button>
+<view style="height:200rpx"></view>
+<view class="stateBody">
+  <view class="state">
+    <view class="selectImg">
+      <button bindtap="selectImage" style="width:150rpx;height: 100rpx;padding:0;">
+        <view class="addPhoto">
+          <image src="/img/addphoto.png"></image>
+        </view>
+      </button>
+    </view>
+    <view class="switcgCB">
+      <checkbox-group bindchange="switchCB">
+        <checkbox value="anonymity" checked="{{anonymity}}">匿名发布</checkbox>
+      </checkbox-group>
+    </view>
+  </view>
+  <view class="send">
+    <view class="sendButton">
+      <van-button round color="linear-gradient(to right, rgb(128, 255, 185), rgb(101, 219, 248))" type="primary"
+        bindtap="publistPost">发表</van-button>
+    </view>
+  </view>
+</view>

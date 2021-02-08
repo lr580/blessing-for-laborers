@@ -5,12 +5,14 @@ Page({
    * 页面的初始数据
    */
   data: {
+    show1: false,//前端使用
+    show2: false,//前端使用
     pid: 0,//当前申请到的帖子id(0为未申请，-1申请失败)
     pub: false,//是否成功发帖
     picn: 0,//当前上传了多少张图片
     anonymity: false,//是否匿名发布
     tx: [[1, '']],//单元
-    pathtp: '',
+    pathtp: '',//路径，见全局变量
     activeTx: -1,//当前鼠标点中第几个单元(从0开始算)
     me: 0,//发帖人
     reply: 0,//回帖
@@ -28,6 +30,20 @@ Page({
     comment: [],//编辑帖子时可能不为空的回帖列表
     thumbs: 0,//编辑帖子时可能不为0的点赞数
     types: [],//帖子类型
+  },
+
+  //前端使用
+  showPopup1() {
+    this.setData({ show1: true });
+  },
+  onClose1() {
+    this.setData({ show1: false });
+  },
+  showPopup2() {
+    this.setData({ show2: true });
+  },
+  onClose2() {
+    this.setData({ show2: false });
   },
 
   /**
@@ -296,7 +312,7 @@ Page({
         })
         wx.navigateBack({})
         wx.showToast({
-          title: (thee.data.edit ? '修改' : '发帖') + '成功！',
+          title: (thee.data.edit ? '修改' : '发帖') + '成功！刷新后可以看到自己的帖子！',
           icon: 'none',
           duration: 3000,
         })

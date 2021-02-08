@@ -31,25 +31,7 @@
       <image src="/img/activity.png"></image>
       <text>{{pdate[0]}}/{{pdate[1]}}/{{pdate[2]}} {{pdate[3]}}:{{pdate[4]}}:{{pdate[5]}}</text>
     </view>
-    <!--<view bindtap="starPost" bindlongpress="cancelCollect" id="{{postt.id}}">
-    <view wx:if="{{!starpost}}" class="collect">
-      <image src="/img/collect.png"></image><text>收藏</text>
-    </view>
-    <view wx:if="{{starpost}}" class="collect">
-      <image src="/img/collect!.png"></image><text>收藏</text>
-    </view>
-  </view>
-  <view class="like" bindtap="thumbize" id="{{postt.id}}">
-    <view wx:if="{{!thumbpost}}">
-      <image src="/img/like.png"></image> <text>{{postt.thumbs}}</text>
-    </view>
-    <view wx:else>
-      <image src="/img/like!.png"></image> <text>{{postt.thumbs}}</text>
-    </view>
-  </view>
-  <view class="share">
-    <image src="/img/transmit.png"></image><text>转发</text>
-  </view>-->
+
     <view class="delete" bindtap="delPost" id="{{postt.id}}" wx:if="{{me==postt.user}}">
       <image src="/img/delete.png"></image><text>删除</text>
     </view>

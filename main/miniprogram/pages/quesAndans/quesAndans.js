@@ -1,43 +1,472 @@
-// miniprogram/pages/quesAndans/quesAndans.js
+// pages/discuss/discuss.js
+var modu = require('../../lrfx.js')
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
-  },
-
-  navToPost: function(e){
-    wx.navigateTo({
-      url: '../postt/postt?id=1',
-    })
-  },
-
-  navToPostP: function(e){
-    wx.navigateTo({
-      url: '../postp/postp?reply=0&type=1&edit=false',
-    })
+    pageType: 1,//为0是交流页，为1是问答页
+    initLoads: 5,//刚打开界面只显示五个帖子
+    freshLoads: 3,//下拉刷新增添的帖子
+    pathp: "cloud://scnuyjx-7gmvlqwfe64c446a.7363-scnuyjx-7gmvlqwfe64c446a-1304878008/userpic/",//头像图片绝对路径一部分
+    pathtp: "cloud://scnuyjx-7gmvlqwfe64c446a.7363-scnuyjx-7gmvlqwfe64c446a-1304878008/postpic/",//帖子图片绝对路径一部分
+    posts: [],//所有帖子（第二层下标 0为帖子对象 1用户对象 2最后活跃时间 3缩略内容）
+    postn: 0,//目前展示的帖子数
+    alreadyAll: false,//已经读完了全部帖子
+    me: 0,//当前用户uid
+    unfresh: false,//是否需要更新
+    types: [],//帖子类型
+    dem: {},//帖子的筛选条件
+    type: 0,//0代表全选，不代表回帖
+    order: 'desc',//时间的筛选条件
+    distinctS: true,//搜索文本是否区分标题和正文
+    titleS: '',//搜索标题
+    contentS: '',//搜索正文
+    textS: '',//搜索文本
+    typesS: [false, false, false, false, false],//选中的搜索帖子类型
+    userS: '',//搜索用户名
+    dateBS: '2021-02-06',//搜索起始日期范围
+    dateES: '2021-02-08',//搜索结束时间范围
+    BGD: '2021-02-01',//起始日期
+    EGD: '2023-02-01',//终止日期
+    tags: [],//标签列表
+    tagsS: [],//搜索选中标签列表(布尔值数组)
+    replyS: false,//搜索包含回帖
+    anonymityS: true,//搜索包含匿名用户
+    insearch: false,//是否在搜索
+    bgdt: new Date(),//搜索起始日期范围对象
+    eddt: new Date(),//搜索结束日期范围对象
+    username: [],//所有用户名与id对应列表
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    /*var suc=0
+    const cc=wx.cloud.database().collection('post')
+    for(let i=1;i<=130;++i){
+      cc.doc(String(i)).get().then(res=>{
+        var tx=''
+        var t=res.data.content
+        for(let j=0;j<t.length;++j){
+          if(t[j][0]!=3) tx+=t[j][1]+' '
+        }
+        cc.doc(String(i)).update({data:{pureText:tx}}).then(rea=>{console.log(i,++suc)})
+      })
+    }*/
+
+    var dem = {
+      hide: false,
+    }
+    const _ = wx.cloud.database().command
+    if(this.data.pageType==0) dem['type'] = _.neq(0).and(_.neq(1))
+    else dem['type'] = 1
+
+    this.setData({
+      me: getApp().globalData.userID,
+      pathp: getApp().globalData.pathp,
+      pathtp: getApp().globalData.pathtp,
+      types: ['全部'].concat(getApp().globalData.types),
+      dem: dem,
+    })
+
+    wx.cloud.database().collection('global').doc('catagory').get().then(res => {
+      var temp = res.data.cat
+      var t2 = []
+      for (let i = 0; i < temp.length; ++i) t2.push(false)
+
+      function cmp() {//降序排列标签
+        return function (a, b) {
+          return b[0] - a[0]
+        }
+      }
+      temp.sort(cmp())
+      this.setData({
+        tags: temp,
+        tagsS: t2,
+      })
+    })
+
+    wx.cloud.database().collection('global').doc('username').get().then(res => {
+      this.setData({ username: res.data })
+    })
+
+    this.firstLoad()
+  },
+
+  firstLoad: function () {//加载第一版帖子
+    var dem = this.data.dem
+    delete dem['activeTime']
+    var thee = this
+    this.setData({ alreadyAll: false })
+    //console.log(dem)
+    wx.cloud.database().collection('post').where(dem).limit(this.data.initLoads)
+      .orderBy('activeTime', this.data.order).get({
+        success: res => {
+          var fina = 0
+          var temp = []//读取数据暂存
+          for (let i = 0; i < res.data.length; ++i) temp[i] = []
+          if (res.data.length == 0) {
+            thee.setData({
+              postn: 0,
+              posts: [],
+            })
+            return
+          }
+          //console.log(res.data.length)
+
+          for (let i = 0; i < res.data.length; ++i) {
+            temp[i][0] = res.data[i]
+            temp[i][2] = [res.data[i].activeTime.getFullYear(),
+            res.data[i].activeTime.getMonth() + 1,
+            res.data[i].activeTime.getDate(),
+            res.data[i].activeTime.getHours(),
+            res.data[i].activeTime.getMinutes(),
+            res.data[i].activeTime.getSeconds()]
+            temp[i][3] = modu.getABS(res.data[i].content)
+            wx.cloud.database().collection('user').doc(String(res.data[i].user)).get().then(ret => {
+              ++fina
+              temp[i][1] = ret.data
+              if (fina == res.data.length) {
+                thee.setData({
+                  postn: res.data.length,
+                  posts: temp,
+                })
+              }
+            })
+          }
+        },
+        fail: res => {
+          console.lof('faiff')
+          thee.setData({
+            postn: 0,
+            posts: [],
+          })
+        }
+      })
 
   },
 
   /**
-   * 生命周期函数--监听页面初次渲染完成
+   * 页面上拉触底事件的处理函数
    */
-  onReady: function () {
+  onReachBottom: function () {
+    if (!this.data.posts.length) return
+    var lastLeastActiveTime = this.data.posts[this.data.posts.length - 1][0].activeTime
+    var olen = this.data.posts.length //原本加载了多少帖子
+    var dem = this.data.dem
+    var bggt = this.data.bgdt
+    var edgt = this.data.eddt
+    //console.log(bggt, edgt)
+    if (!this.data.insearch) {
+      if (this.data.order == 'desc')//就现实情况而言，不存在两个帖子同时发布
+        dem['activeTime'] = wx.cloud.database().command.lt(lastLeastActiveTime)
+      else dem['activeTime'] = wx.cloud.database().command.gt(lastLeastActiveTime)
+    } else {
+      const _ = wx.cloud.database().command
+      //console.log('www', dem, typeof dem)
+      if (dem['operands'] != undefined) {
+        //console.log(1)
+        if (this.data.order = 'desc') {
+          dem.operands[0]['activeTime'] = _.gt(bggt).and(_.lt(lastLeastActiveTime))
+          dem.operands[1]['activeTime'] = _.gt(bggt).and(_.lt(lastLeastActiveTime))
+        } else {
+          dem.operands[0]['activeTime'] = _.gt(lastLeastActiveTime).and(_.lt(edgt))
+          dem.operands[1]['activeTime'] = _.gt(lastLeastActiveTime).and(_.lt(edgt))
+        }
+        //console.log(dem)
+      } else {
+        //console.log(2)
+        if (this.data.order == 'desc')
+          dem['activeTime'] = _.gt(bggt).and(_.lt(lastLeastActiveTime))
+        else dem['activeTime'] = _.gt(lastLeastActiveTime).and(_.lt(edgt))
+      }
+    }
+    wx.cloud.database().collection('post').where(dem).limit(this.data.freshLoads)
+      .orderBy('activeTime', this.data.order).get().then(res => {
+        var fina = 0
+        var temp = []//读取数据暂存
+        if (!res.data.length) this.setData({ alreadyAll: true })
 
+        for (let i = 0; i < res.data.length; ++i) temp[i] = []
+
+        for (let i = 0; i < res.data.length; ++i) {
+          temp[i][0] = res.data[i]
+          temp[i][2] = [res.data[i].activeTime.getFullYear(),
+          res.data[i].activeTime.getMonth() + 1,
+          res.data[i].activeTime.getDate(),
+          res.data[i].activeTime.getHours(),
+          res.data[i].activeTime.getMinutes(),
+          res.data[i].activeTime.getSeconds()]
+          temp[i][3] = modu.getABS(res.data[i].content)
+          wx.cloud.database().collection('user').doc(String(res.data[i].user)).get().then(ret => {
+            ++fina
+            temp[i][1] = ret.data
+            if (fina == res.data.length) {
+              this.setData({
+                postn: this.data.postn + res.data.length,
+                posts: this.data.posts.concat(temp),
+              })
+            }
+          })
+        }
+      })
+  },
+
+  /**
+   * 页面相关事件处理函数--监听用户上拉！动作
+   */
+  onPullDownRefresh: function () {
+    this.firstLoad()
+    this.setData({ alreadyAll: false })
+    wx.showToast({
+      title: '刷新成功',
+      duration: 1500,
+    })
+  },
+
+  gotoPost: function (e) {
+    var temp = this.data.posts
+    var idx = -1
+    for (let i = 0; i < this.data.postn; ++i) {
+      if (Number(e.currentTarget.id) == temp[i][0].id) {
+        idx = i
+        break
+      }
+    }
+    //console.log(temp[idx][0].type,temp[idx][0].fatherPost)
+    if (temp[idx][0].fatherPost) {
+      wx.navigateTo({
+        url: '/pages/postt/postt?id=' + String(temp[idx][0].fatherPost),
+      })
+    } else {
+      wx.navigateTo({
+        url: '/pages/postt/postt?id=' + String(e.currentTarget.id),
+      })
+    }
+    this.setData({ unfresh: true })
+  },
+
+  selectType: function (e) {
+    this.setData({ type: Number(e.currentTarget.id) })
+    var ty = Number(e.currentTarget.id)
+    var dem = this.data.dem
+
+    if (!ty) {
+      dem['type'] = wx.cloud.database().command.neq(0)
+    } else {
+      dem['type'] = ty
+    }
+    delete dem['activeTime']
+    this.setData({
+      type: ty,
+      dem: dem,
+    })
+
+    this.firstLoad()
+  },
+
+  selectST: function (e) {
+    this.setData({ order: e.currentTarget.id })
+    this.firstLoad()
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+    var fr = this.data.unfresh
+    if (fr) this.firstLoad()
+  },
+
+  switchDI: function (e) {
+    this.setData({ distinctS: e.detail.value.includes('dist') })
+  },
+
+  inputTitle: function (e) {
+    this.setData({ titleS: e.detail.value })
+  },
+
+  inputContent: function (e) {
+    this.setData({ contentS: e.detail.value })
+  },
+
+  inputText: function (e) {
+    this.setData({
+      titleS: e.detail.value,
+      contentS: e.detail.value,
+      textS: e.detail.value,
+    })
+  },
+
+  inputUser: function (e) {
+    if (e.detail.value) {
+      this.setData({ anonymityS: false })
+    }
+    this.setData({ userS: e.detail.value })
+  },
+
+  switchType: function (e) {
+    var temp = [false, false, false, false, false]
+    var edv = e.detail.value
+    var ty = this.data.types
+    for (let i = 1; i <= 4; ++i) {
+      temp[i] = edv.includes(ty[i])
+    }
+    this.setData({ typesS: temp })
+  },
+
+  switchBS: function (e) {
+    this.setData({ dateBS: e.detail.value })
+  },
+
+  switchES: function (e) {
+    this.setData({ dateES: e.detail.value })
+  },
+
+  selectTag: function (e) {
+    var temp = []
+    var idx = e.currentTarget.id
+    var v = e.detail.value
+    for (let i = 0; i < this.data.tags.length; ++i) {
+      temp.push(v.includes(this.data.tags[i][1]))
+    }
+    this.setData({ tagsS: temp })
+  },
+
+  switchIR: function (e) {
+    this.setData({ replyS: e.detail.value.includes('replyS') })
+  },
+
+  switchAN: function (e) {
+    if (this.data.userS) {
+      wx.showToast({
+        title: '搜索条件含发帖者时不能搜索匿名用户',
+        icon: 'none',
+      })
+      this.setData({ anonymityS: false })
+      return
+    }
+    this.setData({ anonymityS: e.detail.value.includes('anonymityS') })
+  },
+
+  search: function (e) {
+    var _ = wx.cloud.database().command
+    var bgdt = new Date(this.data.dateBS)
+    var eddt = new Date(this.data.dateES)
+    eddt = eddt.setDate(eddt.getDate() + 1)
+    eddt = new Date(eddt)
+    //console.log(bgdt,eddt)
+    var demp = {//共性要求
+      activeTime: _.gt(bgdt).and(_.lt(eddt)),
+      hide: false,
+    }
+
+    var ty = []
+    for (let i = 1; i <= 4; ++i) if (this.data.typesS[i]) ty.push(i)
+    if (this.data.replyS) ty.push(0)
+    if (ty.length) demp['type'] = _.in(ty)
+
+    var tagn = 0
+    var stag = []
+    for (let i = 0; i < this.data.tags.length; ++i) if (this.data.tagsS[i]) {
+      ++tagn
+      stag.push(this.data.tags[i][1])
+    }
+    if (tagn) demp['tag'] = _.in(stag)
+    if (!this.data.anonymityS) demp['anonymity'] = false
+
+    var user = []
+    if (this.data.userS) {
+      var un = this.data.username
+      var fx = new RegExp('.*' + this.data.userS + '.*', 'im')
+      for (var name in un) {
+        if (name.search(fx) == 0) {
+          user.push(un[name])
+        }
+      }
+      demp['user'] = _.in(user)
+      demp['anonymity'] = false
+    }
+
+    var dem1
+    if (this.data.distinctS) {
+      if (this.data.titleS) demp['title'] = wx.cloud.database().RegExp({
+        regexp: '.*' + this.data.titleS + '.*',
+        options: 'is',
+      })
+      if (this.data.contentS) demp['content'] = wx.cloud.database().command.elemMatch({
+        '1': wx.cloud.database().RegExp({
+          regexp: '.*' + this.data.contentS + '.*',
+          options: 'is',
+        })
+      })
+      dem1 = demp
+    } else {
+      var d1 = {}, d2 = {}
+      for (let k in demp) {
+        d1[k] = demp[k]
+        d2[k] = demp[k]
+      }
+      if (this.data.textS) {
+        d1['title'] = wx.cloud.database().RegExp({
+          regexp: '.*' + this.data.titleS + '.*',
+          options: 'is',
+        })
+        d2['content'] = wx.cloud.database().command.elemMatch({
+          '1': wx.cloud.database().RegExp({
+            regexp: '.*' + this.data.contentS + '.*',
+            options: 'is',
+          })
+        })
+      }
+      dem1 = _.or([d1, d2])
+    }
+
+    //console.log(dem1)
+    this.setData({
+      dem: dem1,
+      insearch: true,
+      bgdt: bgdt,
+      eddt: eddt,
+    })
+    this.firstLoad()
+    /*wx.cloud.database().collection('post').where(dem1).limit(this.data.initLoads).get().then(res => {
+      console.log(res.data)
+    })*/
+    /*const LIM = 100
+    exports.main = async (event, content) => {
+      const cr = await wx.cloud.database().collection('post').count()
+      const tot = cr.total
+      const batchs = Math.ceil(tot / LIM)
+      var tasks = []
+      for (let i = 0; i < batchs; ++i) {
+        var promise = wx.cloud.database().collection('post').skip(i * LIM).limit(LIM).get()
+        tasks.push(promise)
+      }
+      return (await Promise.all(tasks)).reduce((acc, cur) => {
+        console.log('cur', cur.data)
+        return {
+          data: acc.data.concat(cur.data),
+          errMsg: acc.errMsg,
+        }
+      })
+    }*/
+  },
+
+  postize: function (e) {
+    wx.navigateTo({
+      url: '../postp/postp?reply=0&type=1&edit=false',
+    })
+    this.onLoad()
+  },
+
+  /**
+ * 生命周期函数--监听页面初次渲染完成
+ */
+  onReady: function () {
 
   },
 
@@ -55,19 +484,7 @@ Page({
 
   },
 
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
 
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
 
   /**
    * 用户点击右上角分享

@@ -1,1 +1,112 @@
 /* pages/postp/postp.wxss */
+.InputTitle image{
+  height: 60rpx;
+  width:60rpx;
+}
+
+.InputTitle{
+  display: flex;
+justify-content: center;
+}
+
+.titleText{
+  display: flex;
+  font-size: 50rpx;
+}
+
+.titleInput{
+  height: 60rpx;
+ 
+}
+
+.selectTag{
+  margin-top: 200rpx;
+}
+
+.tags{
+  margin-left: 20rpx;
+  margin-right: 20rpx;
+}
+
+
+.types{
+  margin-left: 20rpx;
+  margin-right: 40rpx;
+}
+
+.state{
+  height: 100rpx;
+  margin-left: 50rpx;
+  margin-right: 50rpx;
+  display: flex;
+  align-items: center;
+}
+
+.stateBody{
+  position: fixed;
+  bottom: 5rpx;
+  background-color: white;
+  border-top: 4rpx solid darkgray;
+}
+
+
+.switcgCB{
+  margin-left: 300rpx;
+}
+.addPhoto image{
+  margin-top: 20rpx;
+
+  width: 80rpx;
+  height: 65rpx;
+}
+
+.addPhoto text{
+  font-size: 30rpx;
+}
+
+.inputContent{
+  margin: 40rpx 40rpx;
+  height: 100rpx;
+  width: 670rpx;
+}
+
+.inputContent textarea{
+  font-weight: 200;
+  height: 200rpx;
+  width: 670rpx;
+}
+
+.sendButton{
+  width: 750rpx;
+  display: flex;
+  justify-content: center;
+}
+
+.rePost{
+  overflow:hidden;
+  white-space:nowrap;
+  text-overflow:ellipsis;
+  margin-left: 30rpx;
+  margin-right: 30rpx;
+  align-items: center;
+  font-size: 50rpx;
+  font-weight: 200rpx;
+  height: 100rpx;
+  border-bottom: 4rpx solid darkgray;
+  border-top: 4rpx solid darkgray;
+}
+
+.reUser{
+  margin-top: 5rpx;
+  overflow:hidden;
+  white-space:nowrap;
+  text-overflow:ellipsis;
+  margin-left: 30rpx;
+  margin-right: 30rpx;
+  align-items: center;
+  font-size: 50rpx;
+  font-weight: 200rpx;
+  height: 100rpx;
+  border-bottom: 4rpx solid darkgray;
+  border-top: 4rpx solid darkgray;
+}

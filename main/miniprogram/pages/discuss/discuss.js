@@ -6,6 +6,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    pageType: 0,//为0是交流页，为1是问答页
     initLoads: 5,//刚打开界面只显示五个帖子
     freshLoads: 3,//下拉刷新增添的帖子
     pathp: "cloud://scnuyjx-7gmvlqwfe64c446a.7363-scnuyjx-7gmvlqwfe64c446a-1304878008/userpic/",//头像图片绝对路径一部分
@@ -23,7 +24,7 @@ Page({
     titleS: '',//搜索标题
     contentS: '',//搜索正文
     textS: '',//搜索文本
-    typesS: [false, true, true, false, false],//选中的搜索帖子类型
+    typesS: [false, false, false, false, false],//选中的搜索帖子类型
     userS: '',//搜索用户名
     dateBS: '2021-02-06',//搜索起始日期范围
     dateES: '2021-02-08',//搜索结束时间范围
@@ -57,9 +58,12 @@ Page({
     }*/
 
     var dem = {
-      type: wx.cloud.database().command.neq(0),
       hide: false,
     }
+    const _ = wx.cloud.database().command
+    if(this.data.pageType==0) dem['type'] = _.neq(0).and(_.neq(1))
+    else dem['type'] = 1
+
     this.setData({
       me: getApp().globalData.userID,
       pathp: getApp().globalData.pathp,
@@ -162,7 +166,7 @@ Page({
       else dem['activeTime'] = wx.cloud.database().command.gt(lastLeastActiveTime)
     } else {
       const _ = wx.cloud.database().command
-      console.log('www', dem, typeof dem)
+      //console.log('www', dem, typeof dem)
       if (dem['operands'] != undefined) {
         //console.log(1)
         if (this.data.order = 'desc') {
@@ -172,7 +176,7 @@ Page({
           dem.operands[0]['activeTime'] = _.gt(lastLeastActiveTime).and(_.lt(edgt))
           dem.operands[1]['activeTime'] = _.gt(lastLeastActiveTime).and(_.lt(edgt))
         }
-        console.log(dem)
+        //console.log(dem)
       } else {
         //console.log(2)
         if (this.data.order == 'desc')
@@ -246,8 +250,8 @@ Page({
   },
 
   selectType: function (e) {
-    this.setData({ type: Number(e.detail.value) })
-    var ty = Number(e.detail.value)
+    this.setData({ type: Number(e.currentTarget.id) })
+    var ty = Number(e.currentTarget.id)
     var dem = this.data.dem
 
     if (!ty) {
@@ -265,7 +269,7 @@ Page({
   },
 
   selectST: function (e) {
-    this.setData({ order: e.detail.value })
+    this.setData({ order: e.currentTarget.id })
     this.firstLoad()
   },
 
@@ -337,10 +341,10 @@ Page({
   },
 
   switchAN: function (e) {
-    if(this.data.userS){
+    if (this.data.userS) {
       wx.showToast({
         title: '搜索条件含发帖者时不能搜索匿名用户',
-        icon:'none',
+        icon: 'none',
       })
       this.setData({ anonymityS: false })
       return
@@ -372,9 +376,7 @@ Page({
       stag.push(this.data.tags[i][1])
     }
     if (tagn) demp['tag'] = _.in(stag)
-    if(!this.data.anonymityS) demp['anonymity']=false
-
-    //if()
+    if (!this.data.anonymityS) demp['anonymity'] = false
 
     var user = []
     if (this.data.userS) {
@@ -395,9 +397,11 @@ Page({
         regexp: '.*' + this.data.titleS + '.*',
         options: 'is',
       })
-      if (this.data.contentS) demp['pureText'] = wx.cloud.database().RegExp({//该条件并不……好
-        regexp: '.*' + this.data.contentS + '.*',
-        options: 'is',
+      if (this.data.contentS) demp['content'] = wx.cloud.database().command.elemMatch({
+        '1': wx.cloud.database().RegExp({
+          regexp: '.*' + this.data.contentS + '.*',
+          options: 'is',
+        })
       })
       dem1 = demp
     } else {
@@ -411,15 +415,17 @@ Page({
           regexp: '.*' + this.data.titleS + '.*',
           options: 'is',
         })
-        d2['pureText'] = wx.cloud.database().RegExp({
-          regexp: '.*' + this.data.contentS + '.*',
-          options: 'is',
+        d2['content'] = wx.cloud.database().command.elemMatch({
+          '1': wx.cloud.database().RegExp({
+            regexp: '.*' + this.data.contentS + '.*',
+            options: 'is',
+          })
         })
       }
       dem1 = _.or([d1, d2])
     }
 
-    console.log(dem1)
+    //console.log(dem1)
     this.setData({
       dem: dem1,
       insearch: true,
@@ -448,8 +454,13 @@ Page({
         }
       })
     }*/
+  },
 
-
+  postize: function (e) {
+    wx.navigateTo({
+      url: '../postp/postp?reply=0&type=2&edit=false',
+    })
+    this.onLoad()
   },
 
   /**

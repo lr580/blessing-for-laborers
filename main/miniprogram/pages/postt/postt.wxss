@@ -1,27 +1,27 @@
 /* miniprogram/pages/postt/postt.wxss */
-.postInfo{
+.postInfo {
   margin-top: 20rpx;
   margin-left: 20rpx;
   margin-right: 20rpx;
 }
 
-.postTitle{
-  font-size:60rpx;
+.postTitle {
+  font-size: 60rpx;
   font-weight: 800;
   display: flex;
   flex-wrap: wrap;
-  align-items:center;
+  align-items: center;
 }
 
-.tag image{
+.tag image {
   width: 30rpx;
   height: 30rpx;
 }
 
-.tag{
+.tag {
   margin-left: 100rpx;
   font-size: 30rpx;
-  font-weight:400;
+  font-weight: 400;
   color: rgb(255, 160, 17);
   position: absolute;
   left: 550rpx;
@@ -29,35 +29,35 @@
 
 
 
-.user{
+.user {
   margin-top: 20rpx;
   display: flex;
 }
 
-.userName{
+.userName {
   margin-left: 20rpx;
-  font-weight:600;
+  font-weight: 600;
   display: flex;
-  align-items:center;
-  justify-content:center;
+  align-items: center;
+  justify-content: center;
   font-size: 40rpx;
 }
 
-.userHead image{
+.userHead image {
   height: 100rpx;
   width: 100rpx;
   border-radius: 50%;
   border: 8rpx solid rgb(134, 216, 241);
 }
 
-.postContent{
+.postContent {
   margin-left: 20rpx;
   margin-right: 20rpx;
   font-size: 40rpx;
   font-weight: 500;
 }
 
-.functionState{
+.functionState {
   margin-left: 20rpx;
   border: 4rpx solid darkgray;
   border-radius: 30rpx;
@@ -68,12 +68,13 @@
   justify-content: space-evenly;
 }
 
-.functionState image{
+.functionState image {
   margin-top: 5rpx;
   width: 60rpx;
   height: 60rpx;
 }
-.replyize{
+
+.replyize {
   display: flex;
   align-content: center;
 }
@@ -93,97 +94,96 @@
   margin-left: 20rpx;
   margin-right: 20rpx;
   display: flex;
-  align-items:center;
+  align-items: center;
   justify-content: space-evenly;
   border-bottom: 2rpx solid rgb(194, 188, 188);
-  border-top:  2rpx solid rgb(194, 188, 188);
+  border-top: 2rpx solid rgb(194, 188, 188);
   height: 70rpx;
- font-size: 30rpx;
- font-weight: 200;
- color: darkgray;
+  font-size: 30rpx;
+  font-weight: 200;
+  color: darkgray;
 }
 
-.postState image{
-  width:50rpx;
+.postState image {
+  width: 50rpx;
   height: 50rpx;
 }
 
-.replyButton{
+.replyButton {
   width: 100%;
   height: 130rpx;
-  position:fixed;
+  position: fixed;
   z-index: 100;
-  bottom:0;
+  bottom: 0;
   display: flex;
   align-content: center;
   background-color: white;
   justify-content: space-evenly;
   border-top: 6rpx solid rgba(70, 70, 70, 0.425);
-  border-top-left-radius: 30rpx;
-  border-top-right-radius: 30rpx;
 
 }
 
-.replyButton image{
+.replyButton image {
   width: 60rpx;
   height: 60rpx;
 }
 
-.button{
+.button {
   margin-top: 15rpx;
 }
 
-.section{
+.section {
   margin: 50rpx 30rpx 20rpx 30rpx;
   background-color: rgba(243, 243, 243, 0.479);
   border-radius: 30rpx;
 }
 
-.activity{
+.activity {
   display: flex;
-  align-items:center;
+  align-items: center;
 }
 
-.collect{
+.collect {
   display: flex;
-  align-items:center;
+  align-items: center;
 }
 
-.like{
+.like {
   display: flex;
-  align-items:center;
+  align-items: center;
 }
 
-.like text{
+.like text {
   margin-left: 5rpx;
 }
 
-.collect{
+.collect {
   display: flex;
-  align-items:center;
+  align-items: center;
 }
 
-.share{
+.share {
   display: flex;
-  align-items:center;
+  align-items: center;
 }
 
-.delete{
+.delete {
   display: flex;
-  align-items:center;
-}
-.edit{
-  display: flex;
-  align-items:center;
+  align-items: center;
 }
 
-.reuserInfo{
+.edit {
+  display: flex;
+  align-items: center;
+}
+
+.reuserInfo {
   margin-left: 20rpx;
   display: flex;
-  align-items:center;
+  align-items: center;
 }
 
-.reuserName{
+.reuserName {
   margin-left: 10rpx;
   width: 150rpx;
   font-size: 30rpx;
@@ -197,7 +197,7 @@
   text-overflow: ellipsis;
 }
 
-.bereuserName{
+.bereuserName {
   margin-left: 10rpx;
   width: 150rpx;
   font-size: 30rpx;
@@ -211,13 +211,13 @@
   text-overflow: ellipsis;
 }
 
-.reuserInfo image{
+.reuserInfo image {
   width: 60rpx;
   height: 60rpx;
   border-radius: 50%;
 }
 
-.doubleToright image{
+.doubleToright image {
   margin-left: 50rpx;
   margin-right: 50rpx;
   height: 50rpx;
@@ -225,26 +225,26 @@
   border-radius: 0;
 }
 
-.repostBody{
+.repostBody {
   margin-right: 20rpx;
 }
 
-.reContent{
+.reContent {
   margin: 0 20rpx;
   font-size: 40rpx;
 }
 
-.reContent image{
+.reContent image {
   width: 715rpx;
 }
 
-.restateBody{
+.restateBody {
   margin-top: 23rpx;
   display: flex;
   align-items: center;
 }
 
-.restate{
+.restate {
   margin-left: 10rpx;
   width: 500rpx;
   display: flex;
@@ -255,36 +255,35 @@
   font-size: 30rpx;
 }
 
-.restate image{
+.restate image {
   width: 30rpx;
   height: 30rpx;
 }
 
-.floor{
+.floor {
   font-size: 30rpx;
   color: darkgray;
   position: absolute;
   left: 650rpx;
 }
 
-.floor image{
+.floor image {
   width: 30rpx;
   height: 30rpx;
 }
 
-.time image{
+.time image {
   width: 30rpx;
   height: 30rpx;
 }
 
-.empty{
+.empty {
   justify-content: center;
   margin-left: 30%;
   color: darkgray;
 }
 
-.empty image{
+.empty image {
   width: 300rpx;
   height: 300rpx;
 }
-

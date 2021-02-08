@@ -1,8 +1,7 @@
 {
   "usingComponents": {
-    "van-divider":"/dist/divider",
-    "van-popup":"/dist/popup",
-    "van-button":"/dist/button"
+    "van-divider": "/dist/divider",
+    "van-popup": "/dist/popup",
+    "van-button": "/dist/button"
   }
-  
 }
