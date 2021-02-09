@@ -451,7 +451,7 @@ Page({
 
   selectST: function (e) {
     this.setData({
-      descTime: Number(e.detail.value) == 1,
+      descTime: e.detail.value,
       unfresh: true,
     })
     this.onShow()

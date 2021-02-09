@@ -1,4 +1,20 @@
 /* miniprogram/pages/postt/postt.wxss */
+
+.warning{
+  display:flex;                    
+  justify-content: center;      
+  flex-direction: column; 
+}
+
+.warnPic{
+  display:flex;   
+  justify-content: center;      
+}
+
+.warning image{
+  width: 400rpx;
+  height: 400rpx;
+}
 .postInfo {
   margin-top: 20rpx;
   margin-left: 20rpx;
@@ -286,4 +302,9 @@
 .empty image {
   width: 300rpx;
   height: 300rpx;
+}
+
+.selectButton{
+  margin-left: 20rpx;
+  margin-bottom: 20rpx;
 }

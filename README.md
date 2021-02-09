@@ -137,6 +137,8 @@ modu.lr581() //如果有必要，调试是否加载成功，成功后删掉即�
 
 - fatherPost:number //回帖的父贴id(主贴值为0)
 
+- fatherType:number//回帖类型(用于搜索，主贴显示同type)
+
 - pureText : string //正文纯文本(废置)
 
   > 技术问题已解决，目前pureText废置

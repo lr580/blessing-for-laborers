@@ -1,4 +1,33 @@
 /* pages/postp/postp.wxss */
+
+.rePost{
+  overflow:hidden;
+  white-space:nowrap;
+  text-overflow:ellipsis;
+  margin-left: 30rpx;
+  margin-right: 30rpx;
+  align-items: center;
+  font-size: 50rpx;
+  font-weight: 200rpx;
+  height: 100rpx;
+  border-bottom: 4rpx solid darkgray;
+  border-top: 4rpx solid darkgray;
+}
+
+.reUser{
+  margin-top: 5rpx;
+  overflow:hidden;
+  white-space:nowrap;
+  text-overflow:ellipsis;
+  margin-left: 30rpx;
+  margin-right: 30rpx;
+  align-items: center;
+  font-size: 50rpx;
+  font-weight: 200rpx;
+  height: 100rpx;
+  border-bottom: 4rpx solid darkgray;
+  border-top: 4rpx solid darkgray;
+}
 .InputTitle image{
   height: 60rpx;
   width:60rpx;
@@ -64,16 +93,11 @@ justify-content: center;
   font-size: 30rpx;
 }
 
-.inputContent{
-  margin: 40rpx 40rpx;
-  height: 100rpx;
-  width: 670rpx;
-}
 
 .inputContent textarea{
+  margin: 20rpx 20rpx;
   font-weight: 200;
   height: 200rpx;
-  width: 670rpx;
 }
 
 .sendButton{

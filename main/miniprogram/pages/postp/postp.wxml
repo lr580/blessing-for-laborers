@@ -1,7 +1,7 @@
 <!--pages/postp/postp.wxml-->
 <view style="height:50rpx"></view>
-<view wx:if="{{!type}}">回复帖子：{{replyPost}}</view>
-<view wx:if="{{reply}}">->回复回帖用户：{{replyReply}}</view>
+<view wx:if="{{!type}}" class="rePost">回复帖子：{{replyPost}}</view>
+<view wx:if="{{reply}}" class="reUser">->回复回帖用户：{{replyReply}}</view>
 <view wx:if="{{type}}">
   <view class="InputTitle">
     <view class="titlePic">

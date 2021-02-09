@@ -1,4 +1,9 @@
-<view wx:if="{{postt.hide}}">原帖已被删除！</view>
+<view wx:if="{{postt.hide}}" class="warning">
+  <view class="warnPic">
+    <image src="/img/warning.png"></image>
+  </view>
+  <view style="fontSize:50rpx; display:flex;justify-content: center; ">原帖已被删除！</view>
+</view>
 <view wx:else>
   <view class="postInfo">
     <view class="postTitle"><text>{{postt.title}}</text>
@@ -71,16 +76,17 @@
     </view>
   </view>
 
-  <view>
-    <view>时间排序方式：</view>
-    <radio-group bindchange="selectST">
-      <radio value="1" checked="{{descTime}}">最新在前</radio>
-      <radio value="0" checked="{{!descTime}}">最新在后</radio>
-    </radio-group>
-  </view>
+  <van-divider contentPosition="center" fontSize="15">交流区</van-divider>
+  <i-cell-group class="selectButton">
+    <i-cell title="自定义内容">
+      <i-switch value="{{descTime}}" size="large" bind:change="selectST" slot="footer">
+        <view slot="open">降序</view>
+        <view slot="close">升序</view>
+      </i-switch>
+    </i-cell>
+  </i-cell-group>
 </view>
 
-<van-divider contentPosition="center" fontSize="15">交流区</van-divider>
 <view class="comment">
   <view>
     <view wx:if="{{replys}}">

@@ -2,6 +2,7 @@
   "usingComponents": {
     "van-divider": "/dist/divider",
     "van-popup": "/dist/popup",
-    "van-button": "/dist/button"
+    "van-button": "/dist/button",
+    "i-switch": "/iView/switch/index"
   }
 }
