@@ -1,73 +1,92 @@
-<view class="discussPic1">
-  <image src="cloud://scnuyjx-7gmvlqwfe64c446a.7363-scnuyjx-7gmvlqwfe64c446a-1304878008/pic/cover.png"></image>
-  <view bindtap='postize'>
-    <text>我要发帖</text>
-    <view class="discussPic2">
-      <image src="cloud://scnuyjx-7gmvlqwfe64c446a.7363-scnuyjx-7gmvlqwfe64c446a-1304878008/pic/add.png"></image>
-    </view>
-  </view>
+<view class="topost" bindtap='postize'>
+  <image src="/img/topost.png"></image>
 </view>
-<view>
-  <!--这堆内容全部点击后展开点别的地方收起来qwq-->
-  <!--<searchBar></searchBar>我不会用searchBar这个东西qwq-->
-  <view>(不输入内容的栏目代表该条件为任意)</view>
-  <button bindtap="search">点我搜索</button>
-  <checkbox-group bindchange="switchIR">
-    <checkbox value="replyS" checked="{{replyS}}">包含回帖</checkbox>
-  </checkbox-group>
-  <checkbox-group bindchange="switchDI">
-    <checkbox value="dist" checked="{{distinctS}}">区分标题和正文</checkbox>
-  </checkbox-group>
-  <view wx:if="{{distinctS}}">
-    <text>搜索标题文字：</text>
-    <input type="text" placeholder="任意标题" bindinput="inputTitle" value="{{titleS}}" />
-    <text>搜索正文文字：</text>
-    <input type="text" placeholder="任意正文" bindinput="inputContent" value="{{contentS}}" />
-  </view>
-  <view wx:else>
-    <text>搜索文字：</text>
-    <input type="text" placeholder="任意文字" bindinput="inputText" value="{{textS}}" />
-  </view>
-  <view>
-    <text>帖子类型选择：</text>
-    <checkbox-group bindchange="switchType">
-      <view wx:for="{{types}}">
-        <view wx:if="{{index}}">
-          <checkbox value="{{item}}" checked="{{typesS[index]}}">{{item}}</checkbox>
+<van-cell arrow-direction="down" icon="/img/search.png" title="自定义条件搜索" is-link bind:click="showPopup">按照您的要求搜索
+</van-cell>
+
+<van-popup round position="bottom" custom-style="height:80%" show="{{ show }}" bind:close="onClose">
+  <view class="bodyColor">
+    <view class="searchBody">
+      <view class="searchTip">*(未勾选的栏目代表该条件为任意)</view>
+      <view class="select1">
+        <checkbox-group style="margin-left:20rpx" bindchange="switchIR">
+          <checkbox value="replyS" checked="{{replyS}}">包含回帖</checkbox>
+        </checkbox-group>
+        <checkbox-group style="margin-left:20rpx" bindchange="switchDI">
+          <checkbox value="dist" checked="{{distinctS}}">区分标题和正文</checkbox>
+        </checkbox-group>
+      </view>
+
+      <view class="select2">
+        <view wx:if="{{distinctS}}">
+          <text style="margin-left:20rpx">搜索标题文字：</text>
+          <input style="margin-left:40rpx" type="text" placeholder="任意标题" bindinput="inputTitle" value="{{titleS}}" />
+          <text style="margin-left:20rpx">搜索正文文字：</text>
+          <input style="margin-left:40rpx" type="text" placeholder="任意正文" bindinput="inputContent"
+            value="{{contentS}}" />
+        </view>
+        <view wx:else>
+          <text style="margin-left:20rpx">搜索文字：</text>
+          <input style="margin-left:40rpx" type="text" placeholder="任意文字" bindinput="inputText" value="{{textS}}" />
         </view>
       </view>
-    </checkbox-group>
-  </view>
-  <view>
-    <text>搜索发帖者用户名：</text>
-    <input type="text" placeholder="任意发帖者" bindinput="inputUser" value="{{userS}}" />
-  </view>
-  <checkbox-group bindchange="switchAN">
-    <checkbox value="anonymityS" checked="{{anonymityS}}">包含匿名用户</checkbox>
-  </checkbox-group>
-  <view>开始时间：</view>
-  <picker mode="date" value="{{dateBS}}" start="BGD" end="" bindchange="switchBS">
-    <input type="text" value="{{dateBS}}" disabled="true" />
-  </picker>
-  <view>结束时间：</view>
-  <picker mode="date" value="{{dateES}}" start="EGD" end="" bindchange="switchES">
-    <input type="text" value="{{dateES}}" disabled="true" />
-  </picker>
-  <text>标签选择:(未选代表任意)</text>
-  <!--这个要改成下拉框-->
-  <checkbox-group bindchange="selectTag">
-    <view wx:for="{{tags}}">
-      <checkbox value="{{item[1]}}" checked="{{tagsS[index]}}" id="{{index}}">{{item[1]}}</checkbox>
+
+      <view class="select3">
+        <text style="margin-left:20rpx">帖子类型选择：</text>
+        <checkbox-group style="margin-left:40rpx" bindchange="switchType">
+          <view wx:for="{{types}}">
+            <view wx:if="{{index>1}}">
+              <checkbox value="{{item}}" checked="{{typesS[index]}}">{{item}}</checkbox>
+            </view>
+          </view>
+        </checkbox-group>
+      </view>
+
+      <view class="select4">
+        <view>
+          <text style="margin-left:20rpx">搜索发帖者用户名：</text>
+          <input style="margin-left:40rpx" type="text" placeholder="任意发帖者" bindinput="inputUser" value="{{userS}}" />
+        </view>
+        <checkbox-group style="margin-left:40rpx" bindchange="switchAN">
+          <checkbox value="anonymityS" checked="{{anonymityS}}">包含匿名用户</checkbox>
+        </checkbox-group>
+      </view>
+
+
+      <view class="select5">
+        <view style="margin-left:20rpx">开始时间：</view>
+        <picker style="margin-left:40rpx" mode="date" value="{{dateBS}}" start="BGD" end="" bindchange="switchBS">
+          <input type="text" value="{{dateBS}}" disabled="true" />
+        </picker>
+        <view style="margin-left:20rpx">结束时间：</view>
+        <picker style="margin-left:40rpx" mode="date" value="{{dateES}}" start="EGD" end="" bindchange="switchES">
+          <input type="text" value="{{dateES}}" disabled="true" />
+        </picker>
+      </view>
+
+
+      <!--这个要改成下拉框-->
+      <view class="select6">
+      <view style="margin-left:20rpx">帖子标签：</view>
+        <checkbox-group style="margin-left:20rpx;margin-top:20rpx" bindchange="selectTag">
+          <view wx:for="{{tags}}">
+            <checkbox value="{{item[1]}}" checked="{{tagsS[index]}}" id="{{index}}">{{item[1]}}</checkbox>
+          </view>
+        </checkbox-group>
+        <button style="margin-top:40rpx;margin-bottom:40rpx" type="primary" bindtap="search">点我搜索</button>
+      </view>
     </view>
-  </checkbox-group>
-</view>
+  </view>
+</van-popup>
+
+
 
 <view class="selectState">
   <van-dropdown-menu active-color="#1296db">
     <van-dropdown-item title="{{'帖子类型：'+types[type]}}" wx:if="{{!pageType}}">
       <view>
         <view wx:for="{{types}}" class="postType">
-          <view>
+          <view wx:if="{{index!=1}}">
             <button bindtap="selectType" id="{{index+0}}">{{item}}</button>
           </view>
           <view class="buttonPic1" hidden="{{!(index==type)}}">
@@ -105,9 +124,13 @@
 <view wx:else>
   <view wx:for="{{posts}}" wx:for-index="i" wx:for-item="v">
     <view class="postPart" bindtap="gotoPost" id="{{v[0].id}}">
-      <view class="title">
+      <view class="title" wx:if="{{v[0].type}}">
         <image src="/img/title.png"></image>
         {{v[0].title}}
+      </view>
+      <view class="title" wx:else>
+        <image src="/img/title.png"></image>
+        (回帖)
       </view>
       <view class="userInfo">
         <view class="userHead">

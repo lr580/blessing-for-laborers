@@ -1,8 +1,7 @@
 <view wx:if="{{postt.hide}}" class="warning">
-  <view class="warnPic">
-    <image src="/img/warning.png"></image>
-  </view>
-  <view style="fontSize:50rpx; display:flex;justify-content: center; ">原帖已被删除！</view>
+<view class="warnPic"><image src="/img/warning.png"></image>
+</view>
+<view style="fontSize:50rpx; display:flex;justify-content: center; ">原帖已被删除！</view>
 </view>
 <view wx:else>
   <view class="postInfo">
@@ -76,17 +75,21 @@
     </view>
   </view>
 
-  <van-divider contentPosition="center" fontSize="15">交流区</van-divider>
-  <i-cell-group class="selectButton">
-    <i-cell title="自定义内容">
-      <i-switch value="{{descTime}}" size="large" bind:change="selectST" slot="footer">
-        <view slot="open">降序</view>
-        <view slot="close">升序</view>
-      </i-switch>
-    </i-cell>
-  </i-cell-group>
 </view>
 
+
+
+
+
+<van-divider contentPosition="center" fontSize="15">交流区</van-divider>
+<i-cell-group class="selectButton">
+    <i-cell title="自定义内容">
+        <i-switch value="{{descTime}}" size="large" bind:change="selectST" slot="footer">
+            <view slot="open">降序</view>
+            <view slot="close">升序</view>
+        </i-switch>
+    </i-cell>
+</i-cell-group>
 <view class="comment">
   <view>
     <view wx:if="{{replys}}">

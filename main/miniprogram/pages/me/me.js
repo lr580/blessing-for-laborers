@@ -5,49 +5,49 @@ Page({
    * 页面的初始数据
    */
   data: {
-    nickName:'',
-    userImg:'',
-    userCity:'',
-    school:'',
-    schoolArea:'',
-    gender:'',
-    loadKey:false,
-    changeInfokey:false
+    nickName: '',
+    userImg: '',
+    userCity: '',
+    school: '',
+    schoolArea: '',
+    gender: '',
+    loadKey: false,
+    changeInfokey: false
   },
 
-  console1:function(){
-console.log(1)
+  console1: function () {
+    console.log(1)
   },
 
-  gotoMypost:function(){
-wx.navigateTo({
-  url: '/pages/mypost/mypost',
-})
+  gotoMypost: function () {
+    wx.navigateTo({
+      url: '/pages/mypost/mypost',
+    })
   },
-  
-gotoHistory:function(){
+
+  gotoHistory: function () {
     wx.navigateTo({
       url: '/pages/history/history',
     })
-      },
+  },
 
-gotoCollect:function(){
+  gotoCollect: function () {
     wx.navigateTo({
       url: '/pages/collect/collect',
-      })
-        },
+    })
+  },
 
-        gotoHelp:function(){
-          wx.navigateTo({
-            url: '/pages/help/help',
-          })
-            },
+  gotoHelp: function () {
+    wx.navigateTo({
+      url: '/pages/help/help',
+    })
+  },
   //获取用户授权信息
-  FgetuserInfo:function(){
-    
+  FgetuserInfo: function () {
+
     var that = this;
     wx.getUserInfo({
-      success: function(res){
+      success: function (res) {
         console.log(res);
         var userInfo = res.userInfo
         console.log(userInfo);
@@ -55,20 +55,20 @@ gotoCollect:function(){
         var avatarUrl = userInfo.avatarUrl
         var userCity = userInfo.city
         var gender = userInfo.gender
-        if(gender==1){
+        if (gender == 1) {
           gender = '男'
-        }else if(gender==2){
+        } else if (gender == 2) {
           gender = '女'
-        }else{
+        } else {
           gender = '未知'
         }
         that.setData({
-          nickName:nickName,
-          avatarUrl:avatarUrl,
-          gender:gender,
-          userCity:userCity,
-          loadKey:true,
-          changeInfokey:true
+          nickName: nickName,
+          avatarUrl: avatarUrl,
+          gender: gender,
+          userCity: userCity,
+          loadKey: true,
+          changeInfokey: true
         })
       },
     })
@@ -92,7 +92,7 @@ gotoCollect:function(){
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    this.FgetuserInfo()//调试
   },
 
   /**

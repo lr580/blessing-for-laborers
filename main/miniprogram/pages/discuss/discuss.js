@@ -6,6 +6,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    show: false,//是否展示弹出层
     pageType: 0,//为0是交流页，为1是问答页
     initLoads: 5,//刚打开界面只显示五个帖子
     freshLoads: 3,//下拉刷新增添的帖子
@@ -20,11 +21,11 @@ Page({
     dem: {},//帖子的筛选条件
     type: 0,//0代表全选，不代表回帖
     order: 'desc',//时间的筛选条件
-    distinctS: true,//搜索文本是否区分标题和正文
+    distinctS: false,//搜索文本是否区分标题和正文
     titleS: '',//搜索标题
     contentS: '',//搜索正文
     textS: '',//搜索文本
-    typesS: [false, false, false, false, false],//选中的搜索帖子类型
+    typesS: [false, false, true, true, true],//选中的搜索帖子类型
     userS: '',//搜索用户名
     dateBS: '2021-02-06',//搜索起始日期范围
     dateES: '2021-02-08',//搜索结束时间范围
@@ -38,6 +39,14 @@ Page({
     bgdt: new Date(),//搜索起始日期范围对象
     eddt: new Date(),//搜索结束日期范围对象
     username: [],//所有用户名与id对应列表
+  },
+
+  showPopup() {
+    this.setData({ show: true });
+  },
+
+  onClose() {
+    this.setData({ show: false });
   },
 
   /**
@@ -61,7 +70,7 @@ Page({
       hide: false,
     }
     const _ = wx.cloud.database().command
-    if(this.data.pageType==0) dem['type'] = _.neq(0).and(_.neq(1))
+    if (this.data.pageType == 0) dem['type'] = _.neq(0).and(_.neq(1))
     else dem['type'] = 1
 
     this.setData({
@@ -353,6 +362,7 @@ Page({
   },
 
   search: function (e) {
+    this.setData({ show: false });//自动关闭弹出层
     var _ = wx.cloud.database().command
     var bgdt = new Date(this.data.dateBS)
     var eddt = new Date(this.data.dateES)
@@ -366,7 +376,10 @@ Page({
 
     var ty = []
     for (let i = 1; i <= 4; ++i) if (this.data.typesS[i]) ty.push(i)
-    if (this.data.replyS) ty.push(0)
+    if (this.data.replyS){
+      ty.push(0)
+      if(ty.length) demp['fatherType']=_.in(ty)//回帖fatherType有0也无所谓
+    }
     if (ty.length) demp['type'] = _.in(ty)
 
     var tagn = 0

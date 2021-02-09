@@ -72,6 +72,22 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    /*var suc=0
+    const cc = wx.cloud.database().collection('post')
+    for(let i=1;i<=153;++i){
+      cc.doc(String(i)).get().then(res=>{
+        if(res.data.type==0){
+          cc.doc(String(res.data.fatherPost)).get().then(ret=>{
+            cc.doc(String(i)).update({
+              data:{fatherType:ret.data.type}
+            }).then(rea=>{console.log(++suc,i)})
+          })
+        }
+        else{
+          cc.doc(String(i)).update({data:{fatherType:res.data.type}}).then(reb=>{console.log(++suc,i,'2')})
+        }
+      })
+    }*/
     this.setData({
       me: getApp().globalData.userID,
       pathp: getApp().globalData.pathp,
@@ -96,6 +112,7 @@ Page({
         res.data.editTime.getSeconds()],
         replys: res.data.comment.length
       })
+      this.browse()
       wx.cloud.database().collection('user').doc(String(res.data.user)).get().then(ret => {
         this.setData({
           poster: ret.data,
@@ -194,7 +211,27 @@ Page({
         }
       }
     })
+  },
 
+  browse: function () {
+    const cc = wx.cloud.database().collection('user')
+    cc.doc(String(this.data.me)).get().then(res => {
+      var log = res.data.browseLog
+      var dat = new Date()
+      var found = false
+      for (let i = 0; i < log.length; ++i) {
+        if (log[i][0] == this.data.postt.id) {
+          log[i] = [this.data.postt.id, dat]
+          found = true
+        }
+        else log[i] = [log[i][0], new Date(log[i][1]["$date"])]//解决微信数据库读取会让date转object的bug
+      }
+      if (!found) log.push([this.data.postt.id, dat])
+      console.log(log)
+      cc.doc(String(this.data.me)).update({ data: { browseLog: log } }).then(ret => {
+        //console.log('suc')
+      })
+    })
   },
 
   thumbize: function (e) {
@@ -328,13 +365,14 @@ Page({
     var reply = 0
     var rp = this.data.postt.title
     var rr = ''
+    var fty = this.data.postt.type
     if (cid != this.data.postt.id) for (let i = 0; i < this.data.reply.length; ++i) if (cid == this.data.reply[i][0].id) {
       reply = this.data.reply[i][0].id
       if (this.data.reply[i][0].anonymity && this.data.me != this.data.reply[i][0].user) rr = '匿名用户'
       else rr = this.data.reply[i][1].nickName
     }
     wx.navigateTo({
-      url: '../postp/postp?reply=' + String(reply) + '&type=0&edit=false&pid=' + String(pid) + '&rp=' + rp + '&rr=' + rr,
+      url: '../postp/postp?reply=' + String(reply) + '&type=0&edit=false&pid=' + String(pid) + '&rp=' + rp + '&rr=' + rr + '&fty=' + fty,
     })
     this.setData({ unfresh: true })
   },

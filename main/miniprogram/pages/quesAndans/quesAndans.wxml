@@ -28,7 +28,7 @@
     <text>搜索文字：</text>
     <input type="text" placeholder="任意文字" bindinput="inputText" value="{{textS}}" />
   </view>
-  <view>
+  <view wx:if="{{0}}">
     <text>帖子类型选择：</text>
     <checkbox-group bindchange="switchType">
       <view wx:for="{{types}}">

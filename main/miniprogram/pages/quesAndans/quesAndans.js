@@ -24,7 +24,7 @@ Page({
     titleS: '',//搜索标题
     contentS: '',//搜索正文
     textS: '',//搜索文本
-    typesS: [false, false, false, false, false],//选中的搜索帖子类型
+    typesS: [false, true, false, false, false],//选中的搜索帖子类型
     userS: '',//搜索用户名
     dateBS: '2021-02-06',//搜索起始日期范围
     dateES: '2021-02-08',//搜索结束时间范围

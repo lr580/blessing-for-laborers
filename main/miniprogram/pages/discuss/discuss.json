@@ -3,6 +3,8 @@
     "searchBar": "/components/searchBar/searchBar",
     "tabBar": "/components/tabBar/tabBar",
     "van-dropdown-menu": "/dist/dropdown-menu",
+    "van-cell":"/dist/cell",
+    "van-popup":"/dist/popup",
     "van-dropdown-item": "/dist/dropdown-item"
   },
   "enablePullDownRefresh": true,

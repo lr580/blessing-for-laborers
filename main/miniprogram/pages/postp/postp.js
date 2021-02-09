@@ -30,6 +30,7 @@ Page({
     comment: [],//编辑帖子时可能不为空的回帖列表
     thumbs: 0,//编辑帖子时可能不为0的点赞数
     types: [],//帖子类型
+    fatherType: 1,//帖子父类类别
   },
 
   //前端使用
@@ -62,6 +63,7 @@ Page({
       this.setData({
         replyPost: options.rp,
         fatherPost: Number(options.pid),
+        fatherType: Number(options.fty),
       })
       if (this.data.reply) {
         this.setData({ replyReply: options.rr })
@@ -325,6 +327,7 @@ Page({
       var tagss = this.data.tags
       var release = this.data.edit ? this.data.pubTime : nowTime
       var fp = this.data.fatherPost
+      var fty = 1
       if (this.data.edit && this.data.type) fp = 0
       for (let i = 0; i < tagss.length; ++i) {
         if (tagss[i][1] == this.data.tag) ++tagss[i][0]
@@ -332,6 +335,9 @@ Page({
       for (let i = 0; i < this.data.tx.length; ++i) {
         if (this.data.tx[i][0] == 3 || this.data.tx[i][1] != '') nr.push(this.data.tx[i])
       }
+      if (this.data.type) fty = this.data.type
+      else fty = this.data.fatherType
+
       var datax = {
         id: this.data.pid,
         activeTime: nowTime,
@@ -348,6 +354,7 @@ Page({
         content: nr,
         hide: false,
         fatherPost: fp,
+        fatherType: fty,
       }
       if (!this.data.type && !this.data.edit) {
         wx.cloud.database().collection('post').doc(String(this.data.fatherPost)).update({

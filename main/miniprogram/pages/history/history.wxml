@@ -1,2 +1,16 @@
 <!--pages/history/history.wxml-->
-<text>pages/history/history.wxml</text>
+<view wx:if="{{loading}}">加载中……</view>
+<view wx:else>
+  <view wx:if="{{posts.length}}">
+    <view wx:for="{{posts}}">
+      <view>{{index+1}}</view>
+      <view>标题：{{posts.title}}</view>
+      <view>发帖人：{{posts.title}}</view>
+      <view>标签：{{posts.tag}}</view>
+      <view>帖子类型：{{types[posts.type]}}</view>
+      <view>浏览时间：{{dates[index][0]}}/{{dates[index][1]}}/{{dates[index][2]}} {{dates[index][3]}}:{{dates[index][4]}}:{{dates[index][5]}} </view>
+      <view>分割线</view>
+    </view>
+  </view>
+  <view wx:else>空空如也，赶紧去浏览帖子吧！</view>
+</view>
