@@ -1,6 +1,9 @@
 //帖子的主显示页面
 // miniprogram/pages/postt/postt.js
 var lr = require('../../lrfx.js')
+var app=getApp();
+const db=wx.cloud.database()
+const _=db.command;
 Page({
 
   /**
@@ -19,7 +22,7 @@ Page({
     reply: [],//回帖的帖子(0)与用户(1)、头像地址(2)、被回复用户(3)、回帖时间(4)、被回复帖子(5)、是否被点赞(6)放在同一个(以数组实现结构体，便于结构体排序)
     replyer: [],//回帖回帖者
     rdate: [],
-    me: 0,//当前用户uid
+    me:app.globalData.OpenId,//当前用户uid
     meo: {},//当前用户对象
     thumbpost: false,//是否点赞了主贴
     starpost: false,//是否收藏了主贴
@@ -461,6 +464,14 @@ Page({
     } else { //收藏
       dol = col
       dol.push(pid)
+      db.collection("user").doc("app.globalData.userID").update({
+        data:{
+          collect:_.push({
+            pid:pid
+          })
+        }
+      })
+
     }
     wx.cloud.database().collection('user').doc(String(u)).update({
       data: { collect: dol }
