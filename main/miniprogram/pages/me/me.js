@@ -1,4 +1,8 @@
 // pages/me/me.js
+const db=wx.cloud.database()
+const _=db.command;
+var app=getApp();
+
 Page({
 
   /**
@@ -43,11 +47,11 @@ Page({
     })
   },
   //获取用户授权信息
-  FgetuserInfo: function () {
-
+  FgetuserInfo: async function () {
+    var openid
     var that = this;
     wx.getUserInfo({
-      success: function (res) {
+      success: async function (res) {
         console.log(res);
         var userInfo = res.userInfo
         console.log(userInfo);
@@ -55,6 +59,13 @@ Page({
         var avatarUrl = userInfo.avatarUrl
         var userCity = userInfo.city
         var gender = userInfo.gender
+        
+        var re = await wx.cloud.callFunction({
+          name:'getOpenid',
+        })
+
+        openid=re.result.openid;
+
         if (gender == 1) {
           gender = '男'
         } else if (gender == 2) {
@@ -70,9 +81,50 @@ Page({
           loadKey: true,
           changeInfokey: true
         })
+        console.log(openid)
+        db.collection("user").where({
+          _openid:openid
+        }).get().then(res=>{
+          console.log(res.data.length)
+          if(res.data.length==0){
+            db.collection("user").add({
+              data:{
+                userInfo:userInfo,
+                nickName:nickName,
+                avatarUrl:avatarUrl,
+                userCity:userCity,
+                gender:gender,
+                grade:"",
+                major:"",
+                school:"",
+                schoolArea:"",
+                browseLog:[{}],
+                collect:[],
+                publish:[],
+                thumbs:[],
+                history:[{}]
+              }
+            })
+            db.collection("user").where({
+              _openid:openid
+            }).get().then(res=>{
+              console.log("THIS　IＳ    "+res)
+            })
+          }else{
+            console.log("用户已存在")
+            db.collection("user").where({
+              _openid:openid
+            }).get().then(res=>{
+              app.globalData.userID=res.data[0]._id
+              console.log(app.globalData.userID)
+            })
+          }
+        })
+
       },
     })
   },
+
 
   /**
    * 生命周期函数--监听页面加载
@@ -85,7 +137,7 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-
+    
   },
 
   /**
