@@ -98,7 +98,7 @@ Page({
                 major:"",
                 school:"",
                 schoolArea:"",
-                browseLog:[{}],
+                browseLog:[],
                 collect:[],
                 publish:[],
                 thumbs:[],
