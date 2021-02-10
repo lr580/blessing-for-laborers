@@ -102,7 +102,7 @@ Page({
                 collect:[],
                 publish:[],
                 thumbs:[],
-                history:[{}]
+                history:[]
               }
             })
             db.collection("user").where({
