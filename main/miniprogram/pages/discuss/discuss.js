@@ -39,8 +39,9 @@ Page({
     bgdt: new Date(),//搜索起始日期范围对象
     eddt: new Date(),//搜索结束日期范围对象
     username: [],//所有用户名与id对应列表
+    typeDown:false,//搜索栏标签下拉中
   },
-
+//以下为控制弹出层的函数
   showPopup() {
     this.setData({ show: true });
   },
@@ -53,19 +54,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    /*var suc=0
-    const cc=wx.cloud.database().collection('post')
-    for(let i=1;i<=130;++i){
-      cc.doc(String(i)).get().then(res=>{
-        var tx=''
-        var t=res.data.content
-        for(let j=0;j<t.length;++j){
-          if(t[j][0]!=3) tx+=t[j][1]+' '
-        }
-        cc.doc(String(i)).update({data:{pureText:tx}}).then(rea=>{console.log(i,++suc)})
-      })
-    }*/
-
     var dem = {
       hide: false,
     }
@@ -474,6 +462,10 @@ Page({
       url: '../postp/postp?reply=0&type=2&edit=false',
     })
     this.onLoad()
+  },
+
+  typeDownize:function(e){
+    this.setData({typeDown:!this.data.typeDown})
   },
 
   /**

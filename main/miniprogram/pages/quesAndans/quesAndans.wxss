@@ -1,4 +1,60 @@
 /* pages/discuss/discuss.wxss */
+.searchTip {
+  font-weight: 200;
+}
+
+.searchBody {
+  margin-left: 20rpx;
+  margin-right: 20rpx;
+}
+.select1 {
+  border: 8rpx solid darkgrey;
+  margin-bottom: 20rpx;
+  font-weight: 600;
+  border-radius: 20rpx;
+  background-color: white;
+}
+
+.select2 {
+  font-weight: 600;
+  border: 8rpx solid darkgrey;
+  margin-bottom: 20rpx;
+  border-radius: 20rpx;
+  background-color: white;
+}
+
+.select3 {
+  font-weight: 600;
+  border: 8rpx solid darkgrey;
+  margin-bottom: 20rpx;
+  border-radius: 20rpx;
+  background-color: white;
+}
+
+.select4 {
+  font-weight: 600;
+  border: 8rpx solid darkgrey;
+  margin-bottom: 20rpx;
+  border-radius: 20rpx;
+  background-color: white;
+}
+
+.select5 {
+  font-weight: 600;
+  border: 8rpx solid darkgrey;
+  margin-bottom: 20rpx;
+  border-radius: 20rpx;
+  background-color: white;
+}
+
+.select6 {
+  font-weight: 600;
+  border: 8rpx solid darkgrey;
+  margin-bottom: 20rpx;
+  border-radius: 20rpx;
+  background-color: white;
+}
+
 
 .searchBar{
   width: 100%;

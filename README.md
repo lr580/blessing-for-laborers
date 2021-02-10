@@ -24,9 +24,9 @@
 
 userID //打开改程序的用户的uid，为0未登录(游客模式)
 
-maxuid //当前最大的用户uid，为0读取失败
+maxuid //当前最大的用户uid，为0读取失败(废置)
 
-maxpid //当前最大的帖子id，为0读取失败
+maxpid //当前最大的帖子id，为0读取失败(废置)
 
 ## 云开发
 
@@ -66,13 +66,13 @@ global 全局信息
 
 ##### username
 
-- 用户名:id 的若干记录，类似于(python::)dict
+- 用户名:id 的若干记录，类似于(python的)dict
   用途是新建用户时以较高速度检测是否重名(以免读取所有用户记录，而是只读一条global记录)
   其二是用于用户名与id的快速对应，同理提高速度
 
 ## 函数接口
 
-加载：
+(以lrfx.js为例)加载：
 
 ```javascript
 var modu = require('../../lrfx.js')

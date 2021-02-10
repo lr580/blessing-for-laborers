@@ -6,6 +6,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    show: false,//是否展示弹出层
     pageType: 1,//为0是交流页，为1是问答页
     initLoads: 5,//刚打开界面只显示五个帖子
     freshLoads: 3,//下拉刷新增添的帖子
@@ -38,6 +39,19 @@ Page({
     bgdt: new Date(),//搜索起始日期范围对象
     eddt: new Date(),//搜索结束日期范围对象
     username: [],//所有用户名与id对应列表
+    typeDown: false,//搜索下拉标签是否正在下拉
+  },
+//以下为控制弹出层的函数
+  showPopup() {
+    this.setData({ show: true });
+  },
+
+  onClose() {
+    this.setData({ show: false });
+  },
+  
+  typeDownize:function(e){
+    this.setData({typeDown:!this.data.typeDown})
   },
 
   /**

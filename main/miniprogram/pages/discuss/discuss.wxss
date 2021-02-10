@@ -226,3 +226,21 @@
   width: 40rpx;
   height: 40rpx;
 }
+
+.nopostTip{
+  margin-top: 100rpx;
+  width: 750rpx;
+  display:flex;                    
+  justify-content: center;      
+  flex-direction: column; 
+}
+
+.nopostTip image{
+  width: 600rpx;
+  height: 400rpx;
+}
+
+.tippic{
+  display:flex;   
+  justify-content: center;   
+}

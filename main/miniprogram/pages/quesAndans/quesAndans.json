@@ -3,7 +3,9 @@
     "searchBar": "/components/searchBar/searchBar",
     "tabBar": "/components/tabBar/tabBar",
     "van-dropdown-menu": "/dist/dropdown-menu",
-    "van-dropdown-item": "/dist/dropdown-item"
+    "van-dropdown-item": "/dist/dropdown-item",
+    "van-cell":"/dist/cell",
+    "van-popup":"/dist/popup"
   },
   "enablePullDownRefresh": true,
   "onReachBottomDistance": 100
