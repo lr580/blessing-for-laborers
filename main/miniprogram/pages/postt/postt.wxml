@@ -13,7 +13,8 @@
     <view class="user">
       <view class="userHead">
         <image src="{{pathp+'default.jpg'}}" wx:if="{{postt.anonymity&&me!=postt.user}}"></image>
-        <image src="{{pathp+pathq}}" wx:else></image>
+        <image src="{{pathp+pathq}}" wx:elif="{{poster.oldtest}}"></image>
+        <image src="{{poster.avatarUrl}}" wx:else></image>
       </view>
       <view class="userName">
         <text wx:if="{{postt.anonymity&&me!=postt.user}}">匿名用户</text>
@@ -101,7 +102,8 @@
               <!--?-->
               <view class="reuserHead">
                 <image src="{{pathp+'default.jpg'}}" wx:if="{{v[0].anonymity&&me!=v[0].user}}"></image>
-                <image src="{{pathp+v[2]}}" wx:else></image>
+                <image src="{{pathp+v[2]}}" wx:elif="{{v[1].oldtest}}"></image>
+                <image src="{{v[1].avatarUrl}}" wx:else></image>
               </view>
               <view wx:if="{{v[0].anonymity&&me!=v[0].user}}" class="reuserName">匿名用户</view>
               <view wx:else class="reuserName">{{v[1].nickName}}</view>

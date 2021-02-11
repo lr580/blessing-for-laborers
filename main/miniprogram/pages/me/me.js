@@ -1,8 +1,8 @@
 // pages/me/me.js
-const db=wx.cloud.database()
-const _=db.command
+const db = wx.cloud.database()
+const _ = db.command
 
-var app=getApp();
+var app = getApp();
 
 Page({
 
@@ -60,12 +60,12 @@ Page({
         var avatarUrl = userInfo.avatarUrl
         var userCity = userInfo.city
         var gender = userInfo.gender
-        
+
         var re = await wx.cloud.callFunction({
-          name:'getOpenid',
+          name: 'getOpenid',
         })
 
-        openid=re.result.openid;
+        openid = re.result.openid;
 
         if (gender == 1) {
           gender = '男'
@@ -84,40 +84,42 @@ Page({
         })
         console.log(openid)
         db.collection("user").where({
-          _openid:openid
-        }).get().then(res=>{
+          _openid: openid
+        }).get().then(res => {
           console.log(res.data.length)
-          if(res.data.length==0){
+          if (res.data.length == 0) {
             db.collection("user").add({
-              data:{
-                userInfo:userInfo,
-                nickName:nickName,
-                avatarUrl:avatarUrl,
-                userCity:userCity,
-                gender:gender,
-                grade:"",
-                major:"",
-                school:"",
-                schoolArea:"",
-                browseLog:[],
-                collect:[],
-                publish:[],
-                thumbs:[],
-                history:[]
+              data: {
+                userInfo: userInfo,
+                nickName: nickName,
+                avatarUrl: avatarUrl,
+                userCity: userCity,
+                gender: gender,
+                grade: "",
+                major: "",
+                school: "",
+                schoolArea: "",
+                browseLog: [],
+                collect: [],
+                publish: [],
+                thumbs: [],
+                history: []
               }
             })
             db.collection("user").where({
-              _openid:openid
-            }).get().then(res=>{
-              console.log("THIS　IＳ    "+res)
+              _openid: openid
+            }).get().then(res => {
+              console.log("THIS　IＳ    " + res)
+              getApp().globalData.me = res.data._id
             })
-          }else{
+          } else {
             console.log("用户已存在")
             db.collection("user").where({
-              _openid:openid
-            }).get().then(res=>{
-              app.globalData.userID=res.data[0]._id
+              _openid: openid
+            }).get().then(res => {
+              app.globalData.userID = res.data[0]._id
               console.log(app.globalData.userID)
+              getApp().globalData.me = res.data._id
             })
           }
         })
@@ -138,7 +140,7 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-    
+
   },
 
   /**

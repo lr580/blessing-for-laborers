@@ -145,7 +145,8 @@
       <view class="userInfo">
         <view class="userHead">
           <image src="{{pathp+'default.jpg'}}" wx:if="{{v[0].anonymity&&me!=v[0].user}}"></image>
-          <image src="{{pathp+v[1].image}}" wx:else></image>
+          <image src="{{pathp+v[1].image}}" wx:elif="{{v[1].oldtest}}"></image>
+          <image src="{{v[1].avatarUrl}}" wx:else></image>
         </view>
         <view class="nickName" wx:if="{{v[0].anonymity&&me!=v[0].user}}">匿名用户</view>
         <view class="nickName" wx:else>{{v[1].nickName}}</view>

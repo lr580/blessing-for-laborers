@@ -7,9 +7,10 @@ Page({
   data: {
     me: 1,//当前用户uid
     unfresh: false,//未刷新
-    posts: [],//浏览的帖子
-    dates: [],//对应浏览的日期
+    posts: [],//浏览的帖子对象
+    dates: [],//对应浏览的日期(拆分数组)
     types: [],//帖子类型常量
+    users: [],//发帖人对象
   },
 
   /**
@@ -20,7 +21,7 @@ Page({
       me: getApp().globalData.userID,
       unfresh: false,
       loading: true,
-      tags: getApp().globalData.types,
+      types: [''].concat(getApp().globalData.types),
     })
     const db = wx.cloud.database()
     function cmp() {//时间降序排序
@@ -32,13 +33,24 @@ Page({
       var log = res.data.browseLog
       var p = []
       var d = []
+      var u = []
       log.sort(cmp())
       var fin = 0
       var tg = log.length
+      var thee = this
+      function finz() {
+        console.log('fin')
+        thee.setData({
+          posts: p,
+          dates: d,
+          loading: false,
+          users: u,
+        })
+      }
       for (let i = 0; i < tg; ++i) {
         d[i] = log[i][1]
-        console.log(log)
-        log[i][1]=new Date(log[i][1]['$date'])
+        console.log('log', log)
+        log[i][1] = new Date(log[i][1]['$date'])
         d[i] = [log[i][1].getFullYear(),
         log[i][1].getMonth() + 1,
         log[i][1].getDate(),
@@ -46,15 +58,14 @@ Page({
         log[i][1].getMinutes(),
         log[i][1].getSeconds()]
         db.collection('post').doc(String(log[i][0])).get().then(ret => {
+          console.log('res', ret.data)
+          db.collection('user').doc(String(ret.data.user)).get().then(reu => {
+            console.log('reu', reu.data)
+            u[i] = reu.data
+            if (++fin == tg << 1) finz()
+          })
           p[i] = ret.data
-          ++fin
-          if (fin == tg) {
-            this.setData({
-              posts: p,
-              dates: d,
-              loading: false,
-            })
-          }
+          if (++fin == tg << 1) finz()
         })
       }
     })
