@@ -10,7 +10,7 @@
 
 配置：appid为wx62bf88f7371aa99a
 
-编译模式从普通编译改成discuss
+编译模式是普通编译
 
 > 备注：如果报错Error: socket hang up是微信服务器的问题，重启或过一段时间就好了
 

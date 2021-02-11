@@ -23,8 +23,8 @@
     ]
   },
   "pages": [
-    "pages/discuss/discuss",
     "pages/me/me",
+    "pages/discuss/discuss",
     "pages/quesAndans/quesAndans",
     "pages/quesAndans/cover",
     "pages/postt/postt",
