@@ -7,8 +7,13 @@
 <van-popup round position="bottom" custom-style="height:80%" show="{{ show }}" bind:close="onClose">
   <view class="bodyColor">
     <view class="searchBody">
-      <view class="searchTip">*(未勾选的栏目代表该条件为任意)</view>
-      <view class="select1">
+      <view class="searchTip" bindtap="searchDf">
+        <view wx:if="{{!searchDown}}">{{'<点我展开高级搜索选项>'}}</view>
+        <view wx:else>{{'<点我收起高级搜索选项>'}}</view>
+      </view>
+      <view class="searchTip" wx:if="{{searchDown}}">*(未勾选的栏目代表该条件为任意)</view>
+      
+      <view class="select1" wx:if="{{searchDown}}">
         <checkbox-group style="margin-left:20rpx" bindchange="switchIR">
           <checkbox value="replyS" checked="{{replyS}}">包含回帖</checkbox>
         </checkbox-group>
@@ -31,7 +36,7 @@
         </view>
       </view>
 
-      <view class="select3">
+      <view class="select3" wx:if="{{searchDown&&!pageType}}">
         <text style="margin-left:20rpx">帖子类型选择：</text>
         <checkbox-group style="margin-left:40rpx" bindchange="switchType">
           <view wx:for="{{types}}">
@@ -42,7 +47,7 @@
         </checkbox-group>
       </view>
 
-      <view class="select4">
+      <view class="select4" wx:if="{{searchDown}}">
         <view>
           <text style="margin-left:20rpx">搜索发帖者用户名：</text>
           <input style="margin-left:40rpx" type="text" placeholder="任意发帖者" bindinput="inputUser" value="{{userS}}" />
@@ -53,7 +58,7 @@
       </view>
 
 
-      <view class="select5">
+      <view class="select5" wx:if="{{searchDown}}">
         <view style="margin-left:20rpx">开始时间：</view>
         <picker style="margin-left:40rpx" mode="date" value="{{dateBS}}" start="BGD" end="" bindchange="switchBS">
           <input type="text" value="{{dateBS}}" disabled="true" />
@@ -67,16 +72,18 @@
 
       <!--这个要改成下拉框-->
       <view class="select6">
-        <view wx:if="{{typeDown}}">
-          <view style="margin-left:20rpx" bindtap="typeDownize">帖子标签(点击收起)</view>
-          <checkbox-group style="margin-left:20rpx;margin-top:20rpx" bindchange="selectTag">
-            <view wx:for="{{tags}}">
-              <checkbox style="margin-left:40rpx;margin-top:20rpx" value="{{item[1]}}" checked="{{tagsS[index]}}"
-                id="{{index}}">{{item[1]}}</checkbox>
-            </view>
-          </checkbox-group>
+        <view wx:if="{{searchDown}}">
+          <view wx:if="{{typeDown}}">
+            <view style="margin-left:20rpx" bindtap="typeDownize">帖子标签(点击收起)</view>
+            <checkbox-group style="margin-left:20rpx;margin-top:20rpx" bindchange="selectTag">
+              <view wx:for="{{tags}}">
+                <checkbox style="margin-left:40rpx;margin-top:20rpx" value="{{item[1]}}" checked="{{tagsS[index]}}"
+                  id="{{index}}">{{item[1]}}</checkbox>
+              </view>
+            </checkbox-group>
+          </view>
+          <view wx:else bindtap="typeDownize" style="margin-left:20rpx">帖子标签(点击展开)</view>
         </view>
-        <view wx:else bindtap="typeDownize" style="margin-left:20rpx">帖子标签(点击展开)</view>
         <button style="margin-top:40rpx;margin-bottom:40rpx" type="primary" bindtap="search">点我搜索</button>
       </view>
     </view>

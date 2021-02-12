@@ -39,7 +39,8 @@ Page({
     bgdt: new Date(),//搜索起始日期范围对象
     eddt: new Date(),//搜索结束日期范围对象
     username: [],//所有用户名与id对应列表
-    typeDown:false,//搜索栏标签下拉中
+    typeDown:false,//搜索栏标签是否下拉中
+    searchDown:false,//搜索栏是否展开高级搜索
   },
 //以下为控制弹出层的函数
   showPopup() {
@@ -67,6 +68,8 @@ Page({
       pathtp: getApp().globalData.pathtp,
       types: ['全部'].concat(getApp().globalData.types),
       dem: dem,
+      dateBS:getApp().globalData.dateBS,
+      dateES:getApp().globalData.dateES,
     })
 
     wx.cloud.database().collection('global').doc('catagory').get().then(res => {
@@ -466,6 +469,10 @@ Page({
 
   typeDownize:function(e){
     this.setData({typeDown:!this.data.typeDown})
+  },
+
+  searchDf:function(e){
+    this.setData({searchDown:!this.data.searchDown})
   },
 
   /**

@@ -21,7 +21,7 @@ Page({
     dem: {},//帖子的筛选条件
     type: 0,//0代表全选，不代表回帖
     order: 'desc',//时间的筛选条件
-    distinctS: true,//搜索文本是否区分标题和正文
+    distinctS: false,//搜索文本是否区分标题和正文
     titleS: '',//搜索标题
     contentS: '',//搜索正文
     textS: '',//搜索文本
@@ -40,6 +40,7 @@ Page({
     eddt: new Date(),//搜索结束日期范围对象
     username: [],//所有用户名与id对应列表
     typeDown: false,//搜索下拉标签是否正在下拉
+    searchDown:false,//搜索高级选项是否开启
   },
 //以下为控制弹出层的函数
   showPopup() {
@@ -84,6 +85,8 @@ Page({
       pathtp: getApp().globalData.pathtp,
       types: ['全部'].concat(getApp().globalData.types),
       dem: dem,
+      dateBS:getApp().globalData.dateBS,
+      dateES:getApp().globalData.dateES,
     })
 
     wx.cloud.database().collection('global').doc('catagory').get().then(res => {
@@ -475,6 +478,10 @@ Page({
       url: '../postp/postp?reply=0&type=1&edit=false',
     })
     this.onLoad()
+  },
+
+  searchDf:function(e){
+    this.setData({searchDown:!this.data.searchDown})
   },
 
   /**

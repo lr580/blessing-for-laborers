@@ -98,6 +98,7 @@ modu.lr581() //如果有必要，调试是否加载成功，成功后删掉即�
 - collect : array(number)
 - publish : array(number)
 - thumbs : array(number)
+- oldtest:(bool) true //只有测试虚拟用户才有该属性(id为1~4)
 
 帖子对象
 
