@@ -9,7 +9,7 @@
 
 <van-cell arrow-direction="down" icon="/img/search.png" title="自定义条件搜索" is-link bind:click="showPopup">按照您的要求搜索
 </van-cell>
-<van-popup round position="bottom" custom-style="height:80%" show="{{ show }}" bind:close="onClose">
+<van-popup round position="bottom" custom-style="height:{{searchDown?'80%':'40%'}}" show="{{ show }}" bind:close="onClose">
   <view class="bodyColor">
     <view class="searchBody">
       <view class="searchTip" bindtap="searchDf">

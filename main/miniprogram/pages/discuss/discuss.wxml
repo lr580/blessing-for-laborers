@@ -4,7 +4,7 @@
 <van-cell arrow-direction="down" icon="/img/search.png" title="自定义条件搜索" is-link bind:click="showPopup">按照您的要求搜索
 </van-cell>
 
-<van-popup round position="bottom" custom-style="height:80%" show="{{ show }}" bind:close="onClose">
+<van-popup round position="bottom" custom-style="height:{{searchDown?'80%':'40%'}}" show="{{ show }}" bind:close="onClose">
   <view class="bodyColor">
     <view class="searchBody">
       <view class="searchTip" bindtap="searchDf">
@@ -71,7 +71,7 @@
 
 
       <!--这个要改成下拉框-->
-      <view class="select6">
+      <view class="select6" wx:if="{{searchDown}}">
         <view wx:if="{{searchDown}}">
           <view wx:if="{{typeDown}}">
             <view style="margin-left:20rpx" bindtap="typeDownize">帖子标签(点击收起)</view>
@@ -84,8 +84,8 @@
           </view>
           <view wx:else bindtap="typeDownize" style="margin-left:20rpx">帖子标签(点击展开)</view>
         </view>
-        <button style="margin-top:40rpx;margin-bottom:40rpx" type="primary" bindtap="search">点我搜索</button>
       </view>
+      <button style="margin-top:40rpx;margin-bottom:40rpx" type="primary" bindtap="search">点我搜索</button>
     </view>
   </view>
 </van-popup>
