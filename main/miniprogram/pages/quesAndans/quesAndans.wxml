@@ -1,11 +1,7 @@
-<view class="discussPic1">
-  <view bindtap='postize'>
-    <text>我要发帖</text>
-    <view class="discussPic2">
-      <image src="cloud://scnuyjx-7gmvlqwfe64c446a.7363-scnuyjx-7gmvlqwfe64c446a-1304878008/pic/add.png"></image>
-    </view>
+ <view class="topost" bindtap='postize'>
+    <image src="/img/topost.png"></image>
   </view>
-</view>
+
 
 <van-cell arrow-direction="down" icon="/img/search.png" title="自定义条件搜索" is-link bind:click="showPopup">按照您的要求搜索
 </van-cell>

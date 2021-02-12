@@ -1,4 +1,16 @@
 /* pages/discuss/discuss.wxss */
+.topost image {
+  width: 80rpx;
+  height: 80rpx;
+}
+
+.topost {
+  margin-left: 70%;
+  margin-top: 20rpx;
+  margin-bottom: 20rpx;
+  width: 80rpx;
+  height: 80rpx;
+}
 .searchTip {
   font-weight: 200;
 }

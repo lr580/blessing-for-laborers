@@ -57,7 +57,7 @@
   </view>
   <view class="send">
     <view class="sendButton">
-      <van-button round color="linear-gradient(to right, rgb(128, 255, 185), rgb(101, 219, 248))" type="primary"
+      <van-button custom-style="margin-bottom:40rpx" round color="linear-gradient(to right, rgb(128, 255, 185), rgb(101, 219, 248))" type="primary"
         bindtap="publistPost">发表</van-button>
     </view>
   </view>
