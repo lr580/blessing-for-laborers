@@ -1,2 +1,6 @@
-<!--pages/collect/collect.wxml-->
-<text>pages/collect/collect.wxml</text>
+<view wx:for="{{dataArr}}">
+  <view>title：{{item.title}}</view>
+  <view>tag：{{item.tag}}</view>
+  <view>postowner：{{item.name}}</view>
+  <text decode="true">&ensp;</text>
+</view>
