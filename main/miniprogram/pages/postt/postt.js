@@ -35,6 +35,9 @@ Page({
     unfresh: false,//有待刷新
     opt: [],//页面加载传入的信息
     descTime: true,//是否按发表时间降序排序回帖
+    collectTitle:null,
+    collectTag:null,
+    collectUser:null
   },
 
   showPopup() {
@@ -447,7 +450,7 @@ Page({
     })
   },
 
-  starPost: function (e) {//自己可以收藏自己的帖子
+  starPost: async function (e) {//自己可以收藏自己的帖子
     if (this.data.starBusy) {
       wx.showToast({
         title: '请勿频繁操作',
@@ -459,20 +462,27 @@ Page({
     var pid = this.data.postt.id
     var col = this.data.meo.collect
     var dol = []
+    var tag
+    var user
+    var title
     if (this.data.starpost) {//取消收藏
       for (let i = 0; i < col.length; ++i) if (col[i] != pid) dol.push(col[i])
-    } else { //收藏
-      dol = col
-      dol.push(pid)
-      db.collection("user").doc("app.globalData.userID").update({
-        data:{
-          collect:_.push({
-            pid:pid
-          })
-        }
-      })
+    }  else { //收藏
 
+      var res=await db.collection("post").doc(String(pid)).get().then(res=>{
+        tag=res.data.tag
+        title=res.data.title
+        user=res.data.user
+      })
+        var res =await db.collection("user").doc(user).get().then(res=>{
+          user=res.data.nickName
+        })
+      console.log(tag+"   "+title+"   "+user)
+        dol = col
+        dol.push({title:title,tag:tag,name:user})
     }
+
+
     wx.cloud.database().collection('user').doc(String(u)).update({
       data: { collect: dol }
     }).then(res => {
