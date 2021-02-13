@@ -1,32 +1,47 @@
 // pages/collect/collect.js
+const db=wx.cloud.database()
+var app = getApp();
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+    dataArr:[],
+    name:null,
+    tag:null,
+    tutle:null
   },
+
+  getData(){
+    db.collection("user").doc(app.globalData.userID).get().then(res=>{
+
+      this.setData({
+        dataArr:res.data.collect
+      })
+    })
+  },
+
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
-
+  onLoad:function (options) {
+    this.getData();
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
-
+  onReady: async function () {
+    
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
-
+  onShow:  async function () {
+    
   },
 
   /**
