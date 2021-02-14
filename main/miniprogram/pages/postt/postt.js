@@ -469,17 +469,17 @@ Page({
       for (let i = 0; i < col.length; ++i) if (col[i] != pid) dol.push(col[i])
     }  else { //收藏
 
-      var res=await db.collection("post").doc(String(pid)).get().then(res=>{
-        tag=res.data.tag
-        title=res.data.title
-        user=res.data.user
-      })
-        var res =await db.collection("user").doc(user).get().then(res=>{
-          user=res.data.nickName
-        })
-      console.log(tag+"   "+title+"   "+user)
+      // var res=await db.collection("post").doc(String(pid)).get().then(res=>{
+      //   tag=res.data.tag
+      //   title=res.data.title
+      //   user=res.data.user
+      // })
+      //   var res =await db.collection("user").doc(user).get().then(res=>{
+      //     user=res.data.nickName
+      //   })
+      // console.log(tag+"   "+title+"   "+user)
         dol = col
-        dol.push({title:title,tag:tag,name:user})
+        dol.push(pid)
     }
 
 
