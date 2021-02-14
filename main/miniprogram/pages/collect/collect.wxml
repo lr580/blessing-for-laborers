@@ -1,6 +1,7 @@
-<view wx:for="{{dataArr}}">
+<view wx:for="{{datacollect}}">
   <view>title：{{item.title}}</view>
   <view>tag：{{item.tag}}</view>
-  <view>postowner：{{item.name}}</view>
+  <view>type：{{item.type}}</view>
+  <view>postId：{{item.pid}}</view>
   <text decode="true">&ensp;</text>
 </view>
