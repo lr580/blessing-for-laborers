@@ -5,7 +5,10 @@
     "van-dropdown-menu": "/dist/dropdown-menu",
     "van-dropdown-item": "/dist/dropdown-item",
     "van-cell":"/dist/cell",
-    "van-popup":"/dist/popup"
+    "van-popup":"/dist/popup",
+    "van-button": "/dist/button",
+    "van-dropdown-item": "/dist/dropdown-item",
+    "van-loading": "/dist/loading/index"
   },
   "enablePullDownRefresh": true,
   "onReachBottomDistance": 100

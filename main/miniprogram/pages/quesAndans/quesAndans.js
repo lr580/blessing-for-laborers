@@ -370,6 +370,7 @@ Page({
   },
 
   search: function (e) {
+    this.setData({ show: false });//自动关闭弹出层
     var _ = wx.cloud.database().command
     var bgdt = new Date(this.data.dateBS)
     var eddt = new Date(this.data.dateES)

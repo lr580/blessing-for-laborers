@@ -1,16 +1,23 @@
 /* pages/discuss/discuss.wxss */
 
 .topost image {
-  width: 80rpx;
-  height: 80rpx;
+  width: 100rpx;
+  height: 100rpx;
 }
 
 .topost {
+
+  background-color: white;
+
   margin-left: 70%;
   margin-top: 20rpx;
   margin-bottom: 20rpx;
-  width: 80rpx;
-  height: 80rpx;
+  width: 100rpx;
+  height: 100rpx;
+  position: fixed;
+  right: 10rpx;
+  bottom: 0;
+  border-radius: 20rpx;
 }
 
 
@@ -243,4 +250,8 @@
 .tippic{
   display:flex;   
   justify-content: center;   
+}
+
+.loading{
+  margin-left: 40%;
 }

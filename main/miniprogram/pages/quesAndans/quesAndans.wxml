@@ -9,8 +9,8 @@
   <view class="bodyColor">
     <view class="searchBody">
       <view class="searchTip" bindtap="searchDf">
-        <view wx:if="{{!searchDown}}">{{'<点我展开高级搜索选项>'}}</view>
-        <view wx:else>{{'<点我收起高级搜索选项>'}}</view>
+        <view wx:if="{{!searchDown}}"><van-button custom-style="margin-left:24%;margin-top:30rpx;margin-bottom:30rpx" round type="info" style="width:550rpx">点我展开高级搜索选项</van-button></view>
+        <view wx:else><van-button custom-style="margin-left:24%;margin-top:30rpx;margin-bottom:30rpx" round type="info" style="width:550rpx">点我收起高级搜索选项</van-button></view>
       </view>
       <view class="searchTip" wx:if="{{searchDown}}">*(未勾选的栏目代表该条件为任意)</view>
       <view class="select1" wx:if="{{searchDown}}">
@@ -134,13 +134,14 @@
   <view wx:for="{{posts}}" wx:for-index="i" wx:for-item="v">
     <view class="postPart" bindtap="gotoPost" id="{{v[0].id}}">
       <view class="title">
-        <image src="/img/title.png"></image>
+        <image src="/img/ques.png"></image>
         {{v[0].title}}
       </view>
       <view class="userInfo">
         <view class="userHead">
           <image src="{{pathp+'default.jpg'}}" wx:if="{{v[0].anonymity&&me!=v[0].user}}"></image>
-          <image src="{{pathp+v[1].image}}" wx:else></image>
+          <image src="{{pathp+v[1].image}}" wx:elif="{{v[1].oldtest}}"></image>
+          <image src="{{v[1].avatarUrl}}" wx:else></image>
         </view>
         <view class="nickName" wx:if="{{v[0].anonymity&&me!=v[0].user}}">匿名用户</view>
         <view class="nickName" wx:else>{{v[1].nickName}}</view>
@@ -167,6 +168,12 @@
     </view>
   </view>
 </view>
+
+<view class="loading" wx:if="{{!(alreadyAll||postn<=initLoads)}}">
+<van-loading  color="#1989fa"   size="40rpx" vertical>加载中...</van-loading>
+</view>
+
+
 <view wx:if="{{alreadyAll||postn<=initLoads}}" class="tip">
   <image src="/img/tip.png"></image>
   <view>已经到达底端啦！</view>

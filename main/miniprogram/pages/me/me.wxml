@@ -1,8 +1,5 @@
 <block class="containerInfo">
-<view class="discussPic1">
-  <image src="cloud://scnuyjx-7gmvlqwfe64c446a.7363-scnuyjx-7gmvlqwfe64c446a-1304878008/pic/cover.png"></image>
-</view>
-  <view> 
+  <view style="margin-top:50rpx"> 
     <button type="default" open-type="getUserInfo" bindtap="FgetuserInfo" hidden="{{loadKey}}">载入个人信息</button>
   </view>
   <navigator bindtap="console1" url="/pages/changeInfo/changeInfo">
