@@ -1,9 +1,9 @@
 //帖子的主显示页面
 // miniprogram/pages/postt/postt.js
 var lr = require('../../lrfx.js')
-var app=getApp();
-const db=wx.cloud.database()
-const _=db.command;
+var app = getApp();
+const db = wx.cloud.database()
+const _ = db.command;
 Page({
 
   /**
@@ -22,7 +22,7 @@ Page({
     reply: [],//回帖的帖子(0)与用户(1)、头像地址(2)、被回复用户(3)、回帖时间(4)、被回复帖子(5)、是否被点赞(6)放在同一个(以数组实现结构体，便于结构体排序)
     replyer: [],//回帖回帖者
     rdate: [],
-    me:app.globalData.OpenId,//当前用户uid
+    me: app.globalData.OpenId,//当前用户uid
     meo: {},//当前用户对象
     thumbpost: false,//是否点赞了主贴
     starpost: false,//是否收藏了主贴
@@ -35,9 +35,9 @@ Page({
     unfresh: false,//有待刷新
     opt: [],//页面加载传入的信息
     descTime: true,//是否按发表时间降序排序回帖
-    collectTitle:null,
-    collectTag:null,
-    collectUser:null
+    collectTitle: null,
+    collectTag: null,
+    collectUser: null
   },
 
   showPopup() {
@@ -78,22 +78,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    /*var suc=0
-    const cc = wx.cloud.database().collection('post')
-    for(let i=1;i<=153;++i){
-      cc.doc(String(i)).get().then(res=>{
-        if(res.data.type==0){
-          cc.doc(String(res.data.fatherPost)).get().then(ret=>{
-            cc.doc(String(i)).update({
-              data:{fatherType:ret.data.type}
-            }).then(rea=>{console.log(++suc,i)})
-          })
-        }
-        else{
-          cc.doc(String(i)).update({data:{fatherType:res.data.type}}).then(reb=>{console.log(++suc,i,'2')})
-        }
-      })
-    }*/
+    /*wx.cloud.database().collection('user').doc(String('xxxx')).get().then(rec => {console.log('www')}).catch(ree=>{
+      console.log('啊啊啊')
+    })*/
     this.setData({
       me: getApp().globalData.userID,
       pathp: getApp().globalData.pathp,
@@ -467,7 +454,7 @@ Page({
     var title
     if (this.data.starpost) {//取消收藏
       for (let i = 0; i < col.length; ++i) if (col[i] != pid) dol.push(col[i])
-    }  else { //收藏
+    } else { //收藏
 
       // var res=await db.collection("post").doc(String(pid)).get().then(res=>{
       //   tag=res.data.tag
@@ -478,8 +465,8 @@ Page({
       //     user=res.data.nickName
       //   })
       // console.log(tag+"   "+title+"   "+user)
-        dol = col
-        dol.push(pid)
+      dol = col
+      dol.push(pid)
     }
 
 
@@ -514,6 +501,31 @@ Page({
       unfresh: true,
     })
     this.onShow()
+  },
+
+  bigPicture: function (e) {
+    var et = e.target.id.split(',')
+    var pid = Number(et[0])
+    var iid = Number(et[1])
+    var imgs = []
+    var nr
+    var cimg = ''
+    //console.log(pid,iid)
+    if (!pid)
+      nr = this.data.postt.content
+    else nr = this.data.reply[pid-1][0].content
+    //console.log(nr)
+    for (let i = 0; i < nr.length; ++i) {
+      if (nr[i][0] == 3) {
+        imgs.push(this.data.pathtp + nr[i][1])
+        if (i == iid) cimg = this.data.pathtp + nr[i][1]
+      }
+    }
+    //console.log(cimg, imgs)
+    wx.previewImage({
+      urls: imgs,
+      current: cimg,
+    })
   },
 
   /**

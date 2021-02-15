@@ -28,7 +28,7 @@
       <text wx:if="{{item[0]==1}}">{{item[1]}}</text>
       <text wx:if="{{item[0]==2}}">[假装加粗]{{item[1]}}[假装加粗]</text>
       <image wx:if="{{item[0]==3}}" src="{{pathtp+item[1]}}" bindload="imageLoad" data-index="{{ index }}"
-        style="width:{{ images[index].width }}rpx; height:{{ images[index].height }}rpx;"></image>
+        style="width:{{ images[index].width }}rpx; height:{{ images[index].height }}rpx;" bindtap="bigPicture" id="{{[0,index]}}"></image>
     </view>
   </view>
   <view class="postState">
@@ -125,7 +125,7 @@
             <view wx:for="{{v[0].content}}" class="reContent">
               <text wx:if="{{item[0]==1}}">{{item[1]}}</text>
               <text wx:if="{{item[0]==2}}">[假装加粗]{{item[1]}}[假装加粗]</text>
-              <image wx:if="{{item[0]==3}}" src="{{pathtp+item[1]}}" mode="widthFix"></image>
+              <image wx:if="{{item[0]==3}}" src="{{pathtp+item[1]}}" mode="widthFix" bindtap="bigPicture" id="{{[i+1,index]}}"></image>
             </view>
           </view>
 
