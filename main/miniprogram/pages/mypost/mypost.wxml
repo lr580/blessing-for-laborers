@@ -1,2 +1,7 @@
-<!--pages/mypost/mypost.wxml-->
-<text>pages/mypost/mypost.wxml</text>
+<view wx:for="{{mypost}}">
+  <view>title：{{item.title}}</view>
+  <view>tag：{{item.tag}}</view>
+  <view>type：{{item.type}}</view>
+  <view>postId：{{item.pid}}</view>
+  <text decode="true">&ensp;</text>
+</view>
