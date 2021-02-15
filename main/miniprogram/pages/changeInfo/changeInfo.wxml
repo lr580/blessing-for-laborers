@@ -1,31 +1,8 @@
-
-<!--pages/my/myinfo.wxml-->
-<view class="weui-cells weui-cells_after-title">
-  <view class="weui-cell weui-cell_access" hover-class="weui-cell_active" bindtap="choseImage">
-    <view class="weui-cell__bd">头像</view>
-    <view class="weui-cell__ft weui-cell__ft_in-access">
-     <image class= "head_img" src="{{}}">
-     </image>
-    </view>
-  </view>
-  <navigator url="./change?changeWhat=nickName" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
-    <view class="weui-cell__bd">昵称</view>
-    <view class="weui-cell__ft weui-cell__ft_in-access">{{userinfo.nickName}}</view>
-  </navigator>
-  <navigator url="./change?changeWhat=school" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
-    <view class="weui-cell__bd">学校</view>
-    <view class="weui-cell__ft weui-cell__ft_in-access">{{school}}</view>
-  </navigator>
-  <navigator url="./change?changeWhat=area" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
-    <view class="weui-cell__bd">校区</view>
-    <view class="weui-cell__ft weui-cell__ft_in-access">{{area}}</view>
-  </navigator>
-  <navigator url="./change?changeWhat=zhuanye" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
-    <view class="weui-cell__bd">专业</view>
-    <view class="weui-cell__ft weui-cell__ft_in-access">{{zhuanye}}</view>
-  </navigator>
-  <navigator url="./change?changeWhat=year" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
-    <view class="weui-cell__bd">年级</view>
-    <view class="weui-cell__ft weui-cell__ft_in-access">{{year}}</view>
-  </navigator>
+<view>
+  <view>昵称:</view>
+  <view>{{nickname}}</view>
+  学校:<input   placeholder="{{school}}" bindinput ="getSchool"/>
+  校区:<input   placeholder="{{area}}" bindinput ="getArea"/>
+  专业:<input   placeholder="{{major}}" bindinput ="getMajor"/>
+  年级:<input   placeholder="{{grade}}" bindinput ="getGrade"/>
 </view>
