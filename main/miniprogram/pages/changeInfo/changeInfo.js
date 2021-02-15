@@ -1,4 +1,7 @@
 // pages/changeInfo/changeInfo.js
+const db=wx.cloud.database()
+const _=db.command
+var app = getApp();
 Page({
 
   /**
@@ -6,20 +9,83 @@ Page({
    */
   data: {
     userinfo:{ },
+    nickname:'无',
+    user:null,
     area: '无',
-    zhuanye:'无',
-    year:'无',
+    major:'无',
+    grade:'无',
     school:'无'
   },
+
+
+  getSchool: function(e){
+    this.data.school=e.detail.value
+    var res= db.collection("user").doc(app.globalData.userID).update({
+      data:{
+        school:this.data.school
+      }
+    })
+  },
+
+  getArea: function(e){
+    this.data.area=e.detail.value
+    var res= db.collection("user").doc(app.globalData.userID).update({
+      data:{
+        schoolArea:this.data.area
+      }
+    })
+  },
+
+  getMajor: function(e){
+    this.data.major=e.detail.value
+    var res= db.collection("user").doc(app.globalData.userID).update({
+      data:{
+        major:this.data.major
+      }
+    })
+  },
+
+  getGrade: function(e){
+    this.data.grade=e.detail.value
+    var res= db.collection("user").doc(app.globalData.userID).update({
+      data:{
+        grade:this.data.grade
+      }
+    })
+  },
+
 /*获取昵称头像，无作用*/
-  onLoad: function (options) {
-    this.setData({
-        userinfo: wx.getStorageSync('userInfo')
+  onLoad: async function (options) {
+    var res = await db.collection("user").doc(app.globalData.userID).get().then(res=>{
+      console.log(res.data)
+      if(res.data.school){
+        this.setData({
+          school:res.data.school
+        })
+      }
+      if(res.data.schoolArea){
+        this.setData({
+          area:res.data.schoolArea
+        })
+      }
+      if(res.data.major){
+        this.setData({
+          major:res.data.major
+        })
+      }
+      if(res.data.grade){
+        this.setData({
+          grade:res.data.grade
+        })
+      }
+      this.setData({
+        userinfo: wx.getStorageSync('userInfo'),
+        nickname: wx.getStorageSync('userInfo').nickName
       })
+    })
+      console.log(this.data.userinfo)
   },
-  choseImage:function(){
-    this.openAlert('头像暂不支持修改')
-  },
+
 
   openAlert:function(e){
     wx.showToast({
