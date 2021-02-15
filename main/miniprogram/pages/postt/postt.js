@@ -1,5 +1,6 @@
+const { fakeUser, fakePost } = require('../../lrfx.js');
 //帖子的主显示页面
-// miniprogram/pages/postt/postt.js
+const lrfx = require('../../lrfx.js')
 var lr = require('../../lrfx.js')
 var app = getApp();
 const db = wx.cloud.database()
@@ -78,9 +79,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    /*wx.cloud.database().collection('user').doc(String('xxxx')).get().then(rec => {console.log('www')}).catch(ree=>{
-      console.log('啊啊啊')
-    })*/
     this.setData({
       me: getApp().globalData.userID,
       pathp: getApp().globalData.pathp,
@@ -93,16 +91,17 @@ Page({
         thumbpost: rer.data.thumbs.includes(Number(options.id)),
         starpost: rer.data.collect.includes(Number(options.id)),
       })
-    })
+    })//未写未登录状态
     wx.cloud.database().collection('post').doc(options.id).get().then(res => {
       this.setData({
         postt: res.data,
-        pdate: [res.data.editTime.getFullYear(),//将正贴时间从最后活跃时间改成了编辑时间
+        pdate: lrfx.dateArr(res.data.editTime),
+        /*pdate: [res.data.editTime.getFullYear(),//将正贴时间从最后活跃时间改成了编辑时间
         res.data.editTime.getMonth() + 1,
         res.data.editTime.getDate(),
         res.data.editTime.getHours(),
         res.data.editTime.getMinutes(),
-        res.data.editTime.getSeconds()],
+        res.data.editTime.getSeconds()],*/
         replys: res.data.comment.length
       })
       this.browse()
@@ -114,15 +113,22 @@ Page({
       })
       if (res.data.comment.length) {
         var fin = 0 //回帖的帖子加载完毕数
-        var finu = 0 //回帖的用户加载完毕数
         var temp = [] //见reply
         var tlen = 0 //未被删除有效帖子数
         for (let i = 0; i < res.data.comment.length; ++i) temp[i] = []
+        const thee = this
+        function succ() {
+          temp.sort(cmp())
+          thee.setData({
+            reply: temp,
+            replys: res.data.comment.length,
+            Treplys: tlen,
+          })
+        }
 
         //头像预设为默认头像
-        var tempImageDir = []
         for (let i = 0; i < res.data.comment.length; ++i) temp[i][2] = this.data.pathq
-        var thee = this
+        //var thee = this
         //按发布时间降序排序依据函数
         function cmp() {
           if (thee.data.descTime) {
@@ -151,12 +157,35 @@ Page({
                   Treplys: tlen,
                 })
               }
+            }).catch(rwv=>{
+              temp[i][1]=lrfx.fakeUser
+              temp[i][2]='default.jpg'
+              ++fin
+              if (fin == res.data.comment.length * 4) {//异步的某一次全部回帖帖子和回帖用户和嵌套用户均加载完毕
+                temp.sort(cmp())
+                this.setData({
+                  reply: temp,
+                  replys: res.data.comment.length,
+                  Treplys: tlen,
+                })
+              }
             })
             if (reu.data.reply) {
               wx.cloud.database().collection('post').doc(String(reu.data.reply)).get().then(rex => {
                 wx.cloud.database().collection('user').doc(String(rex.data.user)).get().then(rew => {
                   ++fin
                   temp[i][3] = rew.data
+                  if (fin == res.data.comment.length * 4) {//异步的某一次全部回帖帖子和回帖用户和嵌套用户均加载完毕
+                    temp.sort(cmp())
+                    this.setData({
+                      reply: temp,
+                      replys: res.data.comment.length,
+                      Treplys: tlen,
+                    })
+                  }
+                }).catch(rww => {
+                  ++fin
+                  temp[i][3] = lrfx.fakeUser
                   if (fin == res.data.comment.length * 4) {//异步的某一次全部回帖帖子和回帖用户和嵌套用户均加载完毕
                     temp.sort(cmp())
                     this.setData({
@@ -176,20 +205,33 @@ Page({
                     Treplys: tlen,
                   })
                 }
+              }).catch(rwx=>{
+                fin+=2
+                temp[i][3]=fakeUser
+                temp[i][5]=fakePost
+                if (fin == res.data.comment.length * 4) {//异步的某一次全部回帖帖子和回帖用户和嵌套用户均加载完毕
+                  temp.sort(cmp())
+                  this.setData({
+                    reply: temp,
+                    replys: res.data.comment.length,
+                    Treplys: tlen,
+                  })
+                }
               })
             }
             else fin += 2
 
             ++fin
             temp[i][0] = reu.data
-            temp[i][4] = [
+            temp[i][4] = lrfx.dateArr(reu.data.editTime)
+            /*[
               reu.data.editTime.getFullYear(),
               reu.data.editTime.getMonth() + 1,
               reu.data.editTime.getDate(),
               reu.data.editTime.getHours(),
               reu.data.editTime.getMinutes(),
               reu.data.editTime.getSeconds()
-            ]
+            ]*/
             temp[i][6] = this.data.meo.thumbs.includes(temp[i][0].id)
             if (!temp[i][0].hide) ++tlen
             if (fin == res.data.comment.length * 4) {//异步的某一次全部回帖帖子和回帖用户和嵌套用户均加载完毕(实验表明不会在这里结束异步，但保险起见还是放着吧)
@@ -200,9 +242,31 @@ Page({
                 Treplys: tlen,
               })
             }
+          }).catch(rwu => {//?
+            var tmp = []
+            tmp[0] = lrfx.fakePost
+            tmp[1] = lrfx.fakeUser
+            tmp[2] = 'default.jpg'
+            tmp[3] = lrfx.fakeUser
+            tmp[4] = new Date()
+            tmp[5] = lrfx.fakePost
+            tmp[6] = false
+            temp[i] = tmp
+            fin += 4
+            if (fin == res.data.comment.length * 4) {
+              temp.sort(cmp())
+              this.setData({
+                reply: temp,
+                replys: res.data.comment.length,
+                Treplys: tlen,
+              })
+            }
           })
         }
       }
+    }).catch(rwr => {
+      var p = { hide: true }//模拟删帖
+      this.setData({ postt: p })
     })
   },
 

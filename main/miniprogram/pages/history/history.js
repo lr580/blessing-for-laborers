@@ -1,4 +1,5 @@
 // pages/history/history.js
+const modu = require('../../lrfx.js')
 Page({
 
   /**
@@ -39,7 +40,7 @@ Page({
       var tg = log.length
       var thee = this
       function finz() {
-        console.log('fin')
+        //console.log('fin')
         thee.setData({
           posts: p,
           dates: d,
@@ -49,18 +50,20 @@ Page({
       }
       for (let i = 0; i < tg; ++i) {
         d[i] = log[i][1]
-        console.log('log', log)
+        //console.log('log', log)
         log[i][1] = new Date(log[i][1]['$date'])
-        d[i] = [log[i][1].getFullYear(),
+        d[i] = modu.dateArr(log[i][1])
+        //console.log(modu.dateStr(log[i][1]))
+        /*[log[i][1].getFullYear(),
         log[i][1].getMonth() + 1,
         log[i][1].getDate(),
         log[i][1].getHours(),
         log[i][1].getMinutes(),
-        log[i][1].getSeconds()]
+        log[i][1].getSeconds()]*/
         db.collection('post').doc(String(log[i][0])).get().then(ret => {
-          console.log('res', ret.data)
+          //console.log('res', ret.data)
           db.collection('user').doc(String(ret.data.user)).get().then(reu => {
-            console.log('reu', reu.data)
+            //console.log('reu', reu.data)
             u[i] = reu.data
             if (++fin == tg << 1) finz()
           })

@@ -119,12 +119,13 @@ Page({
 
           for (let i = 0; i < res.data.length; ++i) {
             temp[i][0] = res.data[i]
-            temp[i][2] = [res.data[i].activeTime.getFullYear(),
+            temp[i][2] = modu.dateArr(res.data[i].activeTime)
+            /*[res.data[i].activeTime.getFullYear(),
             res.data[i].activeTime.getMonth() + 1,
             res.data[i].activeTime.getDate(),
             res.data[i].activeTime.getHours(),
             res.data[i].activeTime.getMinutes(),
-            res.data[i].activeTime.getSeconds()]
+            res.data[i].activeTime.getSeconds()]*/
             temp[i][3] = modu.getABS(res.data[i].content)
             wx.cloud.database().collection('user').doc(String(res.data[i].user)).get().then(ret => {
               ++fina
@@ -194,12 +195,13 @@ Page({
 
         for (let i = 0; i < res.data.length; ++i) {
           temp[i][0] = res.data[i]
-          temp[i][2] = [res.data[i].activeTime.getFullYear(),
+          temp[i][2] = modu.dateArr(res.data[i].activeTime)
+          /*[res.data[i].activeTime.getFullYear(),
           res.data[i].activeTime.getMonth() + 1,
           res.data[i].activeTime.getDate(),
           res.data[i].activeTime.getHours(),
           res.data[i].activeTime.getMinutes(),
-          res.data[i].activeTime.getSeconds()]
+          res.data[i].activeTime.getSeconds()]*/
           temp[i][3] = modu.getABS(res.data[i].content)
           wx.cloud.database().collection('user').doc(String(res.data[i].user)).get().then(ret => {
             ++fina
@@ -437,27 +439,6 @@ Page({
       eddt: eddt,
     })
     this.firstLoad()
-    /*wx.cloud.database().collection('post').where(dem1).limit(this.data.initLoads).get().then(res => {
-      console.log(res.data)
-    })*/
-    /*const LIM = 100
-    exports.main = async (event, content) => {
-      const cr = await wx.cloud.database().collection('post').count()
-      const tot = cr.total
-      const batchs = Math.ceil(tot / LIM)
-      var tasks = []
-      for (let i = 0; i < batchs; ++i) {
-        var promise = wx.cloud.database().collection('post').skip(i * LIM).limit(LIM).get()
-        tasks.push(promise)
-      }
-      return (await Promise.all(tasks)).reduce((acc, cur) => {
-        console.log('cur', cur.data)
-        return {
-          data: acc.data.concat(cur.data),
-          errMsg: acc.errMsg,
-        }
-      })
-    }*/
   },
 
   postize: function (e) {

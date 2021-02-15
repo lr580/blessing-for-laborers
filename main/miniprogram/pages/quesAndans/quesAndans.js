@@ -59,19 +59,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    /*var suc=0
-    const cc=wx.cloud.database().collection('post')
-    for(let i=1;i<=130;++i){
-      cc.doc(String(i)).get().then(res=>{
-        var tx=''
-        var t=res.data.content
-        for(let j=0;j<t.length;++j){
-          if(t[j][0]!=3) tx+=t[j][1]+' '
-        }
-        cc.doc(String(i)).update({data:{pureText:tx}}).then(rea=>{console.log(i,++suc)})
-      })
-    }*/
-
     var dem = {
       hide: false,
     }
