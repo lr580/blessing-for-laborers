@@ -1,8 +1,10 @@
 <view>
+
   <view>昵称:</view>
   <view>{{nickname}}</view>
   学校:<input   placeholder="{{school}}" bindinput ="getSchool"/>
   校区:<input   placeholder="{{area}}" bindinput ="getArea"/>
   专业:<input   placeholder="{{major}}" bindinput ="getMajor"/>
   年级:<input   placeholder="{{grade}}" bindinput ="getGrade"/>
+  
 </view>
