@@ -19,7 +19,9 @@ Page({
 
 
   getSchool: function(e){
-    this.data.school=e.detail.value
+    this.setData({
+      school:e.detail.value
+    })
     var res= db.collection("user").doc(app.globalData.userID).update({
       data:{
         school:this.data.school
@@ -28,7 +30,9 @@ Page({
   },
 
   getArea: function(e){
-    this.data.area=e.detail.value
+    this.setData({
+      area:e.detail.value
+    })
     var res= db.collection("user").doc(app.globalData.userID).update({
       data:{
         schoolArea:this.data.area
@@ -37,7 +41,9 @@ Page({
   },
 
   getMajor: function(e){
-    this.data.major=e.detail.value
+    this.setData({
+      major:e.detail.value
+    })
     var res= db.collection("user").doc(app.globalData.userID).update({
       data:{
         major:this.data.major
@@ -46,7 +52,9 @@ Page({
   },
 
   getGrade: function(e){
-    this.data.grade=e.detail.value
+    this.setData({
+      grade:e.detail.value
+    })
     var res= db.collection("user").doc(app.globalData.userID).update({
       data:{
         grade:this.data.grade
