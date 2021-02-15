@@ -112,12 +112,11 @@ Page({
               console.log("THIS　IＳ    " + res)
               getApp().globalData.me = res.data._id
               getApp().globalData.me = res.data[0]._id
-              var obj={}
-              obj[res.data[0].nickName]=res.data[0]._id
-              //console.log('obj',obj,res.data)
+              var obj = {}
+              obj[res.data[0].nickName] = res.data[0]._id
               db.collection('global').doc('username').update({
-                data:obj
-              }).then(ret=>{
+                data: obj
+              }).then(ret => {
                 //console.log('suc add to global')
               })
             })
@@ -130,41 +129,30 @@ Page({
               console.log(app.globalData.userID)
               getApp().globalData.me = res.data[0]._id
 
-              var obj={}
-              obj[res.data[0].nickName]=res.data[0]._id
-              db.collection('global').doc('username').get().then(rea=>{
-                //console.log('hi')
-                for(let key in rea.data){
-                  if(rea.data[key]==res.data[0]._id){
-                    if(key!=res.data[0].nickName){
-                      var obj2={}
-                      for(let key in rea.data)
-                      {
-                        //console.log(key,rea.data[key]==res.data[0]._id)
-                        if(key!='_id') { 
-                          if(rea.data[key]==res.data[0]._id) 
-                            obj2[key]=wx.cloud.database().command.remove()
-                          else obj2[key]=rea.data[key]
+              var obj = {}
+              obj[res.data[0].nickName] = res.data[0]._id
+              db.collection('global').doc('username').get().then(rea => {
+                for (let key in rea.data) {
+                  if (rea.data[key] == res.data[0]._id) {
+                    if (key != res.data[0].nickName) {
+                      var obj2 = {}
+                      for (let key in rea.data) {
+                        if (key != '_id') {
+                          if (rea.data[key] == res.data[0]._id)
+                            obj2[key] = wx.cloud.database().command.remove()
+                          else obj2[key] = rea.data[key]
                         }
                       }
-                      obj2[res.data[0].nickName]=res.data[0]._id
+                      obj2[res.data[0].nickName] = res.data[0]._id
                       db.collection('global').doc('username').update({
-                        data:obj2
-                      }).then(reb=>{
+                        data: obj2
+                      }).then(reb => {
                         console.log('update case of rename')
                       })
                     }
                   }
                 }
               })
-              /*var obj={}
-              obj[res.data[0].nickName]=res.data[0]._id
-              //console.log('obj',obj,res.data)
-              db.collection('global').doc('username').update({
-                data:obj
-              }).then(ret=>{
-                //console.log('suc add to global')
-              })*/
             })
           }
         })

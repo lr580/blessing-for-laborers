@@ -513,7 +513,7 @@ Page({
     //console.log(pid,iid)
     if (!pid)
       nr = this.data.postt.content
-    else nr = this.data.reply[pid-1][0].content
+    else nr = this.data.reply[pid - 1][0].content
     //console.log(nr)
     for (let i = 0; i < nr.length; ++i) {
       if (nr[i][0] == 3) {

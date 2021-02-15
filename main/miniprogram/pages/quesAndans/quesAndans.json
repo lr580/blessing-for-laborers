@@ -4,11 +4,12 @@
     "tabBar": "/components/tabBar/tabBar",
     "van-dropdown-menu": "/dist/dropdown-menu",
     "van-dropdown-item": "/dist/dropdown-item",
-    "van-cell":"/dist/cell",
-    "van-popup":"/dist/popup",
+    "van-cell": "/dist/cell",
+    "van-popup": "/dist/popup",
     "van-button": "/dist/button",
     "van-dropdown-item": "/dist/dropdown-item",
-    "van-loading": "/dist/loading/index"
+    "van-loading": "/dist/loading/index",
+    "van-tag": "/dist/tag/index"
   },
   "enablePullDownRefresh": true,
   "onReachBottomDistance": 100

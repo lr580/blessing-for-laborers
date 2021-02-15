@@ -4,16 +4,23 @@
 <van-cell arrow-direction="down" icon="/img/search.png" title="自定义条件搜索" is-link bind:click="showPopup">按照您的要求搜索
 </van-cell>
 
-<van-popup round position="bottom" custom-style="height:{{searchDown?'80%':'40%'}}" show="{{ show }}" bind:close="onClose">
+<van-popup round position="bottom" custom-style="height:{{searchDown?'70%':'33%'}}" show="{{ show }}"
+  bind:close="onClose">
   <view class="bodyColor">
     <view class="searchBody">
       <view class="searchTip" bindtap="searchDf">
-        <view wx:if="{{!searchDown}}"><van-button custom-style="margin-left:24%;margin-top:30rpx;margin-bottom:30rpx" round type="info" style="width:550rpx">点我展开高级搜索选项</van-button></view>
-        <view wx:else><van-button custom-style="margin-left:24%;margin-top:30rpx;margin-bottom:30rpx" round type="info" style="width:550rpx">点我收起高级搜索选项</van-button></view>
-        
+        <view wx:if="{{!searchDown}}">
+          <van-button custom-style="margin-left:24%;margin-top:30rpx;margin-bottom:30rpx" round type="info"
+            style="width:550rpx">点我展开高级搜索选项</van-button>
+        </view>
+        <view wx:else>
+          <van-button custom-style="margin-left:24%;margin-top:30rpx;margin-bottom:30rpx" round type="info"
+            style="width:550rpx">点我收起高级搜索选项</van-button>
+        </view>
+
       </view>
       <view class="searchTip" wx:if="{{searchDown}}">*(未勾选的栏目代表该条件为任意)</view>
-      
+
       <view class="select1" wx:if="{{searchDown}}">
         <checkbox-group style="margin-left:20rpx" bindchange="switchIR">
           <checkbox value="replyS" checked="{{replyS}}">包含回帖</checkbox>
@@ -86,7 +93,7 @@
           <view wx:else bindtap="typeDownize" style="margin-left:20rpx">帖子标签(点击展开)</view>
         </view>
       </view>
-      <button style="margin-top:40rpx;margin-bottom:40rpx" type="primary" bindtap="search">点我搜索</button>
+      <button style="margin-top:40rpx;margin-bottom:10rpx" type="primary" bindtap="search">点我搜索</button>
     </view>
   </view>
 </van-popup>
@@ -183,7 +190,7 @@
 </view>
 
 <view class="loading" wx:if="{{!(alreadyAll||postn<=initLoads)}}">
-<van-loading  color="#1989fa"   size="40rpx" vertical>加载中...</van-loading>
+  <van-loading color="#1989fa" size="40rpx" vertical>加载中...</van-loading>
 </view>
 
 

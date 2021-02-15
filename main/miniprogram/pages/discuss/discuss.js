@@ -39,10 +39,10 @@ Page({
     bgdt: new Date(),//搜索起始日期范围对象
     eddt: new Date(),//搜索结束日期范围对象
     username: [],//所有用户名与id对应列表
-    typeDown:false,//搜索栏标签是否下拉中
-    searchDown:false,//搜索栏是否展开高级搜索
+    typeDown: false,//搜索栏标签是否下拉中
+    searchDown: false,//搜索栏是否展开高级搜索
   },
-//以下为控制弹出层的函数
+  //以下为控制弹出层的函数
   showPopup() {
     this.setData({ show: true });
   },
@@ -68,8 +68,8 @@ Page({
       pathtp: getApp().globalData.pathtp,
       types: ['全部'].concat(getApp().globalData.types),
       dem: dem,
-      dateBS:getApp().globalData.dateBS,
-      dateES:getApp().globalData.dateES,
+      dateBS: getApp().globalData.dateBS,
+      dateES: getApp().globalData.dateES,
     })
 
     wx.cloud.database().collection('global').doc('catagory').get().then(res => {
@@ -367,9 +367,9 @@ Page({
 
     var ty = []
     for (let i = 1; i <= 4; ++i) if (this.data.typesS[i]) ty.push(i)
-    if (this.data.replyS){
+    if (this.data.replyS) {
       ty.push(0)
-      if(ty.length) demp['fatherType']=_.in(ty)//回帖fatherType有0也无所谓
+      if (ty.length) demp['fatherType'] = _.in(ty)//回帖fatherType有0也无所谓
     }
     if (ty.length) demp['type'] = _.in(ty)
 
@@ -467,12 +467,12 @@ Page({
     this.onLoad()
   },
 
-  typeDownize:function(e){
-    this.setData({typeDown:!this.data.typeDown})
+  typeDownize: function (e) {
+    this.setData({ typeDown: !this.data.typeDown })
   },
 
-  searchDf:function(e){
-    this.setData({searchDown:!this.data.searchDown})
+  searchDf: function (e) {
+    this.setData({ searchDown: !this.data.searchDown })
   },
 
   /**

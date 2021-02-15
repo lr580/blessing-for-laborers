@@ -1,7 +1,8 @@
 <view wx:if="{{postt.hide}}" class="warning">
-<view class="warnPic"><image src="/img/warning.png"></image>
-</view>
-<view style="fontSize:50rpx; display:flex;justify-content: center; ">原帖已被删除！</view>
+  <view class="warnPic">
+    <image src="/img/warning.png"></image>
+  </view>
+  <view style="fontSize:50rpx; display:flex;justify-content: center; ">原帖已被删除！</view>
 </view>
 <view wx:else>
   <view class="postInfo">
@@ -25,10 +26,11 @@
   </view>
   <view class="postContent">
     <view wx:for="{{postt.content}}">
-      <text wx:if="{{item[0]==1}}">{{item[1]}}</text>
+      <text user-select="true" wx:if="{{item[0]==1}}">{{item[1]}}</text>
       <text wx:if="{{item[0]==2}}">[假装加粗]{{item[1]}}[假装加粗]</text>
       <image wx:if="{{item[0]==3}}" src="{{pathtp+item[1]}}" bindload="imageLoad" data-index="{{ index }}"
-        style="width:{{ images[index].width }}rpx; height:{{ images[index].height }}rpx;" bindtap="bigPicture" id="{{[0,index]}}"></image>
+        style="width:{{ images[index].width }}rpx; height:{{ images[index].height }}rpx;" bindtap="bigPicture"
+        id="{{[0,index]}}"></image>
     </view>
   </view>
   <view class="postState">
@@ -84,12 +86,12 @@
 
 <van-divider contentPosition="center" fontSize="15">交流区</van-divider>
 <i-cell-group class="selectButton">
-    <i-cell title="自定义内容">
-        <i-switch value="{{descTime}}" size="large" bind:change="selectST" slot="footer">
-            <view slot="open">降序</view>
-            <view slot="close">升序</view>
-        </i-switch>
-    </i-cell>
+  <i-cell title="自定义内容">
+    <i-switch value="{{descTime}}" size="large" bind:change="selectST" slot="footer">
+      <view slot="open">降序</view>
+      <view slot="close">升序</view>
+    </i-switch>
+  </i-cell>
 </i-cell-group>
 <view class="comment">
   <view>
@@ -125,7 +127,8 @@
             <view wx:for="{{v[0].content}}" class="reContent">
               <text wx:if="{{item[0]==1}}">{{item[1]}}</text>
               <text wx:if="{{item[0]==2}}">[假装加粗]{{item[1]}}[假装加粗]</text>
-              <image wx:if="{{item[0]==3}}" src="{{pathtp+item[1]}}" mode="widthFix" bindtap="bigPicture" id="{{[i+1,index]}}"></image>
+              <image wx:if="{{item[0]==3}}" src="{{pathtp+item[1]}}" mode="widthFix" bindtap="bigPicture"
+                id="{{[i+1,index]}}"></image>
             </view>
           </view>
 
