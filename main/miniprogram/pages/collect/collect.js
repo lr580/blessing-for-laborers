@@ -72,18 +72,33 @@ Page({
    */
   onShow:async function () {
     var res=await this.getData()
+    wx.showLoading({
+      title: '加载中...',
+    })
     for(var i=0,len=this.data.dataArr.length;i<len;i++){
       var res= await db.collection("post").doc(String(this.data.dataArr[i])).get().then(res=>{
         var type=null
-        var name
+        var day=res.data.activeTime.getDate()
+        var year=res.data.activeTime.getFullYear()
+        var month=res.data.activeTime.getMonth()
+        if(month<10){month="0"+String(month)}
+        var hour=res.data.activeTime.getHours()
+        if(hour<10){hour="0"+String(hour)}
+        var min=res.data.activeTime.getMinutes()
+        if(min<10){min="0"+String(min)}
+        var sec=res.data.activeTime.getSeconds()
+        if(sec<10){sec="0"+String(sec)}
         if(res.data.type==1){type="问答"}
         else if(res.data.type==2){type="交流"}
         else if(res.data.type==3){type="分享"}
         else{type="日志"}
-        this.data.datacollect.push({title:res.data.title,tag:res.data.tag,pid:res.data._id,type:type})
+        this.data.datacollect.push({title:res.data.title,tag:res.data.tag,activeTime:year+"/"+month+"/"+day+" "+hour+":"+min+":"+sec,type:type})
+        if(i==len-1){
+        wx.hideLoading(),
         this.setData({
           datacollect:this.data.datacollect
         })
+        }
       })
     }
     console.log(this.data.datacollect)
