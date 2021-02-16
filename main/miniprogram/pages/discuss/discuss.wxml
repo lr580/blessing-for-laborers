@@ -140,11 +140,7 @@
 </view>
 
 <view class="nopostTip" wx:if="{{!postn}}">
-  <view class="tippic">
-    <image src="/img/nopostTip.png"></image>
-  </view>
-  <view style="fontSize:50rpx; display:flex;justify-content: center; ">
-    暂无帖子</view>
+  <van-empty description="暂无帖子" />
 </view>
 <view wx:else>
   <view wx:for="{{posts}}" wx:for-index="i" wx:for-item="v">

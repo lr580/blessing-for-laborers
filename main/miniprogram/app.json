@@ -40,7 +40,7 @@
     "backgroundColor": "#FFFFFF",
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#FFFFFF",
-    "navigationBarTitleText": "appName",
+    "navigationBarTitleText": "学舟",
     "navigationBarTextStyle": "black"
   },
   "sitemapLocation": "sitemap.json",

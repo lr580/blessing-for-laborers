@@ -6,7 +6,7 @@
 </view>
 <view wx:else>
   <view class="postInfo">
-    <view class="postTitle"><text>{{postt.title}}</text>
+    <view class="postTitle"><text user-select="true">{{postt.title}}</text>
     </view>
     <van-divider contentPosition="right" borderColor="rgb(3, 146, 146)" textColor="rgb(3, 146, 146)">{{postt.tag}}
     </van-divider>
@@ -18,8 +18,8 @@
         <image src="{{poster.avatarUrl}}" wx:else></image>
       </view>
       <view class="userName">
-        <text wx:if="{{postt.anonymity&&me!=postt.user}}">匿名用户</text>
-        <text wx:else>{{poster.nickName}}</text>
+        <text user-select="true" wx:if="{{postt.anonymity&&me!=postt.user}}">匿名用户</text>
+        <text user-select="true" wx:else>{{poster.nickName}}</text>
       </view>
     </view>
     <view style="height:40rpx"></view>
@@ -113,7 +113,7 @@
                 <image src="/img/doubletoright.png"></image>
               </view>
               <view wx:if="{{v[0].reply&&v[5].hide}}" class="bereuserName">(原楼层已删除)</view>
-              <view wx:elif="{{v[0].reply &&(!v[5].anonymity||me==v[5].user)}}" class="bereuserName">{{v[3].nickName}}
+              <view  wx:elif="{{v[0].reply &&(!v[5].anonymity||me==v[5].user)}}" class="bereuserName">{{v[3].nickName}}
               </view>
               <view wx:elif="{{v[0].reply&&v[5].anonymity&&me!=v[5].user}}" class="bereuserName"> 匿名用户</view>
               <view class="floor">
@@ -125,7 +125,7 @@
 
 
             <view wx:for="{{v[0].content}}" class="reContent">
-              <text wx:if="{{item[0]==1}}">{{item[1]}}</text>
+              <text user-select="true" wx:if="{{item[0]==1}}">{{item[1]}}</text>
               <text wx:if="{{item[0]==2}}">[假装加粗]{{item[1]}}[假装加粗]</text>
               <image wx:if="{{item[0]==3}}" src="{{pathtp+item[1]}}" mode="widthFix" bindtap="bigPicture"
                 id="{{[i+1,index]}}"></image>

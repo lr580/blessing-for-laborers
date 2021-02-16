@@ -111,7 +111,6 @@
   margin-right: 20rpx;
   display: flex;
   align-items: center;
-  justify-content: space-evenly;
   border-bottom: 2rpx solid rgb(194, 188, 188);
   border-top: 2rpx solid rgb(194, 188, 188);
   height: 70rpx;
@@ -155,6 +154,7 @@
 }
 
 .activity {
+  width: 400rpx;
   display: flex;
   align-items: center;
 }
@@ -184,6 +184,7 @@
 }
 
 .delete {
+  width: 200rpx;
   display: flex;
   align-items: center;
 }
@@ -213,6 +214,10 @@
   text-overflow: ellipsis;
 }
 
+
+
+
+
 .bereuserName {
   margin-left: 10rpx;
   width: 150rpx;
@@ -226,6 +231,7 @@
   flex-wrap: wrap;
   text-overflow: ellipsis;
 }
+
 
 .reuserInfo image {
   width: 60rpx;

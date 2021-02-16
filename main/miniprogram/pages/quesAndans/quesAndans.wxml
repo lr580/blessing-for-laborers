@@ -138,11 +138,7 @@
 
 
 <view class="nopostTip" wx:if="{{!postn}}">
-  <view class="tippic">
-    <image src="/img/nopostTip.png"></image>
-  </view>
-  <view style="fontSize:50rpx; display:flex;justify-content: center; ">
-    暂无帖子</view>
+  <van-empty description="暂无帖子" />
 </view>
 
 
@@ -170,14 +166,10 @@
       <view class="state">
         <view class="tag">
           <van-tag color="#ffe1e1" text-color="#ad0000" mark type="danger">{{v[0].tag}}</van-tag>
-          <!-- <image src="/img/tag.png"></image>
-          <text>{{v[0].tag}}</text> -->
         </view>
         <view class="activity">
-          <!-- <image src="/img/activity.png"></image> -->
-          <van-tag color="rgba(28, 214, 243, 0.49)" text-color="white">{{v[2][0]}}/{{v[2][1]}}/{{v[2][2]}}
+          <van-tag color="rgba(52, 214, 255, 0.288)" text-color="white">{{v[2][0]}}/{{v[2][1]}}/{{v[2][2]}}
             {{v[2][3]}}:{{v[2][4]}}:{{v[2][5]}}</van-tag>
-          <!-- <text>{{v[2][0]}}/{{v[2][1]}}/{{v[2][2]}} {{v[2][3]}}:{{v[2][4]}}:{{v[2][5]}}</text> -->
         </view>
         <view class="like">
           <image src="/img/like!.png"></image><text>{{v[0].thumbs}}</text>

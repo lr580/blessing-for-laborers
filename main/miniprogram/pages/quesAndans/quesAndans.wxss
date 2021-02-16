@@ -1,16 +1,11 @@
 /* pages/discuss/discuss.wxss */
 .nopostTip {
-  margin-top: 100rpx;
   width: 750rpx;
   display: flex;
   justify-content: center;
   flex-direction: column;
 }
 
-.nopostTip image {
-  width: 600rpx;
-  height: 400rpx;
-}
 
 .tippic {
   display: flex;
@@ -26,7 +21,7 @@
 
 .topost {
   background-color: white;
-
+ /* background-color: rgba(52, 214, 255, 0.288); */
   margin-left: 70%;
   margin-top: 20rpx;
   margin-bottom: 20rpx;
@@ -152,7 +147,7 @@
 
 .postPart {
   background-color: white;
-  margin: 20px 0;
+  margin: 10rpx 0;
   border-bottom: 4rpx solid darkgray;
   border-top: 4rpx solid darkgray;
 }

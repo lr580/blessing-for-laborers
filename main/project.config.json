@@ -38,7 +38,7 @@
     "minifyWXSS": true
   },
   "appid": "wx62bf88f7371aa99a",
-  "projectname": "学舟",
+  "projectname": "%E5%AD%A6%E8%88%9F2.16",
   "libVersion": "2.14.4",
   "condition": {
     "plugin": {

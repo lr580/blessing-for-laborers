@@ -9,7 +9,8 @@
     "van-button": "/dist/button",
     "van-dropdown-item": "/dist/dropdown-item",
     "van-loading": "/dist/loading/index",
-    "van-tag": "/dist/tag/index"
+    "van-tag": "/dist/tag/index",
+    "van-empty": "/dist/empty/index"
   },
   "enablePullDownRefresh": true,
   "onReachBottomDistance": 100

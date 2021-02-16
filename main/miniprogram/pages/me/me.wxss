@@ -1,4 +1,6 @@
 /* pages/discuss/discuss.wxss */
+
+
 .discussPic1 {
   display: flex;
 }
@@ -18,6 +20,7 @@
 
 
 .userInfo{
+  margin-top: 20rpx;
  height:200rpx;
  border-bottom: 8rpx solid gray;
  display: flex;
@@ -80,6 +83,7 @@
   width: 200rpx;
   height: 200rpx;
   margin-top: 10rpx;
+  
 }
 
 
@@ -103,24 +107,28 @@
 
 .mypost{
   margin-left: 65rpx;
-  border: 16rpx solid rgb(190, 239, 243);
-  border-radius: 40rpx;
+  border: 8rpx solid rgba(72, 73, 73, 0.486);
+  border-radius: 20rpx;
+  background-color: white;
 }
 
 .history{
   margin-left: 80rpx;
-  border: 16rpx solid rgb(190, 239, 243);
-  border-radius: 40rpx;
+  border: 8rpx solid rgba(72, 73, 73, 0.486);
+  border-radius: 20rpx;
+  background-color: white;
 }
 .collect{
   margin-left: 65rpx;
   margin-top: 50rpx;
-  border: 16rpx solid rgb(190, 239, 243);
-  border-radius: 40rpx;
+  border: 8rpx solid rgba(72, 73, 73, 0.486);
+  border-radius: 20rpx;
+  background-color: white;
 }
 .help{
   margin-left: 80rpx;
   margin-top: 50rpx;
-  border: 16rpx solid rgb(190, 239, 243);
-  border-radius: 40rpx;
+  border: 8rpx solid rgba(72, 73, 73, 0.486);
+  border-radius:20rpx;
+  background-color: white;
 }

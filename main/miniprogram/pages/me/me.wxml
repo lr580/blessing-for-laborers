@@ -1,16 +1,13 @@
 <block class="containerInfo">
-  <view style="margin-top:50rpx"> 
-    <button type="default" open-type="getUserInfo" bindtap="FgetuserInfo" hidden="{{loadKey}}">载入个人信息</button>
-  </view>
   <navigator bindtap="console1" url="/pages/changeInfo/changeInfo">
     <view class="userInfo" wx:if="{{loadKey}}">
       <view class="userImg">
         <image src="{{avatarUrl}}" mode="cover"></image>
       </view>
     <view class="Info">
-      <text class="userName">昵称: {{nickName}}</text>
-        <text class="gender">性别: {{gender}}</text>
-        <text class="city">城市: {{userCity}}</text>
+      <text user-select="true" class="userName">{{nickName}}</text>
+        <text user-select="true" class="gender">性别: {{gender}}</text>
+        <text user-select="true" class="city">城市: {{userCity}}</text>
       </view>
       <view class="goinPic">
       <image src="/img/goin.png"></image>
@@ -33,7 +30,7 @@
   </view>
   <view class="collect">
     <button size="mini" bindtap="gotoCollect">
-      <image src="/img/collect.png"></image>
+      <image src="/img/collect!.png"></image>
       <view>收藏列表</view>
     </button>
   </view>
@@ -44,7 +41,13 @@
     </button>
   </view>
 </view>
-
+<view style="height:70rpx"></view>
+<van-divider
+  contentPosition="right"
+  customStyle="color: rgba(0, 0, 0, 0.582); border-color:rgba(0, 0, 0, 0.582); font-size: 12px;"
+>
+  学海无涯苦作舟
+</van-divider>
   
     
     
