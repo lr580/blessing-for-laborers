@@ -136,6 +136,15 @@ Page({
                   posts: temp,
                 })
               }
+            }).catch(rwt=>{
+              ++fina
+              temp[i][1]=modu.fakeUser
+              if (fina == res.data.length) {
+                thee.setData({
+                  postn: res.data.length,
+                  posts: temp,
+                })
+              }
             })
           }
         },
@@ -206,6 +215,15 @@ Page({
           wx.cloud.database().collection('user').doc(String(res.data[i].user)).get().then(ret => {
             ++fina
             temp[i][1] = ret.data
+            if (fina == res.data.length) {
+              this.setData({
+                postn: this.data.postn + res.data.length,
+                posts: this.data.posts.concat(temp),
+              })
+            }
+          }).catch(rwt=>{
+            ++fina
+            temp[i][1]=modu.fakeUser
             if (fina == res.data.length) {
               this.setData({
                 postn: this.data.postn + res.data.length,

@@ -123,16 +123,26 @@ Page({
 
           for (let i = 0; i < res.data.length; ++i) {
             temp[i][0] = res.data[i]
-            temp[i][2] = [res.data[i].activeTime.getFullYear(),
+            temp[i][2] = modu.dateArr(res.data[i].activeTime)
+            /*[res.data[i].activeTime.getFullYear(),
             res.data[i].activeTime.getMonth() + 1,
             res.data[i].activeTime.getDate(),
             res.data[i].activeTime.getHours(),
             res.data[i].activeTime.getMinutes(),
-            res.data[i].activeTime.getSeconds()]
+            res.data[i].activeTime.getSeconds()]*/
             temp[i][3] = modu.getABS(res.data[i].content)
             wx.cloud.database().collection('user').doc(String(res.data[i].user)).get().then(ret => {
               ++fina
               temp[i][1] = ret.data
+              if (fina == res.data.length) {
+                thee.setData({
+                  postn: res.data.length,
+                  posts: temp,
+                })
+              }
+            }).catch(rwt=>{
+              ++fina
+              temp[i][1]=modu.fakeUser
               if (fina == res.data.length) {
                 thee.setData({
                   postn: res.data.length,
@@ -154,7 +164,7 @@ Page({
   },
 
   /**
-   * 页面上拉触底事件的处理函数
+   * 页面拉触底事件的处理函数
    */
   onReachBottom: function () {
     if (!this.data.posts.length) return
@@ -198,12 +208,13 @@ Page({
 
         for (let i = 0; i < res.data.length; ++i) {
           temp[i][0] = res.data[i]
-          temp[i][2] = [res.data[i].activeTime.getFullYear(),
+          temp[i][2] = modu.dateArr(res.data[i].activeTime)
+         /* [res.data[i].activeTime.getFullYear(),
           res.data[i].activeTime.getMonth() + 1,
           res.data[i].activeTime.getDate(),
           res.data[i].activeTime.getHours(),
           res.data[i].activeTime.getMinutes(),
-          res.data[i].activeTime.getSeconds()]
+          res.data[i].activeTime.getSeconds()]*/
           temp[i][3] = modu.getABS(res.data[i].content)
           wx.cloud.database().collection('user').doc(String(res.data[i].user)).get().then(ret => {
             ++fina
@@ -214,8 +225,22 @@ Page({
                 posts: this.data.posts.concat(temp),
               })
             }
+          }).catch(rwt=>{
+            ++fina
+            temp[i][1]=modu.fakeUser
+            if (fina == res.data.length) {
+              this.setData({
+                postn: this.data.postn + res.data.length,
+                posts: this.data.posts.concat(temp),
+              })
+            }
           })
         }
+      }).catch(rws=>{
+        wx.showToast({
+          title: '数据异常，请重试。',
+        })
+        this.setData({ alreadyAll: true })
       })
   },
 

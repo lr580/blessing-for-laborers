@@ -18,6 +18,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+     //页面必须关闭后打开才刷新，否则需要做太多if判断
     this.setData({
       me: getApp().globalData.userID,
       unfresh: false,
@@ -40,7 +41,6 @@ Page({
       var tg = log.length
       var thee = this
       function finz() {
-        //console.log('fin')
         thee.setData({
           posts: p,
           dates: d,
@@ -50,43 +50,45 @@ Page({
       }
       for (let i = 0; i < tg; ++i) {
         d[i] = log[i][1]
-        //console.log('log', log)
         log[i][1] = new Date(log[i][1]['$date'])
         d[i] = modu.dateArr(log[i][1])
-        //console.log(modu.dateStr(log[i][1]))
-        /*[log[i][1].getFullYear(),
-        log[i][1].getMonth() + 1,
-        log[i][1].getDate(),
-        log[i][1].getHours(),
-        log[i][1].getMinutes(),
-        log[i][1].getSeconds()]*/
         db.collection('post').doc(String(log[i][0])).get().then(ret => {
-          //console.log('res', ret.data)
           db.collection('user').doc(String(ret.data.user)).get().then(reu => {
-            //console.log('reu', reu.data)
             u[i] = reu.data
+            if (++fin == tg << 1) finz()
+          }).catch(rwu => {
+            u[i] = modu.fakeUser
             if (++fin == tg << 1) finz()
           })
           p[i] = ret.data
           if (++fin == tg << 1) finz()
+        }).catch(rwt => {
+          fin += 2
+          p[i] = modu.fakePost
+          u[i] = modu.fakeUser
+          if (fin == tg << 1) finz()
         })
       }
+    }).catch(rws => {
+      wx.showToast({
+        title: '账户信息异常！',
+        icon:'none',
+      })
     })
   },
 
   gotoPost: function (e) {
     var temp = this.data.posts
     var idx = -1
-    for (let i = 0; i < this.data.postn; ++i) {
-      if (Number(e.currentTarget.id) == temp[i][0].id) {
+    for (let i = 0; i < temp.length; ++i) {
+      if (Number(e.currentTarget.id) == temp[i].id) {
         idx = i
         break
       }
     }
-    //console.log(temp[idx][0].type,temp[idx][0].fatherPost)
-    if (temp[idx][0].fatherPost) {//原理上恒为true
+    if (temp[idx].fatherPost) {//原理上恒为true
       wx.navigateTo({
-        url: '/pages/postt/postt?id=' + String(temp[idx][0].fatherPost),
+        url: '/pages/postt/postt?id=' + String(temp[idx].fatherPost),
       })
     } else {
       wx.navigateTo({

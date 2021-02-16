@@ -91,7 +91,13 @@ Page({
         thumbpost: rer.data.thumbs.includes(Number(options.id)),
         starpost: rer.data.collect.includes(Number(options.id)),
       })
-    })//未写未登录状态
+    }).catch(rwr=>{
+      //未写未登录状态
+      wx.showToast({
+        title: '账号信息异常！',
+      })
+      console.log('?')
+    })
     wx.cloud.database().collection('post').doc(options.id).get().then(res => {
       this.setData({
         postt: res.data,
@@ -109,6 +115,11 @@ Page({
         this.setData({
           poster: ret.data,
           pathq: ret.data.image
+        })
+      }).catch(rwt=>{
+        this.setData({
+          poster:lrfx.fakeUser,
+          //pathq:'dafault.jpg',
         })
       })
       if (res.data.comment.length) {
@@ -265,8 +276,14 @@ Page({
         }
       }
     }).catch(rwr => {
-      var p = { hide: true }//模拟删帖
-      this.setData({ postt: p })
+      //var p = { hide: true }//模拟删帖
+      var pt=lrfx.fakePost
+      var pr=lrfx.fakeUser
+      this.setData({ 
+        postt: pt,
+        poster: pr,
+        //pathq: 'default.jpg',
+       })
     })
   },
 

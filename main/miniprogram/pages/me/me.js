@@ -105,6 +105,11 @@ Page({
                 thumbs: [],
                 history: []
               }
+            }).catch(rww => {
+              wx.showToast({
+                title: '更新信息失败！',
+                icon:'none',
+              })
             })
             db.collection("user").where({
               _openid: openid
@@ -118,6 +123,11 @@ Page({
                 data: obj
               }).then(ret => {
                 //console.log('suc add to global')
+              })
+            }).catch(rwr => {
+              wx.showToast({
+                title: '获取信息失败！',
+                icon:'none',
               })
             })
           } else {
@@ -148,13 +158,30 @@ Page({
                         data: obj2
                       }).then(reb => {
                         console.log('update case of rename')
+                      }).catch(rwb => {
+                        wx.showToast({
+                          title: '修改信息失败！',
+                          icon:'none',
+                        })
                       })
                     }
                   }
                 }
+              }).catch(rwa => {
+                wx.showToast({
+                  title: '获取信息失败！',
+                })
+              })
+            }).catch(rws => {
+              wx.showToast({
+                title: '获取信息失败！',
               })
             })
           }
+        }).catch(rws => {
+          wx.showToast({
+            title: '获取信息失败，请重启！',
+          })
         })
 
       },

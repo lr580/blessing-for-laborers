@@ -1,8 +1,11 @@
 <view wx:for="{{datacollect}}">
-  <view>title：{{item.title}}</view>
-  <view>tag：{{item.tag}}</view>
-  <view>type：{{item.type}}</view>
-  <view>postowner：{{item.postowner}}</view>
-  <view>activeTime：{{item.activeTime}}</view>
-  <text decode="true">&ensp;</text>
+  <view bindtap='gotoPost' id="{{item.id}}">
+    <view>title：{{item.title}}</view>
+    <view>tag：{{item.tag}}</view>
+    <view>type：{{item.type}}</view>
+    <view>postowner：{{item.postowner}}</view>
+    <view>activeTime：{{item.activeTime}}</view>
+    <view>调试用，请忽略{{item.id}}</view>
+    <text decode="true">&ensp;</text>
+  </view>
 </view>
