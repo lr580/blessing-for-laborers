@@ -1,10 +1,54 @@
-<view>
+<view class="weui-cells weui-cells_after-title">
+  <view class="weui-cell weui-cell_input">
+    <view class="weui-cell__bd">昵称</view>
+    <view class="weui-cell__bd">
 
-  <view>昵称:</view>
-  <view>{{nickname}}</view>
-  学校:<input   placeholder="{{school}}" bindinput ="getSchool"/>
-  校区:<input   placeholder="{{area}}" bindinput ="getArea"/>
-  专业:<input   placeholder="{{major}}" bindinput ="getMajor"/>
-  年级:<input   placeholder="{{grade}}" bindinput ="getGrade"/>
+      <input class="weui-input" placeholder="{{nickname}}"  bindinput=''/>
+   
+    </view>
+  </view>
+</view>
+
+<view class="weui-cells weui-cells_after-title">
+  <view class="weui-cell weui-cell_input">
+    <view class="weui-cell__bd">学校</view>
+    <view class="weui-cell__bd">
+
+      <input class="weui-input" placeholder="{{school}}"  bindinput='getSchool'/>
+   
+    </view>
+  </view>
+</view>
   
+<view class="weui-cells weui-cells_after-title">
+  <view class="weui-cell weui-cell_input">
+    <view class="weui-cell__bd">校区</view>
+    <view class="weui-cell__bd">
+
+      <input class="weui-input" placeholder="{{area}}"  bindinput='getArea'/>
+   
+    </view>
+  </view>
+</view>
+
+<view class="weui-cells weui-cells_after-title">
+  <view class="weui-cell weui-cell_input">
+    <view class="weui-cell__bd">专业</view>
+    <view class="weui-cell__bd">
+
+      <input class="weui-input"  placeholder="{{major}}" bindinput ="getMajor"/>
+   
+    </view>
+  </view>
+</view>
+
+<view class="weui-cells weui-cells_after-title">
+  <view class="weui-cell weui-cell_input">
+    <view class="weui-cell__bd">年级</view>
+    <view class="weui-cell__bd">
+
+      <input class="weui-input" placeholder="{{grade}}" bindinput ="getGrade"/>
+    
+    </view>
+  </view>
 </view>
