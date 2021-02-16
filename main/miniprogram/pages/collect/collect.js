@@ -82,7 +82,7 @@ Page({
       var res= await db.collection("post").doc(String(this.data.dataArr[i])).get().then(res=>{
         postowner=res.data.user
       })
-      var res= await db.collection("user").doc(postowner).get().then(res=>{
+      var res= await db.collection("user").doc(String(postowner)).get().then(res=>{
         postowner=res.data.nickName
       })
 
