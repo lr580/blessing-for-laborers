@@ -75,7 +75,17 @@ Page({
     wx.showLoading({
       title: '加载中...',
     })
+    var postowner
+
     for(var i=0,len=this.data.dataArr.length;i<len;i++){
+
+      var res= await db.collection("post").doc(String(this.data.dataArr[i])).get().then(res=>{
+        postowner=res.data.user
+      })
+      var res= await db.collection("user").doc(postowner).get().then(res=>{
+        postowner=res.data.nickName
+      })
+
       var res= await db.collection("post").doc(String(this.data.dataArr[i])).get().then(res=>{
         var type=null
         var day=res.data.activeTime.getDate()
@@ -92,7 +102,7 @@ Page({
         else if(res.data.type==2){type="交流"}
         else if(res.data.type==3){type="分享"}
         else{type="日志"}
-        this.data.datacollect.push({title:res.data.title,tag:res.data.tag,activeTime:year+"/"+month+"/"+day+" "+hour+":"+min+":"+sec,type:type})
+        this.data.datacollect.push({title:res.data.title,tag:res.data.tag,activeTime:year+"/"+month+"/"+day+" "+hour+":"+min+":"+sec,type:type,postowner:postowner})
         if(i==len-1){
         wx.hideLoading(),
         this.setData({
