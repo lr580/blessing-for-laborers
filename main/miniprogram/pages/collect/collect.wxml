@@ -2,6 +2,6 @@
   <view>title：{{item.title}}</view>
   <view>tag：{{item.tag}}</view>
   <view>type：{{item.type}}</view>
-  <view>postId：{{item.pid}}</view>
+  <view>activeTime：{{item.activeTime}}</view>
   <text decode="true">&ensp;</text>
 </view>
