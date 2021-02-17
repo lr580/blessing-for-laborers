@@ -1,3 +1,6 @@
+<view>
+  <button type="default" open-type="getUserInfo" bindtap="FgetuserInfo" hidden="{{loadKey}}">载入个人信息</button>
+</view>
 <block class="containerInfo">
   <navigator bindtap="console1" url="/pages/changeInfo/changeInfo">
     <view class="userInfo" wx:if="{{loadKey}}">
@@ -8,7 +11,7 @@
         <text user-select="true" class="userName">{{nickName}}</text>
         <text user-select="true" class="gender">性别: {{gender}}</text>
         <text user-select="true" class="city">城市: {{userCity}}</text>
-      </view>x
+      </view>
       <view class="goinPic">
         <image src="/img/goin.png"></image>
         <view bindtap='gotoInfo'>
