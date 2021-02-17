@@ -50,6 +50,8 @@ Page({
   },
 
   gotoInfo:function(){
+    getApp().globalData.hasNewInfo=0
+    wx.removeTabBarBadge({index: 2,})
     wx.navigateTo({
       url: '/pages/infos/infos',
     })
@@ -152,6 +154,7 @@ Page({
               //console.log('www',res.data[0].newInfo)
               getApp().globalData.hasNewInfo=res.data[0].newInfo
               that.setData({nwInfo:res.data[0].newInfo})
+              if(res.data[0].newInfo) wx.setTabBarBadge({index: 2,text: String(res.data[0].newInfo),})
               //console.log('wwwwww')
 
               var obj = {}
@@ -245,6 +248,10 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+    /*const t=getApp().globalData.hasNewInfo
+    if(t) wx.setTabBarBadge({index: 2,text: String(t),}) 
+    else  wx.removeTabBarBadge({index: 2,})
+    console.log('ggg')*/
     this.FgetuserInfo()//调试
   },
 

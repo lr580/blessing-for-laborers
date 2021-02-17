@@ -19,6 +19,7 @@ App({
         this.globalData.maxuid = res.data.maxuid
         this.globalData.maxpid = res.data.maxpid
       })
+    
     this.globalData = {
       pathp: "cloud://scnuyjx-7gmvlqwfe64c446a.7363-scnuyjx-7gmvlqwfe64c446a-1304878008/userpic/",//常量,头像图片绝对路径一部分
       pathtp: "cloud://scnuyjx-7gmvlqwfe64c446a.7363-scnuyjx-7gmvlqwfe64c446a-1304878008/postpic/",//常量,帖子图片绝对路径一部分
@@ -27,9 +28,15 @@ App({
       userID: 1,//调试状态默认1
       dateBS:'2021-01-25',//搜索默认起始日期
       dateES:'2022-01-01',//搜索默认结束日期
-      hasNewInfo:false,//有无新消息
+      hasNewInfo:0,//有无新消息
       //maxuid:0,
       //maxpid:0,
     }
-  }
+  },
+  /*onShow:function(e){
+    console.log('ggg')
+    const t=this.globalData.hasNewInfo
+    if(t) wx.setTabBarBadge({index: 2,text: String(t),}) 
+    else  wx.removeTabBarBadge({index: 2,})
+  }*/
 })
