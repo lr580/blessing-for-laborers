@@ -10,6 +10,7 @@ Page({
   data: {
     showAll: false,//是否显示全部消息
     infos: [],//消息记录(0是日期(string),1是是否已读，2是消息模式，3是帖子对象，4是用户对象, 5(bool)是否匿名用户)
+    unfresh:false,
   },
 
   load: function () {
@@ -36,6 +37,19 @@ Page({
       function succ() {
         wx.hideLoading()
         thee.setData({ infos: iob })
+        db.collection('user').doc(String(getApp().globalData.userID)).update({
+          data:{
+            'infos.$[].1':true,
+            'newInfo':false,
+          }
+        }).then(rec=>{
+          console.log('www')
+        }).catch(rwc=>{
+          wx.showToast({
+            title: '更新状态失败！',
+            icon:'none',
+          })
+        })
       }
       for (let i = 0; i < iob.length; ++i) {
         iob[i][0]=modu.dateStr(new Date(iob[i][0]['$date']))
@@ -78,6 +92,20 @@ Page({
   switchToAll: function () {
     this.setData({ showAll: !this.data.showAll })
     this.load()
+  },
+
+  gotoPost:function(e){
+    const eio=e.currentTarget.id.split(',')
+    const fid=eio[0]
+    const ty=Number(eio[1])
+    const pid=eio[2]
+    //console.log(eio,fid,ty,pid,'awsl')
+    //const io=this.data.infos
+    const id=ty?pid:fid
+    wx.navigateTo({
+      url: '/pages/postt/postt?id='+String(id),
+    })
+    this.setData({unfresh:true})
   },
 
   /**
