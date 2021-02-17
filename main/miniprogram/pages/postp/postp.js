@@ -362,7 +362,7 @@ Page({
               var io=[nowTime,false,replyType,fo,po]
               wx.cloud.database().collection('user').doc(String(poster)).update({
                 data:{
-                  newInfo:true,
+                  newInfo:wx.cloud.database().command.inc(1),
                   infos:wx.cloud.database().command.push([io])
                 }
               }).catch(rwg=>{
@@ -383,7 +383,7 @@ Page({
               var io=[nowTime,false,replyType,thee.data.reply,po]
               wx.cloud.database().collection('user').doc(String(poster)).update({
                 data:{
-                  newInfo:true,
+                  newInfo:wx.cloud.database().command.inc(1),
                   infos:wx.cloud.database().command.push([io])
                 }
               }).catch(rwg=>{

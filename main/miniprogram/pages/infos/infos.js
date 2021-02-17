@@ -40,7 +40,7 @@ Page({
         db.collection('user').doc(String(getApp().globalData.userID)).update({
           data:{
             'infos.$[].1':true,
-            'newInfo':false,
+            newInfo:0,
           }
         }).then(rec=>{
           console.log('www')

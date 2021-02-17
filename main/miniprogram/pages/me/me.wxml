@@ -13,7 +13,7 @@
         <image src="/img/goin.png"></image>
         <view bindtap='gotoInfo'>
           <view>消息提示</view>
-          <view wx:if="{{nwInfo}}">(有新消息)</view>
+          <view wx:if="{{nwInfo}}">(有新消息{{nwInfo}}条)</view>
         </view>
         
       </view>

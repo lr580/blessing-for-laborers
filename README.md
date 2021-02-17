@@ -101,7 +101,7 @@ modu.lr581() //如果有必要，调试是否加载成功，成功后删掉即�
 - oldtest:(bool) true //只有测试虚拟用户才有该属性(id为1~4)
 - _openid:string
 - avatarUrl:string(oldtest=false时的头像完整(https)地址)
-- newInfo:bool(是否有新消息未查看)
+- newInfo:number(新消息数目)
 - infos:array(date,bool,number,number, number)
   - date代表消息时间
   - bool代表是否已读(打开消息窗口后**全部**置已读，即true)
