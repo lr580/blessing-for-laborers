@@ -352,13 +352,14 @@ Page({
         var fo=fp
         if(!fo) fo=thee.data.pid
         console.log('wwc',thee.data.type, fo)
-        if(1){//是回帖 !thee.data.type
+        if(!thee.data.type){//是回帖 
           wx.cloud.database().collection('post').doc(String(fo)).get().then(ref=>{
             var poster = ref.data.user
             console.log('succc',thee.data.me,poster)
             if(1){ //thee.data.me!=poster
               var replyType = thee.data.edit?2:1
-              var io=[nowTime,false,replyType,fo,poster]
+              var po=thee.data.anonymity?0:poster
+              var io=[nowTime,false,replyType,fo,po]
               wx.cloud.database().collection('user').doc(String(poster)).update({
                 data:{
                   newInfo:true,
@@ -366,6 +367,27 @@ Page({
                 }
               }).catch(rwg=>{
                 console.log('修改消息提示失败！')
+              })
+            }
+          }).catch(rwf=>{
+            console.log('读取原贴信息错误！')
+          })
+        }
+        if(thee.data.reply){
+          wx.cloud.database().collection('post').doc(String(thee.data.reply)).get().then(ref=>{
+            var poster = ref.data.user
+            console.log('succc',thee.data.me,poster)
+            if(1){ //thee.data.me!=poster
+              var replyType = thee.data.edit?2:1
+              var po=thee.data.anonymity?0:poster
+              var io=[nowTime,false,replyType,thee.data.reply,po]
+              wx.cloud.database().collection('user').doc(String(poster)).update({
+                data:{
+                  newInfo:true,
+                  infos:wx.cloud.database().command.push([io])
+                }
+              }).catch(rwg=>{
+                console.log('修改消息提示失败！(2)')
               })
             }
           }).catch(rwf=>{
