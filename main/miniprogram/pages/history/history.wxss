@@ -1,37 +1,41 @@
 /* pages/history/history.wxss */
 .nickName {
-  font-size: 35rpx;
+  font-size: 30rpx;
   margin-left: 20rpx;
   font-weight: 400;
-  margin-top: 10rpx;
+  margin-top: 0rpx;
   width: 500rpx;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+  color: rgb(95, 89, 89);
 }
 
 .title {
   margin-top: 5rpx;
-  font-size: 45rpx;
-  font-weight: 600;
-  overflow: hidden;
+  font-size: 40rpx;
+  font-weight: 550;
   white-space: nowrap;
-  text-overflow: ellipsis;
-  text-align: center;
+  margin-left: 20rpx;
 }
 
 .state {
-  margin-left: 20rpx;
+  right: 8%;
+  position: absolute;
   height: 50rpx;
-  font-size: 25rpx;
   display: flex;
+  color: rgb(95, 89, 89);
+  font-size: 30rpx;
+  font-weight: 400;
 }
 
 .state1{
   margin-left: 10rpx;
   height: 50rpx;
-  font-size: 25rpx;
   display: flex;
+  color: rgb(95, 89, 89);
+  font-size: 30rpx;
+  font-weight: 400;
 }
 
 .tag{
@@ -55,7 +59,7 @@
   margin-top: 20rpx;
   background-color: white;
   margin-left: 5%;
-  height: 300rpx;
+  height: 200rpx;
   width: 90%;
   border-radius: 10rpx;
   border: 5rpx solid rgba(117, 115, 115, 0.527);
@@ -66,12 +70,12 @@
   display: flex;
 }
 .top{
-  margin-top: 15rpx;
+  margin-top: 10rpx;
   display: flex;
 }
 
 .divline{
-  margin-top: 20rpx;
+  margin-top: 1rpx;
   background: grey;
   width: 90%;
   margin-left: 5%;
@@ -79,5 +83,11 @@
 }
 
 .type{
-  font-weight: 600;
+  
+  margin-top: 5rpx;
+  right: 8%;
+  position: absolute;
+  color: rgb(95, 89, 89);
+  font-size: 30rpx;
+  font-weight: 400;
 }
