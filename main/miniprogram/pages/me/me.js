@@ -47,6 +47,13 @@ Page({
       url: '/pages/help/help',
     })
   },
+
+  gotoInfo:function(){
+    wx.navigateTo({
+      url: '/pages/infos/infos',
+    })
+  },
+
   //获取用户授权信息
   FgetuserInfo: async function () {
     var openid
@@ -193,7 +200,27 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    /*const cc = db.collection('user')
+    cc.get().then(rer=>{
+      for(let i=0;i<rer.data.length;++i){
+        cc.doc(String(rer.data[i]._id)).update({
+          data:{
+            newInfo:false,
+            infos:[],
+          }
+        }).then(res=>{
+          console.log(i)
+        })
+      }
+    })*/
+    /*db.collection('user').update({
+      data:{
+        newInfo:false,
+        infos:[],
+      }
+    }).then(res=>{
+      console.log(res)
+    })*/
   },
 
   /**

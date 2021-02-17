@@ -4,14 +4,15 @@
       <view class="userImg">
         <image src="{{avatarUrl}}" mode="cover"></image>
       </view>
-    <view class="Info">
-      <text user-select="true" class="userName">{{nickName}}</text>
+      <view class="Info">
+        <text user-select="true" class="userName">{{nickName}}</text>
         <text user-select="true" class="gender">性别: {{gender}}</text>
         <text user-select="true" class="city">城市: {{userCity}}</text>
       </view>
       <view class="goinPic">
-      <image src="/img/goin.png"></image>
-    </view>
+        <image src="/img/goin.png"></image>
+        <view bindtap='gotoInfo'>消息提示</view>
+      </view>
     </view>
   </navigator>
 </block>
@@ -42,13 +43,7 @@
   </view>
 </view>
 <view style="height:70rpx"></view>
-<van-divider
-  contentPosition="right"
-  customStyle="color: rgba(0, 0, 0, 0.582); border-color:rgba(0, 0, 0, 0.582); font-size: 12px;"
->
+<van-divider contentPosition="right"
+  customStyle="color: rgba(0, 0, 0, 0.582); border-color:rgba(0, 0, 0, 0.582); font-size: 12px;">
   学海无涯苦作舟
 </van-divider>
-  
-    
-    
-

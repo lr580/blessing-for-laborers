@@ -92,13 +92,22 @@ modu.lr581() //如果有必要，调试是否加载成功，成功后删掉即�
 - schoolArea : string
 - grade : string
 - major : string
-- image : string //不含目录的路径，如'a.png'
+- image : string //不含目录的路径，如'a.png'(oldtest=true时的头像相对地址)
 - userType : number //1学生，2管理员，3教师
 - browseLog : array(object:(number, Date))
 - collect : array(number)
 - publish : array(number)
 - thumbs : array(number)
 - oldtest:(bool) true //只有测试虚拟用户才有该属性(id为1~4)
+- _openid:string
+- avatarUrl:string(oldtest=false时的头像完整(https)地址)
+- newInfo:bool(是否有新消息未查看)
+- infos:array(date,bool,number,number, number)
+  - date代表消息时间
+  - bool代表是否已读(打开消息窗口后**全部**置已读，即true)
+  - number 消息类型：1是点赞消息，2是回帖消息
+  - number 帖子id
+  - number 执行者(点赞者/回帖者)uid
 
 帖子对象
 
