@@ -358,7 +358,7 @@ Page({
             console.log('succc',thee.data.me,poster)
             if(thee.data.me!=poster){ //thee.data.me!=poster
               var replyType = thee.data.edit?2:1
-              var po=thee.data.anonymity?0:poster
+              var po=thee.data.anonymity?0:thee.data.me
               var io=[nowTime,false,replyType,fo,po]
               wx.cloud.database().collection('user').doc(String(poster)).update({
                 data:{
@@ -379,7 +379,7 @@ Page({
             console.log('succc',thee.data.me,poster)
             if(thee.data.me!=poster){ //thee.data.me!=poster
               var replyType = thee.data.edit?2:1
-              var po=thee.data.anonymity?0:poster
+              var po=thee.data.anonymity?0:thee.data.me
               var io=[nowTime,false,replyType,thee.data.reply,po]
               wx.cloud.database().collection('user').doc(String(poster)).update({
                 data:{
