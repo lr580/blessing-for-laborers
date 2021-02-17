@@ -1,4 +1,5 @@
 // pages/postp/postp.js
+const modu = require('../../lrfx.js')
 Page({
 
   /**
@@ -307,21 +308,8 @@ Page({
     this.setData({ busy: true })
     var thee = this
     wx.cloud.database().collection('user').doc(String(this.data.me)).get().then(res => {
-      function succ() {
-        thee.setData({
-          pub: true,
-          busy: false,
-        })
-        wx.navigateBack({})
-        wx.showToast({
-          title: (thee.data.edit ? '修改' : '发帖') + '成功！刷新后可以看到自己的帖子！',
-          icon: 'none',
-          duration: 3000,
-        })
-      }
       var fin = 0
       const finn = 4
-      var u = res.data
       var nowTime = new Date()
       var nr = []
       var tagss = this.data.tags
@@ -356,6 +344,42 @@ Page({
         fatherPost: fp,
         fatherType: fty,
       }
+      function succ() {
+        thee.setData({
+          pub: true,
+          busy: false,
+        })
+        var fo=fp
+        if(!fo) fo=thee.data.pid
+        console.log('wwc',thee.data.type, fo)
+        if(1){//是回帖 !thee.data.type
+          wx.cloud.database().collection('post').doc(String(fo)).get().then(ref=>{
+            var poster = ref.data.user
+            console.log('succc',thee.data.me,poster)
+            if(1){ //thee.data.me!=poster
+              var replyType = thee.data.edit?2:1
+              var io=[nowTime,false,replyType,fo,poster]
+              wx.cloud.database().collection('user').doc(String(poster)).update({
+                data:{
+                  newInfo:true,
+                  infos:wx.cloud.database().command.push([io])
+                }
+              }).catch(rwg=>{
+                console.log('修改消息提示失败！')
+              })
+            }
+          }).catch(rwf=>{
+            console.log('读取原贴信息错误！')
+          })
+        }
+        wx.navigateBack({})
+        wx.showToast({
+          title: (thee.data.edit ? '修改' : '发帖') + '成功！刷新后可以看到自己的帖子！',
+          icon: 'none',
+          duration: 3000,
+        })
+      }
+
       if (!this.data.type && !this.data.edit) {
         wx.cloud.database().collection('post').doc(String(this.data.fatherPost)).update({
           data: {
@@ -406,6 +430,11 @@ Page({
         })
       }
 
+    }).catch(res => {
+      wx.showToast({
+        title: '发帖失败！',
+        icon: 'none',
+      })
     })
   },
 

@@ -8,10 +8,14 @@
         <text user-select="true" class="userName">{{nickName}}</text>
         <text user-select="true" class="gender">性别: {{gender}}</text>
         <text user-select="true" class="city">城市: {{userCity}}</text>
-      </view>
+      </view>x
       <view class="goinPic">
         <image src="/img/goin.png"></image>
-        <view bindtap='gotoInfo'>消息提示</view>
+        <view bindtap='gotoInfo'>
+          <view>消息提示</view>
+          <view wx:if="{{nwInfo}}">(有新消息)</view>
+        </view>
+        
       </view>
     </view>
   </navigator>

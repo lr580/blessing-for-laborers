@@ -27,6 +27,7 @@ App({
       userID: 1,//调试状态默认1
       dateBS:'2021-01-25',//搜索默认起始日期
       dateES:'2022-01-01',//搜索默认结束日期
+      hasNewInfo:false,//有无新消息
       //maxuid:0,
       //maxpid:0,
     }

@@ -12,6 +12,7 @@ Page({
     dates: [],//对应浏览的日期(拆分数组)
     types: [],//帖子类型常量
     users: [],//发帖人对象
+    loading:false,//是否在加载
   },
 
   /**
@@ -41,6 +42,7 @@ Page({
       var tg = log.length
       var thee = this
       function finz() {
+        //console.log('aaa')
         thee.setData({
           posts: p,
           dates: d,
@@ -48,6 +50,7 @@ Page({
           users: u,
         })
       }
+      if(tg==0) finz() //修复了bug
       for (let i = 0; i < tg; ++i) {
         d[i] = log[i][1]
         log[i][1] = new Date(log[i][1]['$date'])

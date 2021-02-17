@@ -17,7 +17,8 @@ Page({
     schoolArea: '',
     gender: '',
     loadKey: false,
-    changeInfokey: false
+    changeInfokey: false,
+    nwInfo:false,//与全局变量含义一致
   },
 
   console1: function () {
@@ -67,7 +68,6 @@ Page({
         var avatarUrl = userInfo.avatarUrl
         var userCity = userInfo.city
         var gender = userInfo.gender
-
         var re = await wx.cloud.callFunction({
           name: 'getOpenid',
         })
@@ -95,6 +95,8 @@ Page({
         }).get().then(res => {
           console.log(res.data.length)
           if (res.data.length == 0) {
+            getApp().globalData.hasNewInfo=false
+            that.setData({nwInfo:false})
             db.collection("user").add({
               data: {
                 userInfo: userInfo,
@@ -110,7 +112,9 @@ Page({
                 collect: [],
                 publish: [],
                 thumbs: [],
-                history: []
+                history: [],
+                newInfo:false,
+                infos:[],
               }
             }).catch(rww => {
               wx.showToast({
@@ -145,6 +149,10 @@ Page({
               app.globalData.userID = res.data[0]._id
               console.log(app.globalData.userID)
               getApp().globalData.me = res.data[0]._id
+              //console.log('www',res.data[0].newInfo)
+              getApp().globalData.hasNewInfo=res.data[0].newInfo
+              that.setData({nwInfo:res.data[0].newInfo})
+              //console.log('wwwwww')
 
               var obj = {}
               obj[res.data[0].nickName] = res.data[0]._id
@@ -177,17 +185,20 @@ Page({
               }).catch(rwa => {
                 wx.showToast({
                   title: '获取信息失败！',
+                  icon:'none',
                 })
               })
             }).catch(rws => {
               wx.showToast({
                 title: '获取信息失败！',
+                icon:'none',
               })
             })
           }
         }).catch(rws => {
           wx.showToast({
             title: '获取信息失败，请重启！',
+            icon:'none',
           })
         })
 
