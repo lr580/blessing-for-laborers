@@ -351,7 +351,7 @@ Page({
         })
         var fo=fp
         if(!fo) fo=thee.data.pid
-        console.log('wwc',thee.data.type, fo)
+        //console.log('wwc',thee.data.type, fo)
         if(!thee.data.type){//是回帖 
           wx.cloud.database().collection('post').doc(String(fo)).get().then(ref=>{
             var poster = ref.data.user

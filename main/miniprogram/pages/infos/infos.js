@@ -51,6 +51,7 @@ Page({
           })
         })
       }
+      if(!iob.length) succ()
       for (let i = 0; i < iob.length; ++i) {
         iob[i][0]=modu.dateStr(new Date(iob[i][0]['$date']))
         db.collection('post').doc(String(iob[i][3])).get().then(rea => {
