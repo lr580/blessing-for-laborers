@@ -4,30 +4,19 @@
   <view wx:if="{{posts.length}}">
     <view wx:for="{{posts}}">
       <view bindtap="gotoPost" id="{{item.id}}" class="box">
+
         <view class="top">
-          <image class="tag" src="/img/ques.png"></image>
+          <view class="title">{{item.title}}</view>
           <view class="type">{{types[item.type]}}</view>
         </view>
-        <view class="title">{{item.title}}</view>
-        
-      
-        <view class="top">
-          <image class="tag3" src="/img/me!.png"></image>
-          <view class="nickName">{{users[index].nickName}}</view>
-        </view>
+        <view class="nickName">{{users[index].nickName}}</view>
         <view class="divline"></view>
         <view class="down">
-          <view>
-            <image class="tag" src="/img/tag.png"></image>
-          </view>
           <view class="state1">{{item.tag}}</view>
-          <view>
-            <image class="tag2" src="/img/activity.png"></image>
-          </view>
           <view class="state">{{dates[index][0]}}/{{dates[index][1]}}/{{dates[index][2]}}
             {{dates[index][3]}}:{{dates[index][4]}}:{{dates[index][5]}} </view>
         </view>
-      
+
       </view>
     </view>
   </view>
