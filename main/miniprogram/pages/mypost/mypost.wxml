@@ -1,12 +1,23 @@
 <view wx:for="{{mypost}}">
-  <view bindtap="gotoPost" id="{{item.id}}">
+  <view bindtap="gotoPost" id="{{item.id}}"   class="box">
     <view wx:if="{{item.type}}">
-      <view>title：{{item.title}}</view>
-      <view>tag：{{item.tag}}</view>
-      <view>type：{{item.type}}</view>
+
+      <view class="top">
+        <view class="title">{{item.title}}</view>
+        <view class="type">{{item.type}}</view>
+      </view>
+
+
+      <view class="down">
+        <view class="tag">{{item.tag}}</view>
+        <view class="time">{{item.activeTime}}</view>
+      </view>
+
     </view>
-    <view wx:else>(回帖)</view>
-    <view>activeTime：{{item.activeTime}}</view>
+    <view wx:else >
+    <view class="title">您的回帖</view>
+    <view class="time2">{{item.activeTime}}</view>
+    </view>
   </view>
   <text decode="true">&ensp;</text>
 </view>
