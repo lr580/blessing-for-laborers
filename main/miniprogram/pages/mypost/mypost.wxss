@@ -1,12 +1,16 @@
 /* pages/mypost/mypost.wxss */
 .box{
-  margin-top: 5rpx;
+  margin-top: 0rpx;
   background-color: white;
-  margin-left: 5%;
+  margin-left: 0%;
+  margin-right: 0%;
   height: 140rpx;
-  width: 90%;
-  border-radius: 10rpx;
-  border: 5rpx solid rgba(117, 115, 115, 0.527);
+  width: 100%;
+}
+
+.bigbox{
+  background-color: white;
+  height: 140rpx;
 }
 
 .top{
@@ -20,6 +24,11 @@
   font-weight: 550;
   white-space: nowrap;
   margin-left: 20rpx;
+  width: 400rpx;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .type{
@@ -48,7 +57,7 @@
 }
 
 .tag{
-  margin-left: 10rpx;
+  margin-left: 20rpx;
   height: 50rpx;
   display: flex;
   color: rgb(95, 89, 89);
@@ -69,11 +78,15 @@
 }
 
 .divline{
-  margin-top: 1rpx;
-  background: grey;
-  width: 90%;
-  margin-left: 5%;
-  height: 5rpx;
+  background: rgb(179, 174, 174);
+  height: 1rpx;
+  margin-top: 5rpx;
+}
+
+.divline2{
+  margin-top: 70rpx;
+  background: rgb(179, 174, 174);
+  height: 1rpx;
 }
 
 .time2{
