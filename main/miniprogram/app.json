@@ -2,7 +2,8 @@
   "tabBar": {
     "color": "#000",
     "selectedColor": "#1296db",
-    "list": [{
+    "list": [
+      {
         "pagePath": "pages/discuss/discuss",
         "text": "交流",
         "iconPath": "/img/dicuss.png",
@@ -30,12 +31,12 @@
     "pages/postt/postt",
     "pages/mypost/mypost",
     "pages/history/history",
-    "pages/help/help",
     "pages/getUserInfo/getUserInfo",
     "pages/postp/postp",
     "pages/commentTest/commentTest",
     "pages/changeInfo/changeInfo",
-    "pages/infos/infos"
+    "pages/infos/infos",
+    "pages/help/help"
   ],
   "window": {
     "backgroundColor": "#FFFFFF",

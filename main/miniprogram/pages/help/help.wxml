@@ -1,0 +1,15 @@
+<!--miniprogram/pages/help/help.wxml-->
+<view wx:if="{{fail}}">加载失败！</view>
+<view wx:else>
+  <view wx:for="{{content}}">
+    <view bindtap="clickDown" id="{{index}}">
+      <view>{{showDetail[index]?'(点击收起)':'(点击展开)'}}{{item[0]}}</view>
+    </view>
+    <view wx:if="{{showDetail[index]}}">
+      <view wx:for="{{item[1]}}" wx:for-index="i" wx:for-item="v">
+        <view wx:if="{{v[0]==1}}">{{v[1]}}</view>
+        <image wx:if="{{v[0]==3}}" src="{{pathtp+v[1]}}"></image>
+      </view>
+    </view>
+  </view>
+</view>

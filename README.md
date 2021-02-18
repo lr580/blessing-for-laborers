@@ -70,6 +70,10 @@ global 全局信息
   用途是新建用户时以较高速度检测是否重名(以免读取所有用户记录，而是只读一条global记录)
   其二是用于用户名与id的快速对应，同理提高速度
 
+##### help
+
+- 有一条名为content的array(title(string), content(同帖子的<u>content</u>))记录：
+
 ## 函数接口
 
 (以lrfx.js为例)加载：

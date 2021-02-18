@@ -36,6 +36,7 @@ Page({
       var thee = this
       function succ() {
         wx.hideLoading()
+        iob.reverse()
         thee.setData({ infos: iob })
         db.collection('user').doc(String(getApp().globalData.userID)).update({
           data:{
