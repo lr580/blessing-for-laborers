@@ -20,6 +20,12 @@
   font-weight: 550;
   white-space: nowrap;
   margin-left: 20rpx;
+
+  width: 400rpx;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .type{
@@ -66,6 +72,11 @@
   white-space: nowrap;
   text-overflow: ellipsis;
   color: rgb(95, 89, 89);
+  width: 400rpx;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .divline{
