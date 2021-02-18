@@ -48,7 +48,7 @@ Page({
       var thee = this
       function finz() {
         //console.log('aaa')
-        console.log('www',rp,ru)
+        //console.log('www',rp,ru)
         for(let i=0;i<log.length;++i){
           for(let j=0;j<rp.length;++j){
             if(rp[j]._id==String(log[i][0])){
@@ -79,25 +79,39 @@ Page({
         needU.push(log[i][2])
       }
       needU=Array.from(new Set(needU))
-      console.log('iloveu',needP, needU)
-      db.collection('user').where({_id:_.in(needU)}).get().then(rea=>{
-        ru=rea.data
-        if(++fin==tg) finz()
-      }).catch(rwa=>{
-        wx.showToast({
-          title: '读取用户信息失败！',
-          icon:'none',
+      //console.log('iloveu',needP, needU)
+      const et=20
+      const rru=Math.ceil(needU.length/et)
+      const rrp=Math.ceil(needP.length/et)
+      tg=rru+rrp
+      for(let i=0;i<rru;++i){
+        var temp=[]
+        var len = (i+1)*et<needU.length?(i+1)*et:needU.length
+        for(let j=i*et;j<len;++j) temp.push(needU[j])
+        db.collection('user').where({_id:_.in(temp)}).get().then(rea=>{
+          ru=ru.concat(rea.data)
+          if(++fin==tg) finz()
+        }).catch(rwa=>{
+          wx.showToast({
+            title: '读取用户信息失败！at',i,
+            icon:'none',
+          })
         })
-      })
-      db.collection('post').where({_id:_.in(needP)}).get().then(reb=>{
-        rp=reb.data
-        if(++fin==tg) finz()
-      }).catch(rwb=>{
-        wx.showToast({
-          title: '读取帖子信息失败！',
-          icon:'none',
+      }
+      for(let i=0;i<rrp;++i){
+        var temp=[]
+        var len = (i+1)*et<needP.length?(i+1)*et:needP.length
+        for(let j=i*et;j<len;++j) temp.push(needP[j])
+        db.collection('post').where({_id:_.in(temp)}).get().then(reb=>{
+          rp=rp.concat(reb.data)
+          if(++fin==tg) finz()
+        }).catch(rwb=>{
+          wx.showToast({
+            title: '读取帖子信息失败！',
+            icon:'none',
+          })
         })
-      })
+      }
         /*db.collection('post').doc(String(log[i][0])).get().then(ret => {
           db.collection('user').doc(String(ret.data.user)).get().then(reu => {
             u[i] = reu.data
