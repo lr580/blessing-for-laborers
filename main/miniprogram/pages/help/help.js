@@ -28,7 +28,7 @@ Page({
         content:res.data.content,
         showDetail:sd,
       })
-      console.log(sd, res.data.content)
+      //console.log(sd, res.data.content)
     }).catch(rws=>{
       wx.hideLoading()
       wx.showToast({

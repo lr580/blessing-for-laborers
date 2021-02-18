@@ -23,7 +23,7 @@ Page({
       if (this.data.showAll) iob = ioa
       else {
         var stdDate = new Date()
-        stdDate = stdDate.setDate(stdDate.getDate() - 7)
+        stdDate = stdDate.setDate(stdDate.getDate() - 3)
         console.log('stddate', stdDate)
         for (let i = 0; i < ioa.length; ++i) {
           //console.log(i,ioa[i][0]['$date'] >= stdDate, ioa[i][0]['$date'], stdDate)
