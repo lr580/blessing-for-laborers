@@ -1,11 +1,19 @@
 <view wx:for="{{datacollect}}">
-  <view bindtap='gotoPost' id="{{item.id}}">
-    <view>title：{{item.title}}</view>
-    <view>tag：{{item.tag}}</view>
-    <view>type：{{item.type}}</view>
-    <view>postowner：{{item.postowner}}</view>
-    <view>activeTime：{{item.activeTime}}</view>
-    <view>调试用，请忽略{{item.id}}</view>
+  <view bindtap="gotoPost" id="{{item.id}}" class="box">
+    
+    <view class="top">
+       <view class="title">{{item.title}}</view>
+       <view class="type">{{item.type}}</view>
+    </view>
+    
+    <view class="nickName">{{item.postowner}}</view>
+    <view class="divline"></view>
+    <view class="down">
+      <view class="tag">{{item.tag}}</view>
+       <view class="time">{{item.activeTime}}</view>
+    </view>
+
+    <!--调试用，请忽略{{item.id}}-->
     <text decode="true">&ensp;</text>
   </view>
 </view>
