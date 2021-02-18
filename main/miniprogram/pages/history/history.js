@@ -27,6 +27,7 @@ Page({
       types: [''].concat(getApp().globalData.types),
     })
     const db = wx.cloud.database()
+    const _ = db.command
     function cmp() {//时间降序排序
       return function (a, b) {
         return b[1]['$date'] - a[1]['$date']
@@ -37,12 +38,31 @@ Page({
       var p = []
       var d = []
       var u = []
+      var needP = []
+      var needU = []
+      var rp = []
+      var ru = []
       log.sort(cmp())
       var fin = 0
-      var tg = log.length
+      var tg = 2//log.length
       var thee = this
       function finz() {
         //console.log('aaa')
+        console.log('www',rp,ru)
+        for(let i=0;i<log.length;++i){
+          for(let j=0;j<rp.length;++j){
+            if(rp[j]._id==String(log[i][0])){
+              p[i]=rp[j]
+              break
+            }
+          }
+          for(let j=0;j<ru.length;++j){
+            if(ru[j]._id==String(log[i][2])){
+              u[i]=ru[j]
+              break
+            }
+          }
+        }
         thee.setData({
           posts: p,
           dates: d,
@@ -51,11 +71,34 @@ Page({
         })
       }
       if(tg==0) finz() //修复了bug
-      for (let i = 0; i < tg; ++i) {
+      for (let i = 0; i < log.length; ++i) {
         d[i] = log[i][1]
         log[i][1] = new Date(log[i][1]['$date'])
         d[i] = modu.dateArr(log[i][1])
-        db.collection('post').doc(String(log[i][0])).get().then(ret => {
+        needP.push(String(log[i][0]))
+        needU.push(log[i][2])
+      }
+      needU=Array.from(new Set(needU))
+      console.log('iloveu',needP, needU)
+      db.collection('user').where({_id:_.in(needU)}).get().then(rea=>{
+        ru=rea.data
+        if(++fin==tg) finz()
+      }).catch(rwa=>{
+        wx.showToast({
+          title: '读取用户信息失败！',
+          icon:'none',
+        })
+      })
+      db.collection('post').where({_id:_.in(needP)}).get().then(reb=>{
+        rp=reb.data
+        if(++fin==tg) finz()
+      }).catch(rwb=>{
+        wx.showToast({
+          title: '读取帖子信息失败！',
+          icon:'none',
+        })
+      })
+        /*db.collection('post').doc(String(log[i][0])).get().then(ret => {
           db.collection('user').doc(String(ret.data.user)).get().then(reu => {
             u[i] = reu.data
             if (++fin == tg << 1) finz()
@@ -71,7 +114,7 @@ Page({
           u[i] = modu.fakeUser
           if (fin == tg << 1) finz()
         })
-      }
+      }*/
     }).catch(rws => {
       wx.showToast({
         title: '账户信息异常！',

@@ -91,7 +91,7 @@ Page({
         thumbpost: rer.data.thumbs.includes(Number(options.id)),
         starpost: rer.data.collect.includes(Number(options.id)),
       })
-    }).catch(rwr=>{
+    }).catch(rwr => {
       //未写未登录状态
       wx.showToast({
         title: '账号信息异常！',
@@ -110,15 +110,15 @@ Page({
         res.data.editTime.getSeconds()],*/
         replys: res.data.comment.length
       })
-      this.browse()
       wx.cloud.database().collection('user').doc(String(res.data.user)).get().then(ret => {
+        this.browse()
         this.setData({
           poster: ret.data,
           pathq: ret.data.image
         })
-      }).catch(rwt=>{
+      }).catch(rwt => {
         this.setData({
-          poster:lrfx.fakeUser,
+          poster: lrfx.fakeUser,
           //pathq:'dafault.jpg',
         })
       })
@@ -168,9 +168,9 @@ Page({
                   Treplys: tlen,
                 })
               }
-            }).catch(rwv=>{
-              temp[i][1]=lrfx.fakeUser
-              temp[i][2]='default.jpg'
+            }).catch(rwv => {
+              temp[i][1] = lrfx.fakeUser
+              temp[i][2] = 'default.jpg'
               ++fin
               if (fin == res.data.comment.length * 4) {//异步的某一次全部回帖帖子和回帖用户和嵌套用户均加载完毕
                 temp.sort(cmp())
@@ -216,10 +216,10 @@ Page({
                     Treplys: tlen,
                   })
                 }
-              }).catch(rwx=>{
-                fin+=2
-                temp[i][3]=fakeUser
-                temp[i][5]=fakePost
+              }).catch(rwx => {
+                fin += 2
+                temp[i][3] = fakeUser
+                temp[i][5] = fakePost
                 if (fin == res.data.comment.length * 4) {//异步的某一次全部回帖帖子和回帖用户和嵌套用户均加载完毕
                   temp.sort(cmp())
                   this.setData({
@@ -277,13 +277,13 @@ Page({
       }
     }).catch(rwr => {
       //var p = { hide: true }//模拟删帖
-      var pt=lrfx.fakePost
-      var pr=lrfx.fakeUser
-      this.setData({ 
+      var pt = lrfx.fakePost
+      var pr = lrfx.fakeUser
+      this.setData({
         postt: pt,
         poster: pr,
         //pathq: 'default.jpg',
-       })
+      })
     })
   },
 
@@ -295,15 +295,26 @@ Page({
       var found = false
       for (let i = 0; i < log.length; ++i) {
         if (log[i][0] == this.data.postt.id) {
-          log[i] = [this.data.postt.id, dat]
+          log[i] = [log[i][0], dat, log[i][2]]
           found = true
         }
-        else log[i] = [log[i][0], new Date(log[i][1]["$date"])]//解决微信数据库读取会让date转object的bug
+        else log[i] = [log[i][0], new Date(log[i][1]["$date"]), log[i][2]]//解决微信数据库读取会让date转object的bug
       }
-      if (!found) log.push([this.data.postt.id, dat])
-      console.log(log)
+      //console.log('qwq', this.data.poster)
+      if (!found) log.push([this.data.postt.id, dat, this.data.poster._id])
+      //console.log(log)
       cc.doc(String(this.data.me)).update({ data: { browseLog: log } }).then(ret => {
         //console.log('suc')
+      }).catch(rwt => {
+        wx.showToast({
+          title: '写入用户信息异常！',
+          icon: 'none',
+        })
+      })
+    }).catch(rws => {
+      wx.showToast({
+        title: '读取用户信息异常！',
+        icon: 'none',
       })
     })
   },

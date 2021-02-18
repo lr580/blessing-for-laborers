@@ -98,7 +98,7 @@ modu.lr581() //如果有必要，调试是否加载成功，成功后删掉即�
 - major : string
 - image : string //不含目录的路径，如'a.png'(oldtest=true时的头像相对地址)
 - userType : number //1学生，2管理员，3教师
-- browseLog : array(object:(number, Date))
+- browseLog : array(object:(number, Date,number)) //帖子id，浏览日期，发帖人id
 - collect : array(number)
 - publish : array(number)
 - thumbs : array(number)
