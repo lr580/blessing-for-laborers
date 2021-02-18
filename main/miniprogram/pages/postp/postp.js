@@ -120,50 +120,73 @@ Page({
   selectImage: function (e) {
     var ths = this
     wx.chooseImage({
-      count: 1,
-      fail(res) { 'fail', console.log(res) },
-      success(res) {
-        var tempPath = res.tempFilePaths
-        var tempf = tempPath[0].split('.')
-        var suffix = tempf[tempf.length - 1]
+      count: 9,
+      fail(rws) {
         wx.showToast({
+          title: '上传失败！',
+          icon: 'none',
+        })
+      },
+      success(res) {
+        console.log('ssss', res.tempFilePaths)
+        var tempPath = res.tempFilePaths
+        var nums = tempPath.length
+        var temp = ths.data.tx
+        var pnn = ths.data.picn
+        var newActive = -1
+        wx.showLoading({
           title: '上传中',
-          duration: 500,
         })
-        wx.cloud.uploadFile({
-          filePath: tempPath[0],
-          cloudPath: "postpic/" + String(ths.data.pid) + '_' + String(++ths.data.picn) + '.' + suffix,
-          success: function (ret) {
-            var tmpa = ths.data.activeTx
-            var temp = ths.data.tx
-            var imgUnit = [3, String(ths.data.pid) + '_' + String(ths.data.picn) + '.' + suffix]
-            var newActive = -1
-            if (tmpa == -1) {//插入顺序存在bug；未支持多张插入
-              temp.push(imgUnit)
-              temp.push([1, ''])
-            }
-            else {
-              temp.splice(tmpa + 1, 0, imgUnit)
-              temp.splice(tmpa + 2, 0, [1, ''])
-              newActive = tmpa + 2
-            }
+        var fin = 0
+        function succ() {
+          wx.hideLoading()
+          ths.setData({
+            picn: pnn + nums,
+            tx: temp,
+            activeTx: newActive,
+          })
+        }
+        var tmpa = ths.data.activeTx
 
-            ths.setData({
-              tx: temp,
-              activeTx: newActive,
-            })
-            wx.showToast({
-              title: '上传成功',
-              duration: 1000,
-            })
-          },
-          fail: function (ret) {
-            wx.showToast({
-              title: '上传失败',
-              duration: 1000,
-            })
+        //var imgUnit = [3, String(ths.data.pid) + '_' + String(pnn + i + 1) + '.' + suffix]
+        if (tmpa == -1) {
+          for (let i = 0; i < nums; ++i) {
+            temp.push([3, ''])
+            temp.push([1, ''])
           }
-        })
+        }
+        else {
+          for (let i = 0; i < nums; ++i) {
+            temp.splice(tmpa + 1 + i * 2, 0, [3, ''])
+            temp.splice(tmpa + 2 + i * 2, 0, [1, ''])
+          }
+          newActive = tmpa + nums << 1
+        }
+        for (let i = 0; i < nums; ++i) {
+          var tempf = tempPath[i].split('.')
+          var suffix = tempf[tempf.length - 1]
+
+          wx.cloud.uploadFile({
+            filePath: tempPath[i],
+            cloudPath: "postpic/" + String(ths.data.pid) + '_' + String(pnn + i + 1) + '.' + suffix,
+            success: function (ret) {
+              //var tmpa = ths.data.activeTx
+              var nr = String(ths.data.pid) + '_' + String(pnn + i + 1) + '.' + suffix
+              if (tmpa == -1) temp[1 + i * 2][1] = nr
+              else temp[tmpa + 1 + i * 2][1] = nr
+              if (++fin == nums) succ()
+            },
+            fail: function (ret) {
+              wx.hideLoading()
+              wx.showToast({
+                title: '第' + String(i + 1) + '张图片上传失败',
+                icon: 'none',
+                duration: 1000,
+              })
+              if (++fin == nums) succ()
+            }
+          })
+        }
 
       },
     })
@@ -186,7 +209,7 @@ Page({
     }
 
     temp.splice(idx, 1)
-    console.log('sss', temp)
+    //console.log('sss', temp)
     this.setData({
       tx: temp,
       activeTx: act,
