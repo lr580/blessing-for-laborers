@@ -14,16 +14,35 @@
       </view>
       <view class="goinPic">
         <image src="/img/goin.png"></image>
-        <view bindtap='gotoInfo'>
-          <view>消息提示</view>
-          <view wx:if="{{nwInfo}}">(有新消息{{nwInfo}}条)</view>
-        </view>
-        
       </view>
     </view>
   </navigator>
 </block>
-<view class="function" wx:if="{{loadKey}}">
+
+
+<!-- <view class="funcGrid">
+<van-grid  square>
+  <van-grid-item link-type="navigateTo"
+    url="/pages/mypost/mypost" icon="/img/mypost.png" text="我的帖子" />
+  <van-grid-item link-type="navigateTo" 
+    url="/pages/history/history" icon="/img/history.png" text="浏览记录" />
+  <van-grid-item link-type="navigateTo"
+    url="/pages/collect/collect" icon="/img/collect!.png" text="收藏列表" /> -->
+<!-- <van-grid-item link-type="navigateTo"
+    url="/pages/help/help" icon="/img/help.png" text="帮助" /> -->
+<!-- </van-grid>
+</view> -->
+<van-cell-group>
+
+  <van-cell size="large" bindtap='gotoInfo' wx:if="{{nwInfo}}" icon="/img/msgtip.png" title="我的消息" is-link
+    value="有{{nwInfo}}条新消息" />
+  <van-cell size="large" bindtap='gotoInfo' wx:if="{{!nwInfo}}" icon="/img/msgtip.png" title="我的消息" is-link />
+  <van-cell size="large" bindtap='gotoMypost' icon="/img/mypost.png" title="我的帖子" is-link />
+  <van-cell size="large" bindtap='gotoHistory' icon="/img/history.png" title="浏览历史" is-link />
+  <van-cell size="large" bindtap='gotoCollect' icon="/img/collect!.png" title="收藏列表" is-link />
+  <van-cell size="large" bindtap='gotoHelp' icon="/img/help.png" title="帮助手册" is-link />
+</van-cell-group>
+<!-- <view class="function" wx:if="{{loadKey}}">
   <view class="mypost">
     <button size="mini" bindtap="gotoMypost">
       <image src="/img/mypost.png"></image>
@@ -48,9 +67,16 @@
       <view>帮助</view>
     </button>
   </view>
+</view> -->
+<!-- <view bindtap='gotoInfo'>
+          <view class="msgtipImg" wx:if="{{nwInfo}}"><image src="/img/msgtip!.png"></image></view>
+          <view class="msgtipImg" wx:if="{{!nwInfo}}"><image src="/img/msgtip.png"></image></view>
+          <view wx:if="{{nwInfo}}">(有新消息{{nwInfo}}条)</view>
+        </view> -->
+
+<view class="sentence">
+  <van-divider contentPosition="center"
+    customStyle="color: rgba(0, 0, 0, 0.582); border-color:rgba(0, 0, 0, 0.582); font-size: 12px;">
+    学海无涯苦作舟
+  </van-divider>
 </view>
-<view style="height:70rpx"></view>
-<van-divider contentPosition="right"
-  customStyle="color: rgba(0, 0, 0, 0.582); border-color:rgba(0, 0, 0, 0.582); font-size: 12px;">
-  学海无涯苦作舟
-</van-divider>

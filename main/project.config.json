@@ -38,8 +38,8 @@
     "minifyWXSS": true
   },
   "appid": "wx62bf88f7371aa99a",
-  "projectname": "学舟",
-  "libVersion": "2.14.4",
+  "projectname": "%E5%AD%A6%E8%88%9F",
+  "libVersion": "2.15.0",
   "condition": {
     "plugin": {
       "list": []
@@ -121,6 +121,18 @@
         {
           "name": "help",
           "pathName": "pages/help/help",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "collect",
+          "pathName": "pages/collect/collect",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "editor",
+          "pathName": "pages/editor/editor",
           "scene": null
         }
       ]

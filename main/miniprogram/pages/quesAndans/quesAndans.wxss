@@ -21,7 +21,7 @@
 
 .topost {
   background-color: white;
- /* background-color: rgba(52, 214, 255, 0.288); */
+  /* background-color: rgba(52, 214, 255, 0.288); */
   margin-left: 70%;
   margin-top: 20rpx;
   margin-bottom: 20rpx;
@@ -172,7 +172,7 @@
 .title {
   margin-top: 10rpx;
   margin-left: 10rpx;
-  font-size: 30rpx;
+  font-size: 40rpx;
   font-weight: 600;
   overflow: hidden;
   white-space: nowrap;
@@ -220,6 +220,10 @@
   overflow: hidden;
   flex-wrap: wrap;
   text-overflow: ellipsis;
+}
+
+.contentFont {
+  font-size: 30rpx;
 }
 
 .state {

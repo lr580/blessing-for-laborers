@@ -1,1 +1,29 @@
 /* pages/infos/infos.wxss */
+.button {
+  margin-top: 20rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.time image {
+  width: 30rpx;
+  height: 30rpx;
+  margin: 10rpx;
+}
+
+.time {
+  font-size: 30rpx;
+  display: flex;
+  align-items: center;
+}
+
+.title {
+  width: 40%;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+}

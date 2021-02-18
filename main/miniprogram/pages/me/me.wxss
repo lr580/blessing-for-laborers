@@ -1,61 +1,79 @@
 /* pages/discuss/discuss.wxss */
-
+.goinPic {
+  position: absolute;
+  right: 0;
+}
 
 .discussPic1 {
   display: flex;
 }
 
-.discussPic1 image{
+.Info {
+  width: 350rpx;
+}
+
+.userName {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+}
+
+
+.discussPic1 image {
   width: 120rpx;
   height: 120rpx;
   margin-left: 45%;
 }
 
-.userInfo image{
-  width: 160rpx;
-  height: 160rpx;
+.userInfo image {
+  width: 180rpx;
+  height: 180rpx;
   border-radius: 50%;
   margin-left: 40rpx;
 }
 
 
-.userInfo{
+.userInfo {
   margin-top: 20rpx;
- height:200rpx;
- border-bottom: 8rpx solid gray;
- display: flex;
+  height: 200rpx;
+  border-bottom: 6rpx solid rgba(128, 128, 128, 0.555);
+  display: flex;
 }
 
 
 
-.userContainer{
+.userContainer {
   margin-top: 0;
 }
 
-.Info{
+.Info {
   display: flex;
   flex-direction: column;
   margin-left: 40rpx;
 }
 
-.Info .userName{
+.Info .userName {
   color: rgb(0, 0, 0);
   font-size: 30rpx;
   font-weight: 600;
 }
 
-.Info .gender{
-  margin-top: 14rpx;
-  color: rgb(136, 136, 124);
-  font-size: 20rpx;
-}
-.Info .city{
+.Info .gender {
   margin-top: 14rpx;
   color: rgb(136, 136, 124);
   font-size: 20rpx;
 }
 
-.changeInfo{
+.Info .city {
+  margin-top: 14rpx;
+  color: rgb(136, 136, 124);
+  font-size: 20rpx;
+}
+
+.changeInfo {
   height: 100rpx;
   margin-top: 200rpx;
   margin-left: 40rpx;
@@ -67,68 +85,94 @@
 }
 
 
-.changeInfo text{
+.changeInfo text {
   font-size: 50rpx;
   color: gray;
 }
 
-.function{
+.function {
   margin-top: 60rpx;
   display: flex;
   justify-content: unset;
   flex-wrap: wrap;
 }
 
-.mypost image{
+.mypost image {
   width: 200rpx;
   height: 200rpx;
   margin-top: 10rpx;
-  
+
 }
 
 
-.history image{
-  width: 200rpx;
-  height: 200rpx;
-  margin-top: 10rpx;
-}
-
-.collect image{
+.history image {
   width: 200rpx;
   height: 200rpx;
   margin-top: 10rpx;
 }
 
-.help image{
+.collect image {
   width: 200rpx;
   height: 200rpx;
   margin-top: 10rpx;
 }
 
-.mypost{
+.help image {
+  width: 200rpx;
+  height: 200rpx;
+  margin-top: 10rpx;
+}
+
+.mypost {
   margin-left: 65rpx;
   border: 8rpx solid rgba(72, 73, 73, 0.486);
   border-radius: 20rpx;
   background-color: white;
 }
 
-.history{
+.history {
   margin-left: 80rpx;
   border: 8rpx solid rgba(72, 73, 73, 0.486);
   border-radius: 20rpx;
   background-color: white;
 }
-.collect{
+
+.collect {
   margin-left: 65rpx;
   margin-top: 50rpx;
   border: 8rpx solid rgba(72, 73, 73, 0.486);
   border-radius: 20rpx;
   background-color: white;
 }
-.help{
+
+.help {
   margin-left: 80rpx;
   margin-top: 50rpx;
   border: 8rpx solid rgba(72, 73, 73, 0.486);
-  border-radius:20rpx;
+  border-radius: 20rpx;
   background-color: white;
 }
+
+.msgtipImg {
+  width: 100rpx;
+  height: 100rpx;
+  position: absolute;
+  right: 5rpx;
+  top: 220rpx;
+}
+
+.msgtipImg image {
+  margin: 10rpx;
+  width: 80rpx;
+  height: 80rpx;
+}
+
+.sentence {
+  width: 100%;
+  position: absolute;
+  bottom: 20rpx;
+}
+
+/* .funcGrid{
+  margin-top: 20rpx;
+} */
