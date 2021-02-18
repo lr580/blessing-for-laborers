@@ -304,7 +304,7 @@ Page({
       })
       return
     }
-
+    //this.setData({ me: 1 })//调试
     this.setData({ busy: true })
     var thee = this
     wx.cloud.database().collection('user').doc(String(this.data.me)).get().then(res => {
@@ -349,48 +349,48 @@ Page({
           pub: true,
           busy: false,
         })
-        var fo=fp
-        if(!fo) fo=thee.data.pid
+        var fo = fp
+        if (!fo) fo = thee.data.pid
         //console.log('wwc',thee.data.type, fo)
-        if(!thee.data.type){//是回帖 
-          wx.cloud.database().collection('post').doc(String(fo)).get().then(ref=>{
+        if (!thee.data.type) {//是回帖 
+          wx.cloud.database().collection('post').doc(String(fo)).get().then(ref => {
             var poster = ref.data.user
-            console.log('succc',thee.data.me,poster)
-            if(thee.data.me!=poster){ //thee.data.me!=poster
-              var replyType = thee.data.edit?2:1
-              var po=thee.data.anonymity?0:thee.data.me
-              var io=[nowTime,false,replyType,fo,po]
+            console.log('succc', thee.data.me, poster)
+            if (thee.data.me != poster) { //thee.data.me!=poster
+              var replyType = thee.data.edit ? 2 : 1
+              var po = thee.data.anonymity ? 0 : thee.data.me
+              var io = [nowTime, false, replyType, fo, po, fo]
               wx.cloud.database().collection('user').doc(String(poster)).update({
-                data:{
-                  newInfo:wx.cloud.database().command.inc(1),
-                  infos:wx.cloud.database().command.push([io])
+                data: {
+                  newInfo: wx.cloud.database().command.inc(1),
+                  infos: wx.cloud.database().command.push([io])
                 }
-              }).catch(rwg=>{
+              }).catch(rwg => {
                 console.log('修改消息提示失败！')
               })
             }
-          }).catch(rwf=>{
+          }).catch(rwf => {
             console.log('读取原贴信息错误！')
           })
         }
-        if(thee.data.reply){
-          wx.cloud.database().collection('post').doc(String(thee.data.reply)).get().then(ref=>{
+        if (thee.data.reply) {
+          wx.cloud.database().collection('post').doc(String(thee.data.reply)).get().then(ref => {
             var poster = ref.data.user
-            console.log('succc',thee.data.me,poster)
-            if(thee.data.me!=poster){ //thee.data.me!=poster
-              var replyType = thee.data.edit?2:1
-              var po=thee.data.anonymity?0:thee.data.me
-              var io=[nowTime,false,replyType,thee.data.reply,po]
+            console.log('succc', thee.data.me, poster)
+            if (thee.data.me != poster) { //thee.data.me!=poster
+              var replyType = thee.data.edit ? 2 : 1
+              var po = thee.data.anonymity ? 0 : thee.data.me
+              var io = [nowTime, false, replyType, thee.data.reply, po, fp]
               wx.cloud.database().collection('user').doc(String(poster)).update({
-                data:{
-                  newInfo:wx.cloud.database().command.inc(1),
-                  infos:wx.cloud.database().command.push([io])
+                data: {
+                  newInfo: wx.cloud.database().command.inc(1),
+                  infos: wx.cloud.database().command.push([io])
                 }
-              }).catch(rwg=>{
+              }).catch(rwg => {
                 console.log('修改消息提示失败！(2)')
               })
             }
-          }).catch(rwf=>{
+          }).catch(rwf => {
             console.log('读取原贴信息错误！')
           })
         }

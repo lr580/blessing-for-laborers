@@ -12,14 +12,14 @@ Page({
     dates: [],//对应浏览的日期(拆分数组)
     types: [],//帖子类型常量
     users: [],//发帖人对象
-    loading:false,//是否在加载
+    loading: false,//是否在加载
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-     //页面必须关闭后打开才刷新，否则需要做太多if判断
+    //页面必须关闭后打开才刷新，否则需要做太多if判断
     this.setData({
       me: getApp().globalData.userID,
       unfresh: false,
@@ -49,16 +49,16 @@ Page({
       function finz() {
         //console.log('aaa')
         //console.log('www',rp,ru)
-        for(let i=0;i<log.length;++i){
-          for(let j=0;j<rp.length;++j){
-            if(rp[j]._id==String(log[i][0])){
-              p[i]=rp[j]
+        for (let i = 0; i < log.length; ++i) {
+          for (let j = 0; j < rp.length; ++j) {
+            if (rp[j]._id == String(log[i][0])) {
+              p[i] = rp[j]
               break
             }
           }
-          for(let j=0;j<ru.length;++j){
-            if(ru[j]._id==String(log[i][2])){
-              u[i]=ru[j]
+          for (let j = 0; j < ru.length; ++j) {
+            if (ru[j]._id == String(log[i][2])) {
+              u[i] = ru[j]
               break
             }
           }
@@ -70,7 +70,7 @@ Page({
           users: u,
         })
       }
-      if(tg==0) finz() //修复了bug
+      if (tg == 0) finz() //修复了bug
       for (let i = 0; i < log.length; ++i) {
         d[i] = log[i][1]
         log[i][1] = new Date(log[i][1]['$date'])
@@ -78,61 +78,61 @@ Page({
         needP.push(String(log[i][0]))
         needU.push(log[i][2])
       }
-      needU=Array.from(new Set(needU))
+      needU = Array.from(new Set(needU))
       //console.log('iloveu',needP, needU)
-      const et=20
-      const rru=Math.ceil(needU.length/et)
-      const rrp=Math.ceil(needP.length/et)
-      tg=rru+rrp
-      for(let i=0;i<rru;++i){
-        var temp=[]
-        var len = (i+1)*et<needU.length?(i+1)*et:needU.length
-        for(let j=i*et;j<len;++j) temp.push(needU[j])
-        db.collection('user').where({_id:_.in(temp)}).get().then(rea=>{
-          ru=ru.concat(rea.data)
-          if(++fin==tg) finz()
-        }).catch(rwa=>{
+      const et = 20
+      const rru = Math.ceil(needU.length / et)
+      const rrp = Math.ceil(needP.length / et)
+      tg = rru + rrp
+      for (let i = 0; i < rru; ++i) {
+        var temp = []
+        var len = (i + 1) * et < needU.length ? (i + 1) * et : needU.length
+        for (let j = i * et; j < len; ++j) temp.push(needU[j])
+        db.collection('user').where({ _id: _.in(temp) }).get().then(rea => {
+          ru = ru.concat(rea.data)
+          if (++fin == tg) finz()
+        }).catch(rwa => {
           wx.showToast({
-            title: '读取用户信息失败！at',i,
-            icon:'none',
+            title: '读取用户信息失败！at' + String(i),
+            icon: 'none',
           })
         })
       }
-      for(let i=0;i<rrp;++i){
-        var temp=[]
-        var len = (i+1)*et<needP.length?(i+1)*et:needP.length
-        for(let j=i*et;j<len;++j) temp.push(needP[j])
-        db.collection('post').where({_id:_.in(temp)}).get().then(reb=>{
-          rp=rp.concat(reb.data)
-          if(++fin==tg) finz()
-        }).catch(rwb=>{
+      for (let i = 0; i < rrp; ++i) {
+        var temp = []
+        var len = (i + 1) * et < needP.length ? (i + 1) * et : needP.length
+        for (let j = i * et; j < len; ++j) temp.push(needP[j])
+        db.collection('post').where({ _id: _.in(temp) }).get().then(reb => {
+          rp = rp.concat(reb.data)
+          if (++fin == tg) finz()
+        }).catch(rwb => {
           wx.showToast({
-            title: '读取帖子信息失败！',
-            icon:'none',
+            title: '读取帖子信息失败！ at' + String(i),
+            icon: 'none',
           })
         })
       }
-        /*db.collection('post').doc(String(log[i][0])).get().then(ret => {
-          db.collection('user').doc(String(ret.data.user)).get().then(reu => {
-            u[i] = reu.data
-            if (++fin == tg << 1) finz()
-          }).catch(rwu => {
-            u[i] = modu.fakeUser
-            if (++fin == tg << 1) finz()
-          })
-          p[i] = ret.data
+      /*db.collection('post').doc(String(log[i][0])).get().then(ret => {
+        db.collection('user').doc(String(ret.data.user)).get().then(reu => {
+          u[i] = reu.data
           if (++fin == tg << 1) finz()
-        }).catch(rwt => {
-          fin += 2
-          p[i] = modu.fakePost
+        }).catch(rwu => {
           u[i] = modu.fakeUser
-          if (fin == tg << 1) finz()
+          if (++fin == tg << 1) finz()
         })
-      }*/
+        p[i] = ret.data
+        if (++fin == tg << 1) finz()
+      }).catch(rwt => {
+        fin += 2
+        p[i] = modu.fakePost
+        u[i] = modu.fakeUser
+        if (fin == tg << 1) finz()
+      })
+    }*/
     }).catch(rws => {
       wx.showToast({
         title: '账户信息异常！',
-        icon:'none',
+        icon: 'none',
       })
     })
   },
