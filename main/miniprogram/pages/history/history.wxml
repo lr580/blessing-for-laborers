@@ -1,7 +1,7 @@
 <!--pages/history/history.wxml-->
 <view wx:if="{{loading}}">加载中……</view>
 <view wx:else>
-  <view>共找到{{posts.length}}条浏览记录</view>
+  <view class="num">共找到{{posts.length}}条浏览记录</view>
   <view wx:if="{{posts.length}}">
     <view wx:for="{{posts}}">
       <view bindtap="gotoPost" id="{{item.id}}" class="box">

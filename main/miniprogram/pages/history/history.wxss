@@ -103,3 +103,10 @@
   font-size: 30rpx;
   font-weight: 400;
 }
+
+.num{
+  margin-left: 5%;
+  color: rgb(95, 89, 89);
+  font-size: 30rpx;
+  font-weight: 450;
+}
