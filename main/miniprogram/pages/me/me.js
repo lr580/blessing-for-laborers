@@ -149,7 +149,7 @@ Page({
               _openid: openid
             }).get().then(res => {
               app.globalData.userID = res.data[0]._id
-              console.log(app.globalData.userID)
+              //console.log(app.globalData.userID)
               getApp().globalData.me = res.data[0]._id
               //console.log('www',res.data[0].newInfo)
               getApp().globalData.hasNewInfo=res.data[0].newInfo

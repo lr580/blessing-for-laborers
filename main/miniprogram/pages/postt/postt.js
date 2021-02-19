@@ -21,7 +21,7 @@ Page({
     replys: 0,//回帖数
     Treplys: 0,//未被删除的回帖数
     reply: [],//回帖的帖子(0)与用户(1)、头像地址(2)、被回复用户(3)、回帖时间(4)、被回复帖子(5)、是否被点赞(6)放在同一个(以数组实现结构体，便于结构体排序)
-    replyer: [],//回帖回帖者
+    replyer: [],//回帖回帖者(废置)
     rdate: [],
     me: app.globalData.OpenId,//当前用户uid
     meo: {},//当前用户对象
@@ -152,9 +152,165 @@ Page({
             }
           }
         }
+        function cmp2() {
+          if (thee.data.descTime) {
+            return function (a, b) {
+              return b['releaseTime'] - a['releaseTime']
+            }
+          } else {
+            return function (a, b) {
+              return a['releaseTime'] - b['releaseTime']
+            }
+          }
+        }
+        var reply = []
+        var cmt = res.data.comment
 
+        var thew = this
+        var tuser = []
+        var tpost = []
+        var ruser = []//r开头是id列表，t开头是对象列表
+        //var rpost = []
+
+        var tuser2 = []
+        var tpost2 = []
+        var ruser2 = []
+        var rpost2 = []
+        var nfin = 0
+        const ex = 20
+        var ntot = Math.ceil(cmt.length / ex)
+        function succc() {
+          tpost.sort(cmp2())
+          for (let i = 0; i < tpost.length; ++i) {
+            //console.log('a',i) sad debug
+            reply[i] = []
+            reply[i][0] = tpost[i]
+            reply[i][1] = String(tpost[i].user)
+            ruser.push(String(tpost[i].user))
+            reply[i][4] = lrfx.dateArr(tpost[i].editTime)
+            reply[i][6] = thew.data.meo.thumbs.includes(tpost[i].id)
+            reply[i][5] = tpost[i].reply
+            if (reply[i][5]) rpost2.push(String(tpost[i].reply))
+          }
+          ruser = Array.from(new Set(ruser))
+          rpost2 = Array.from(new Set(rpost2))
+
+          var rut = Math.ceil(ruser.length / ex)
+          var rp2t = Math.ceil(rpost2.length / ex)
+          var mlen = rut + rp2t
+          var mfin = 0
+
+          //console.log('succc',reply)
+          function succd() {
+            //console.log('qwqq', tuser, tpost2)
+            for (let i = 0; i < reply.length; ++i) {
+              for (let j = 0; j < tuser.length; ++j) {
+                if (reply[i][1] == tuser[j]._id) {
+                  reply[i][1] = tuser[j]
+                  reply[i][2] = tuser[j].image
+                  break
+                }
+              }
+              if (reply[i][5] != 0) for (let j = 0; j < tpost2.length; ++j) {
+                if (String(reply[i][5]) == tpost2[j]._id) {
+                  reply[i][5] = tpost2[j]
+                  reply[i][3] = String(tpost2[j].user)
+                  ruser2.push(String(tpost2[j].user))
+                  break
+                }
+              }
+            }
+            ruser2 = Array.from(new Set(ruser2))
+            var lfin = 0
+            var llen = Math.ceil(ruser2.length / ex)
+            function succe() {
+              //console.log(tuser2)
+              for (let i = 0; i < reply.length; ++i) {
+                if (reply[i][5] != 0) {
+                  for (let j = 0; j < tuser2.length; ++j) {
+                    if (reply[i][3] == tuser2[j]._id) {
+                      reply[i][3] = tuser2[j]
+                      break
+                    }
+                  }
+                }
+              }
+              //console.log('好耶！', reply)
+              var tr = 0
+              for (let i = 0; i < reply.length; ++i) if (!reply[i][0].hide) ++tr
+              thew.setData({
+                reply: reply,
+                replys: reply.length,
+                Treplys: tr,
+              })
+            }
+            if(!llen) succe()
+            for (let i = 0; i < llen; ++i) {
+              var temp = []
+              var jrf = Math.min((i + 1) * ex, ruser2.length)
+              for (let j = i * ex; j < jrf; ++j) temp.push(ruser2[j])
+              db.collection('user').where({ _id: _.in(temp) }).get().then(rek => {
+                tuser2 = tuser2.concat(rek.data)
+                if (++lfin == llen) succe()
+              }).catch(rwk => {
+                wx.showToast({
+                  title: '获取回帖嵌套用户失败！(批次' + String(i + 1) + ')',
+                  icon: 'none',
+                })
+              })
+            }
+            //console.log(reply, ruser2)
+          }
+          if (!mlen) succd() //理论上该if永假
+          for (let i = 0; i < rut; ++i) {
+            var temp = []
+            var jrf = Math.min((i + 1) * ex, ruser.length)
+            for (let j = i * ex; j < jrf; ++j) temp.push(ruser[j])
+
+            db.collection('user').where({ _id: _.in(temp) }).get().then(rei => {
+              tuser = tuser.concat(rei.data)
+              if (++mfin == mlen) succd()
+            }).catch(rwi => {
+              wx.showToast({
+                title: '获取回帖嵌套失败！(批次' + String(i + 1) + ')',
+                icon: 'none',
+              })
+            })
+          }
+          for (let i = 0; i < rut; ++i) {
+            var temp = []
+            var jrf = Math.min((i + 1) * ex, rpost2.length)
+            for (let j = i * ex; j < jrf; ++j) temp.push(rpost2[j])
+            db.collection('post').where({ _id: _.in(temp) }).get().then(rej => {
+              tpost2 = tpost2.concat(rej.data)
+              if (++mfin == mlen) succd()
+            }).catch(rwj => {
+              wx.showToast({
+                title: '获取回帖用户失败！(批次' + String(i + 1) + ')',
+                icon: 'none',
+              })
+            })
+          }
+        }
+        //if(!ntot) 
+        //console.log('ntot', ntot)
+        for (let i = 0; i < ntot; ++i) {
+          var temp = []
+          var jrf = Math.min((i + 1) * ex, cmt.length)
+          for (let j = i * ex; j < jrf; ++j) temp.push(String(cmt[j]))
+          //temp=Array.from(new Set(temp)) 本来就唯一性，不必unique()了
+          db.collection('post').where({ _id: _.in(temp) }).get().then(reh => {
+            tpost = tpost.concat(reh.data)
+            if (++nfin == ntot) succc()
+          }).catch(rwh => {
+            wx.showToast({
+              title: '获取回帖失败！(批次' + String(i + 1) + ')',
+              icon: 'none',
+            })
+          })
+        }
         //获取所有回帖
-        for (let i = 0; i < res.data.comment.length; ++i) {
+        /*for (let i = 0; i < res.data.comment.length; ++i) {
           wx.cloud.database().collection('post').doc(String(res.data.comment[i])).get().then(reu => {
             wx.cloud.database().collection('user').doc(String(reu.data.user)).get().then(rev => {
               ++fin
@@ -235,14 +391,6 @@ Page({
             ++fin
             temp[i][0] = reu.data
             temp[i][4] = lrfx.dateArr(reu.data.editTime)
-            /*[
-              reu.data.editTime.getFullYear(),
-              reu.data.editTime.getMonth() + 1,
-              reu.data.editTime.getDate(),
-              reu.data.editTime.getHours(),
-              reu.data.editTime.getMinutes(),
-              reu.data.editTime.getSeconds()
-            ]*/
             temp[i][6] = this.data.meo.thumbs.includes(temp[i][0].id)
             if (!temp[i][0].hide) ++tlen
             if (fin == res.data.comment.length * 4) {//异步的某一次全部回帖帖子和回帖用户和嵌套用户均加载完毕(实验表明不会在这里结束异步，但保险起见还是放着吧)
@@ -273,7 +421,7 @@ Page({
               })
             }
           })
-        }
+        }*/
       }
     }).catch(rwr => {
       //var p = { hide: true }//模拟删帖
@@ -300,11 +448,8 @@ Page({
         }
         else log[i] = [log[i][0], new Date(log[i][1]["$date"]), log[i][2]]//解决微信数据库读取会让date转object的bug
       }
-      //console.log('qwq', this.data.poster)
       if (!found) log.push([this.data.postt.id, dat, this.data.poster._id])
-      //console.log(log)
       cc.doc(String(this.data.me)).update({ data: { browseLog: log } }).then(ret => {
-        //console.log('suc')
       }).catch(rwt => {
         wx.showToast({
           title: '写入用户信息异常！',
@@ -417,11 +562,7 @@ Page({
             var temp = this.data.postt
             var temr = this.data.reply
             var tems = this.data.meo.thumbs
-            //console.log('??????????',tems)
             tems.push(pid)
-
-            //if(pii==-1) ++temp.thumbs
-            //else ++temr[pii][0].thumbs
 
             if (pii == -1) {
               ++temp.thumbs
