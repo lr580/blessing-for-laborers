@@ -65,6 +65,14 @@
   font-weight: 400;
 }
 
+.tag2{
+  margin-top: 15rpx;
+  margin-left: 20rpx;
+  height: 50rpx;
+  width: 50rpx;
+}
+
+
 .nickName {
   font-size: 30rpx;
   margin-left: 20rpx;
