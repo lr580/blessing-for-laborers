@@ -16,7 +16,7 @@
     <view wx:if="{{showDetail[index]}}" class="content">
       <view wx:for="{{item[1]}}" wx:for-index="i" wx:for-item="v">
         <view wx:if="{{v[0]==1}}">{{v[1]}}</view>
-        <image wx:if="{{v[0]==3}}" src="{{pathtp+v[1]}}"></image>
+        <image wx:if="{{v[0]==3}}" src="{{pathtp+v[1]}}" class="img" mode="aspectFit"></image>
       </view>
     </view>
     <view class="divline"></view>

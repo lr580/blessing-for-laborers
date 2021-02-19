@@ -60,3 +60,7 @@
   font-weight: 550;
   margin-left: 5%;
 }
+
+.img{
+  height: 800rpx;
+}
