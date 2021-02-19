@@ -181,11 +181,6 @@
   margin-right: 20rpx;
   border-bottom: 6rpx solid rgb(86, 92, 94);
   /* display: flex; */
-  flex-wrap: wrap;
-}
-
-.contentText {
-  width: 100%;
   display: -webkit-box;
   word-break: break-all;
   -webkit-box-orient: vertical;
@@ -194,6 +189,17 @@
   flex-wrap: wrap;
   text-overflow: ellipsis;
 }
+
+.content Text {
+  display: -webkit-box;
+  word-break: break-all;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4;
+  overflow: hidden;
+  flex-wrap: wrap;
+  text-overflow: ellipsis;
+}
+
 
 .state {
   margin-left: 20rpx;
@@ -234,19 +240,19 @@
   height: 40rpx;
 }
 
-.nopostTip{
+.nopostTip {
   width: 750rpx;
-  display:flex;                    
-  justify-content: center;      
-  flex-direction: column; 
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
 }
 
 
-.tippic{
-  display:flex;   
-  justify-content: center;   
+.tippic {
+  display: flex;
+  justify-content: center;
 }
 
-.loading{
+.loading {
   margin-left: 40%;
 }

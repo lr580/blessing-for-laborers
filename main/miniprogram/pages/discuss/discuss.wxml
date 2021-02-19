@@ -185,7 +185,7 @@
   </view>
 </view>
 
-<view class="loading" wx:if="{{!(alreadyAll||postn<=initLoads)}}">
+<view class="loading" hidden="{{!(alreadyAll||postn<=initLoads)}}">
   <van-loading color="#1989fa" size="40rpx" vertical>加载中...</van-loading>
 </view>
 

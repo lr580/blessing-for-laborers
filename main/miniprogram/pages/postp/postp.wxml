@@ -39,7 +39,7 @@
   <image wx:if="{{v[0]==3}}" src="{{pathtp+v[1]}}"></image>
   <button wx:if="{{v[0]==3}}" bindtap="delImage" id="{{i}}">[删除图片]</button>
 </view>
-<view style="height:200rpx"></view>
+<view style="height:300rpx"></view>
 <view class="stateBody">
   <view class="state">
     <view class="selectImg">

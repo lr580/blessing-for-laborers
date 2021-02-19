@@ -1,9 +1,9 @@
 /* pages/postp/postp.wxss */
 
-.rePost{
-  overflow:hidden;
-  white-space:nowrap;
-  text-overflow:ellipsis;
+.rePost {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
   margin-left: 30rpx;
   margin-right: 30rpx;
   align-items: center;
@@ -14,11 +14,11 @@
   border-top: 4rpx solid darkgray;
 }
 
-.reUser{
+.reUser {
   margin-top: 5rpx;
-  overflow:hidden;
-  white-space:nowrap;
-  text-overflow:ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
   margin-left: 30rpx;
   margin-right: 30rpx;
   align-items: center;
@@ -28,42 +28,43 @@
   border-bottom: 4rpx solid darkgray;
   border-top: 4rpx solid darkgray;
 }
-.InputTitle image{
+
+.InputTitle image {
   height: 60rpx;
-  width:60rpx;
+  width: 60rpx;
 }
 
-.InputTitle{
+.InputTitle {
   display: flex;
-justify-content: center;
+  justify-content: center;
 }
 
-.titleText{
+.titleText {
   display: flex;
   font-size: 50rpx;
 }
 
-.titleInput{
+.titleInput {
   height: 60rpx;
- 
+
 }
 
-.selectTag{
+.selectTag {
   margin-top: 200rpx;
 }
 
-.tags{
+.tags {
   margin-left: 20rpx;
   margin-right: 20rpx;
 }
 
 
-.types{
+.types {
   margin-left: 20rpx;
   margin-right: 40rpx;
 }
 
-.state{
+.state {
   height: 100rpx;
   margin-left: 50rpx;
   margin-right: 50rpx;
@@ -71,45 +72,47 @@ justify-content: center;
   align-items: center;
 }
 
-.stateBody{
+.stateBody {
   position: fixed;
   bottom: 5rpx;
   background-color: white;
   border-top: 4rpx solid darkgray;
+  z-index: 100;
 }
 
 
-.switcgCB{
+.switcgCB {
   margin-left: 300rpx;
 }
-.addPhoto image{
+
+.addPhoto image {
   margin-top: 20rpx;
 
   width: 80rpx;
   height: 65rpx;
 }
 
-.addPhoto text{
+.addPhoto text {
   font-size: 30rpx;
 }
 
 
-.inputContent textarea{
+.inputContent textarea {
   margin: 20rpx 20rpx;
   font-weight: 200;
   height: 200rpx;
 }
 
-.sendButton{
+.sendButton {
   width: 750rpx;
   display: flex;
   justify-content: center;
 }
 
-.rePost{
-  overflow:hidden;
-  white-space:nowrap;
-  text-overflow:ellipsis;
+.rePost {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
   margin-left: 30rpx;
   margin-right: 30rpx;
   align-items: center;
@@ -120,11 +123,11 @@ justify-content: center;
   border-top: 4rpx solid darkgray;
 }
 
-.reUser{
+.reUser {
   margin-top: 5rpx;
-  overflow:hidden;
-  white-space:nowrap;
-  text-overflow:ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
   margin-left: 30rpx;
   margin-right: 30rpx;
   align-items: center;

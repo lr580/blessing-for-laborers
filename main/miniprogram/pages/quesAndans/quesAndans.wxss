@@ -224,6 +224,8 @@
 
 .contentFont {
   font-size: 30rpx;
+  word-break: break-all;
+  flex-wrap: wrap;
 }
 
 .state {
