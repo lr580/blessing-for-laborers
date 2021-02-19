@@ -261,12 +261,12 @@ Page({
             }
             //console.log(reply, ruser2)
           }
-          if (!mlen) succd() //理论上该if永假
+          if (!mlen) console.log('never'),succd() //理论上该if永假
           for (let i = 0; i < rut; ++i) {
             var temp = []
             var jrf = Math.min((i + 1) * ex, ruser.length)
             for (let j = i * ex; j < jrf; ++j) temp.push(ruser[j])
-
+            //console.log('qq',temp)
             db.collection('user').where({ _id: _.in(temp) }).get().then(rei => {
               tuser = tuser.concat(rei.data)
               if (++mfin == mlen) succd()
@@ -277,7 +277,7 @@ Page({
               })
             })
           }
-          for (let i = 0; i < rut; ++i) {
+          for (let i = 0; i < rp2t; ++i) {
             var temp = []
             var jrf = Math.min((i + 1) * ex, rpost2.length)
             for (let j = i * ex; j < jrf; ++j) temp.push(rpost2[j])
