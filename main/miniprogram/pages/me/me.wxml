@@ -9,8 +9,8 @@
       </view>
       <view class="Info">
         <text user-select="true" class="userName">{{nickName}}</text>
-        <text user-select="true" class="gender">性别: {{gender}}</text>
-        <text user-select="true" class="city">城市: {{userCity}}</text>
+        <text user-select="true" class="gender">学校: {{school}} - {{schoolArea}}</text>
+        <text user-select="true" class="city">专业： {{major}}</text>
       </view>
       <view class="goinPic">
         <image src="/img/goin.png"></image>

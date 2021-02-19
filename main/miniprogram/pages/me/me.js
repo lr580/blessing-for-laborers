@@ -19,6 +19,7 @@ Page({
     loadKey: false,
     changeInfokey: false,
     nwInfo:false,//与全局变量含义一致
+    major:'',
   },
 
   console1: function () {
@@ -153,7 +154,10 @@ Page({
               getApp().globalData.me = res.data[0]._id
               //console.log('www',res.data[0].newInfo)
               getApp().globalData.hasNewInfo=res.data[0].newInfo
-              that.setData({nwInfo:res.data[0].newInfo})
+              that.setData({nwInfo:res.data[0].newInfo,})
+              that.setData({major:res.data[0].major,})
+              that.setData({school:res.data[0].school,})
+              that.setData({schoolArea:res.data[0].schoolArea,})
               if(res.data[0].newInfo) wx.setTabBarBadge({index: 2,text: String(res.data[0].newInfo),})
               //console.log('wwwwww')
 
