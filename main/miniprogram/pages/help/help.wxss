@@ -1,1 +1,62 @@
 /* miniprogram/pages/help/help.wxss */
+.divline{
+  background: rgb(197, 192, 192);
+  height: 5rpx;
+  margin-top: 3rpx;
+  width: 90%;
+  margin-left: 5%;
+}
+
+.bigbox{
+  background-color: white;
+  height: 1500rpx;
+}
+
+.box{
+  display: flex;
+  width: 100%;
+}
+
+.box2{
+  display: inline;
+}
+
+.tag2{
+  height: 40rpx;
+  width: 40rpx;
+  margin-top: 10rpx;
+  margin-left: 10rpx;
+}
+
+.title {
+  margin-top: 5rpx;
+  font-size: 35rpx;
+  font-weight: 550;
+  white-space: nowrap;
+  margin-left: 20rpx;
+  
+  width: 400rpx;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.title2 {
+  margin-top: 5rpx;
+  font-size: 40rpx;
+  font-weight: 600;
+  white-space: nowrap;
+  margin-left: 25%;
+  width: 50%;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.content {
+  font-size: 35rpx;
+  font-weight: 550;
+  margin-left: 5%;
+}
