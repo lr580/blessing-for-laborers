@@ -48,6 +48,7 @@ Page({
     //由于onshow的意思是当(从隐藏到显示而不是从关闭到打开)
     //其实以下内容应该放onLoad的，但上一行代码已经弥补这个故障了
     //页面必须关闭后打开才刷新，否则需要做太多if判断
+    this.setData({types:['回帖'].concat(getApp().globalData.types)})
     wx.showLoading({
       title: '加载中...',
     })

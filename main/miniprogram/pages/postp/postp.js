@@ -128,7 +128,7 @@ Page({
         })
       },
       success(res) {
-        console.log('ssss', res.tempFilePaths)
+        //console.log('ssss', res.tempFilePaths)
         var tempPath = res.tempFilePaths
         var nums = tempPath.length
         var temp = ths.data.tx

@@ -4,7 +4,7 @@
 
       <view class="top">
         <view class="title">{{item.title}}</view>
-        <!--<view class="type">{{item.type}}</view>-->
+        <view class="type">{{types[item.type]}}</view>
       </view>
 
 
@@ -22,7 +22,7 @@
       </view>
       <view class="divline2"></view>
     </view>
-
+    
   </view>
   <text decode="true">&ensp;</text>
 </view>
