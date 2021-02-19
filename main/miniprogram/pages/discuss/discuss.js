@@ -1,5 +1,7 @@
 // pages/discuss/discuss.js
-var modu = require('../../lrfx.js')
+const modu = require('../../lrfx.js')
+const db = wx.cloud.database()
+const _ = db.command
 Page({
 
   /**
@@ -55,6 +57,20 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    /*var req = 140
+    var bg = 250
+    for (let i = bg + 1; i <= bg + 90; ++i) {
+      db.collection('post').doc(String(i)).get().then(ree => {
+        if (ree.data.type) {
+          db.collection('post').doc(String(i)).update({ data: { tag: '其他' } }).then(ref => {
+            console.log(++req, i)
+          })
+        }
+      }).catch(rwe=>{
+        console.log('tan', i)
+      })
+    }*/
+
     var dem = {
       hide: false,
     }
@@ -115,17 +131,10 @@ Page({
             })
             return
           }
-          //console.log(res.data.length)
 
           for (let i = 0; i < res.data.length; ++i) {
             temp[i][0] = res.data[i]
             temp[i][2] = modu.dateArr(res.data[i].activeTime)
-            /*[res.data[i].activeTime.getFullYear(),
-            res.data[i].activeTime.getMonth() + 1,
-            res.data[i].activeTime.getDate(),
-            res.data[i].activeTime.getHours(),
-            res.data[i].activeTime.getMinutes(),
-            res.data[i].activeTime.getSeconds()]*/
             temp[i][3] = modu.getABS(res.data[i].content)
             wx.cloud.database().collection('user').doc(String(res.data[i].user)).get().then(ret => {
               ++fina
@@ -136,9 +145,9 @@ Page({
                   posts: temp,
                 })
               }
-            }).catch(rwt=>{
+            }).catch(rwt => {
               ++fina
-              temp[i][1]=modu.fakeUser
+              temp[i][1] = modu.fakeUser
               if (fina == res.data.length) {
                 thee.setData({
                   postn: res.data.length,
@@ -205,12 +214,6 @@ Page({
         for (let i = 0; i < res.data.length; ++i) {
           temp[i][0] = res.data[i]
           temp[i][2] = modu.dateArr(res.data[i].activeTime)
-          /*[res.data[i].activeTime.getFullYear(),
-          res.data[i].activeTime.getMonth() + 1,
-          res.data[i].activeTime.getDate(),
-          res.data[i].activeTime.getHours(),
-          res.data[i].activeTime.getMinutes(),
-          res.data[i].activeTime.getSeconds()]*/
           temp[i][3] = modu.getABS(res.data[i].content)
           wx.cloud.database().collection('user').doc(String(res.data[i].user)).get().then(ret => {
             ++fina
@@ -221,9 +224,9 @@ Page({
                 posts: this.data.posts.concat(temp),
               })
             }
-          }).catch(rwt=>{
+          }).catch(rwt => {
             ++fina
-            temp[i][1]=modu.fakeUser
+            temp[i][1] = modu.fakeUser
             if (fina == res.data.length) {
               this.setData({
                 postn: this.data.postn + res.data.length,

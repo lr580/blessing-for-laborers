@@ -12,7 +12,7 @@
   </view>
   <van-divider></van-divider>
   <van-cell title="{{'标签：'+tag}}" is-link bind:click="showPopup1" />
-  <van-popup custom-style="height: 100%;" position="right" show="{{ show1 }}" bind:close="onClose1">
+  <van-popup round custom-style="height: 60%;" position="right" show="{{ show1 }}" bind:close="onClose1">
     <radio-group bindchange="selectTag">
       <view class="selecTag">
         <view wx:for="{{tags}}" class="tags">
@@ -23,7 +23,7 @@
   </van-popup>
 
   <van-cell title="{{'帖子类型：'+types[type-1]}}" is-link bind:click="showPopup2" />
-  <van-popup custom-style="height: 100%;" position="right" show="{{ show2 }}" bind:close="onClose2">
+  <van-popup round custom-style="height: 30%;" position="right" show="{{ show2 }}" bind:close="onClose2">
     <radio-group bindchange="selectType">
       <view wx:for="{{types}}" class="types">
         <radio value="{{index+1}}" checked="{{index+1==type}}">{{item}}</radio>
