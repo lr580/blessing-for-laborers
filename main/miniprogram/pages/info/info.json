@@ -1,0 +1,9 @@
+{
+  "usingComponents": {
+    "van-divider": "/dist/divider/index",
+    "van-grid": "/dist/grid/index",
+  "van-grid-item": "/dist/grid-item/index",
+  "van-cell": "/dist/cell/index",
+  "van-cell-group": "/dist/cell-group/index"
+  }
+}
