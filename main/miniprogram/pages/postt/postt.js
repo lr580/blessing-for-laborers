@@ -102,12 +102,6 @@ Page({
       this.setData({
         postt: res.data,
         pdate: lrfx.dateArr(res.data.editTime),
-        /*pdate: [res.data.editTime.getFullYear(),//将正贴时间从最后活跃时间改成了编辑时间
-        res.data.editTime.getMonth() + 1,
-        res.data.editTime.getDate(),
-        res.data.editTime.getHours(),
-        res.data.editTime.getMinutes(),
-        res.data.editTime.getSeconds()],*/
         replys: res.data.comment.length
       })
       wx.cloud.database().collection('user').doc(String(res.data.user)).get().then(ret => {
@@ -244,7 +238,7 @@ Page({
                 Treplys: tr,
               })
             }
-            if(!llen) succe()
+            if (!llen) succe()
             for (let i = 0; i < llen; ++i) {
               var temp = []
               var jrf = Math.min((i + 1) * ex, ruser2.length)
@@ -261,7 +255,7 @@ Page({
             }
             //console.log(reply, ruser2)
           }
-          if (!mlen) console.log('never'),succd() //理论上该if永假
+          if (!mlen) console.log('never'), succd() //理论上该if永假
           for (let i = 0; i < rut; ++i) {
             var temp = []
             var jrf = Math.min((i + 1) * ex, ruser.length)
@@ -689,15 +683,6 @@ Page({
       for (let i = 0; i < col.length; ++i) if (col[i] != pid) dol.push(col[i])
     } else { //收藏
 
-      // var res=await db.collection("post").doc(String(pid)).get().then(res=>{
-      //   tag=res.data.tag
-      //   title=res.data.title
-      //   user=res.data.user
-      // })
-      //   var res =await db.collection("user").doc(user).get().then(res=>{
-      //     user=res.data.nickName
-      //   })
-      // console.log(tag+"   "+title+"   "+user)
       dol = col
       dol.push(pid)
     }
@@ -758,6 +743,20 @@ Page({
     wx.previewImage({
       urls: imgs,
       current: cimg,
+    })
+  },
+
+  gotoUser: function (e) {
+    var ori = e.currentTarget.id.split(',')
+    var uid = ori[0]
+    var ann = ori[1]=='true'//是否匿名
+    console.log('gotoUser with', uid, ann)
+    if (!uid) return
+    if (ann) return
+
+    wx.navigateTo({
+      url: '../changeInfo/changeInfo?id=' + uid,
+      //url: '../me/me?id=' + uid,
     })
   },
 

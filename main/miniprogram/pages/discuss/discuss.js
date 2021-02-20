@@ -73,7 +73,7 @@ Page({
       dateBS: getApp().globalData.dateBS,
       dateES: getApp().globalData.dateES,
     })
-
+    //console.log('me', this.data.me)
     wx.cloud.database().collection('global').doc('catagory').get().then(res => {
       var temp = res.data.cat
       var t2 = []
@@ -173,7 +173,9 @@ Page({
     var dem = this.data.dem
     var bggt = this.data.bgdt
     var edgt = this.data.eddt
-    //console.log(bggt, edgt)
+    wx.showLoading({
+      title: '加载中',
+    })
     if (!this.data.insearch) {
       if (this.data.order == 'desc')//就现实情况而言，不存在两个帖子同时发布
         dem['activeTime'] = wx.cloud.database().command.lt(lastLeastActiveTime)
@@ -198,11 +200,12 @@ Page({
         else dem['activeTime'] = _.gt(lastLeastActiveTime).and(_.lt(edgt))
       }
     }
+    //console.log('dem',dem)
     wx.cloud.database().collection('post').where(dem).limit(this.data.freshLoads)
       .orderBy('activeTime', this.data.order).get().then(res => {
         var fina = 0
         var temp = []//读取数据暂存
-        if (!res.data.length) this.setData({ alreadyAll: true })
+        if (!res.data.length) this.setData({ alreadyAll: true }), wx.hideLoading()
 
         for (let i = 0; i < res.data.length; ++i) temp[i] = []
 
@@ -214,6 +217,7 @@ Page({
             ++fina
             temp[i][1] = ret.data
             if (fina == res.data.length) {
+              wx.hideLoading()
               this.setData({
                 postn: this.data.postn + res.data.length,
                 posts: this.data.posts.concat(temp),
@@ -223,6 +227,7 @@ Page({
             ++fina
             temp[i][1] = modu.fakeUser
             if (fina == res.data.length) {
+              wx.hideLoading()
               this.setData({
                 postn: this.data.postn + res.data.length,
                 posts: this.data.posts.concat(temp),
@@ -239,10 +244,10 @@ Page({
   onPullDownRefresh: function () {
     this.firstLoad()
     this.setData({ alreadyAll: false })
-    wx.showToast({
+    /*wx.showToast({
       title: '刷新成功',
       duration: 1500,
-    })
+    })*/
   },
 
   gotoPost: function (e) {

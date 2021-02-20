@@ -185,7 +185,7 @@
 </view>
 
 
-<view hidden="{{!alreadyAll||postn<=initLoads}}" class="tip">
+<view hidden="{{!(alreadyAll||postn<=initLoads)}}" class="tip">
   <image src="/img/tip.png"></image>
   <view>已经到达底端啦！</view>
 </view>

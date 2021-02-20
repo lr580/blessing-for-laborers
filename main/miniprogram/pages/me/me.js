@@ -62,6 +62,9 @@ Page({
   FgetuserInfo: async function () {
     var openid
     var that = this;
+    wx.showLoading({
+      title: '加载中',
+    })
     wx.getUserInfo({
       success: async function (res) {
         console.log(res);
@@ -120,6 +123,7 @@ Page({
                 infos:[],
               }
             }).catch(rww => {
+              wx.hideLoading()
               wx.showToast({
                 title: '更新信息失败！',
                 icon:'none',
@@ -136,9 +140,11 @@ Page({
               db.collection('global').doc('username').update({
                 data: obj
               }).then(ret => {
+                wx.hideLoading()
                 //console.log('suc add to global')
               })
             }).catch(rwr => {
+              wx.hideLoading()
               wx.showToast({
                 title: '获取信息失败！',
                 icon:'none',
@@ -150,7 +156,7 @@ Page({
               _openid: openid
             }).get().then(res => {
               app.globalData.userID = res.data[0]._id
-              //console.log(app.globalData.userID)
+              //console.log('qwq',app.globalData.userID)
               getApp().globalData.me = res.data[0]._id
               //console.log('www',res.data[0].newInfo)
               getApp().globalData.hasNewInfo=res.data[0].newInfo
@@ -181,8 +187,10 @@ Page({
                       db.collection('global').doc('username').update({
                         data: obj2
                       }).then(reb => {
+                        wx.hideLoading()
                         console.log('update case of rename')
                       }).catch(rwb => {
+                        wx.hideLoading()
                         wx.showToast({
                           title: '修改信息失败！',
                           icon:'none',
@@ -190,14 +198,17 @@ Page({
                       })
                     }
                   }
+                  wx.hideLoading()
                 }
               }).catch(rwa => {
+                wx.hideLoading()
                 wx.showToast({
                   title: '获取信息失败！',
                   icon:'none',
                 })
               })
             }).catch(rws => {
+              wx.hideLoading()
               wx.showToast({
                 title: '获取信息失败！',
                 icon:'none',
@@ -205,6 +216,7 @@ Page({
             })
           }
         }).catch(rws => {
+          wx.hideLoading()
           wx.showToast({
             title: '获取信息失败，请重启！',
             icon:'none',

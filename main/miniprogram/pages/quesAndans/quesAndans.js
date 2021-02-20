@@ -177,6 +177,9 @@ Page({
     var dem = this.data.dem
     var bggt = this.data.bgdt
     var edgt = this.data.eddt
+    wx.showLoading({
+      title: '加载中',
+    })
     //console.log(bggt, edgt)
     if (!this.data.insearch) {
       if (this.data.order == 'desc')//就现实情况而言，不存在两个帖子同时发布
@@ -206,24 +209,19 @@ Page({
       .orderBy('activeTime', this.data.order).get().then(res => {
         var fina = 0
         var temp = []//读取数据暂存
-        if (!res.data.length) this.setData({ alreadyAll: true })
+        if (!res.data.length) this.setData({ alreadyAll: true }), wx.hideLoading()
 
         for (let i = 0; i < res.data.length; ++i) temp[i] = []
 
         for (let i = 0; i < res.data.length; ++i) {
           temp[i][0] = res.data[i]
           temp[i][2] = modu.dateArr(res.data[i].activeTime)
-          /* [res.data[i].activeTime.getFullYear(),
-           res.data[i].activeTime.getMonth() + 1,
-           res.data[i].activeTime.getDate(),
-           res.data[i].activeTime.getHours(),
-           res.data[i].activeTime.getMinutes(),
-           res.data[i].activeTime.getSeconds()]*/
           temp[i][3] = modu.getABS(res.data[i].content)
           wx.cloud.database().collection('user').doc(String(res.data[i].user)).get().then(ret => {
             ++fina
             temp[i][1] = ret.data
             if (fina == res.data.length) {
+              wx.hideLoading()
               this.setData({
                 postn: this.data.postn + res.data.length,
                 posts: this.data.posts.concat(temp),
@@ -233,6 +231,7 @@ Page({
             ++fina
             temp[i][1] = modu.fakeUser
             if (fina == res.data.length) {
+              wx.hideLoading()
               this.setData({
                 postn: this.data.postn + res.data.length,
                 posts: this.data.posts.concat(temp),
@@ -254,10 +253,10 @@ Page({
   onPullDownRefresh: function () {
     this.firstLoad()
     this.setData({ alreadyAll: false })
-    wx.showToast({
+    /*wx.showToast({
       title: '刷新成功',
       duration: 1500,
-    })
+    })*/
   },
 
   gotoPost: function (e) {
