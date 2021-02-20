@@ -40,9 +40,9 @@ Page({
     eddt: new Date(),//搜索结束日期范围对象
     username: [],//所有用户名与id对应列表
     typeDown: false,//搜索下拉标签是否正在下拉
-    searchDown:false,//搜索高级选项是否开启
+    searchDown: false,//搜索高级选项是否开启
   },
-//以下为控制弹出层的函数
+  //以下为控制弹出层的函数
   showPopup() {
     this.setData({ show: true });
   },
@@ -50,9 +50,9 @@ Page({
   onClose() {
     this.setData({ show: false });
   },
-  
-  typeDownize:function(e){
-    this.setData({typeDown:!this.data.typeDown})
+
+  typeDownize: function (e) {
+    this.setData({ typeDown: !this.data.typeDown })
   },
 
   /**
@@ -63,7 +63,7 @@ Page({
       hide: false,
     }
     const _ = wx.cloud.database().command
-    if(this.data.pageType==0) dem['type'] = _.neq(0).and(_.neq(1))
+    if (this.data.pageType == 0) dem['type'] = _.neq(0).and(_.neq(1))
     else dem['type'] = 1
 
     this.setData({
@@ -72,8 +72,8 @@ Page({
       pathtp: getApp().globalData.pathtp,
       types: ['全部'].concat(getApp().globalData.types),
       dem: dem,
-      dateBS:getApp().globalData.dateBS,
-      dateES:getApp().globalData.dateES,
+      dateBS: getApp().globalData.dateBS,
+      dateES: getApp().globalData.dateES,
     })
 
     wx.cloud.database().collection('global').doc('catagory').get().then(res => {
@@ -105,6 +105,9 @@ Page({
     delete dem['activeTime']
     var thee = this
     this.setData({ alreadyAll: false })
+    wx.showLoading({
+      title: '加载中',
+    })
     //console.log(dem)
     wx.cloud.database().collection('post').where(dem).limit(this.data.initLoads)
       .orderBy('activeTime', this.data.order).get({
@@ -113,6 +116,7 @@ Page({
           var temp = []//读取数据暂存
           for (let i = 0; i < res.data.length; ++i) temp[i] = []
           if (res.data.length == 0) {
+            wx.hideLoading()
             thee.setData({
               postn: 0,
               posts: [],
@@ -124,26 +128,22 @@ Page({
           for (let i = 0; i < res.data.length; ++i) {
             temp[i][0] = res.data[i]
             temp[i][2] = modu.dateArr(res.data[i].activeTime)
-            /*[res.data[i].activeTime.getFullYear(),
-            res.data[i].activeTime.getMonth() + 1,
-            res.data[i].activeTime.getDate(),
-            res.data[i].activeTime.getHours(),
-            res.data[i].activeTime.getMinutes(),
-            res.data[i].activeTime.getSeconds()]*/
             temp[i][3] = modu.getABS(res.data[i].content)
             wx.cloud.database().collection('user').doc(String(res.data[i].user)).get().then(ret => {
               ++fina
               temp[i][1] = ret.data
               if (fina == res.data.length) {
+                wx.hideLoading()
                 thee.setData({
                   postn: res.data.length,
                   posts: temp,
                 })
               }
-            }).catch(rwt=>{
+            }).catch(rwt => {
               ++fina
-              temp[i][1]=modu.fakeUser
+              temp[i][1] = modu.fakeUser
               if (fina == res.data.length) {
+                wx.hideLoading()
                 thee.setData({
                   postn: res.data.length,
                   posts: temp,
@@ -153,7 +153,11 @@ Page({
           }
         },
         fail: res => {
-          console.lof('faiff')
+          wx.hideLoading()
+          wx.showToast({
+            title: '加载失败！',
+            icon: 'none',
+          })
           thee.setData({
             postn: 0,
             posts: [],
@@ -209,12 +213,12 @@ Page({
         for (let i = 0; i < res.data.length; ++i) {
           temp[i][0] = res.data[i]
           temp[i][2] = modu.dateArr(res.data[i].activeTime)
-         /* [res.data[i].activeTime.getFullYear(),
-          res.data[i].activeTime.getMonth() + 1,
-          res.data[i].activeTime.getDate(),
-          res.data[i].activeTime.getHours(),
-          res.data[i].activeTime.getMinutes(),
-          res.data[i].activeTime.getSeconds()]*/
+          /* [res.data[i].activeTime.getFullYear(),
+           res.data[i].activeTime.getMonth() + 1,
+           res.data[i].activeTime.getDate(),
+           res.data[i].activeTime.getHours(),
+           res.data[i].activeTime.getMinutes(),
+           res.data[i].activeTime.getSeconds()]*/
           temp[i][3] = modu.getABS(res.data[i].content)
           wx.cloud.database().collection('user').doc(String(res.data[i].user)).get().then(ret => {
             ++fina
@@ -225,9 +229,9 @@ Page({
                 posts: this.data.posts.concat(temp),
               })
             }
-          }).catch(rwt=>{
+          }).catch(rwt => {
             ++fina
-            temp[i][1]=modu.fakeUser
+            temp[i][1] = modu.fakeUser
             if (fina == res.data.length) {
               this.setData({
                 postn: this.data.postn + res.data.length,
@@ -236,7 +240,7 @@ Page({
             }
           })
         }
-      }).catch(rws=>{
+      }).catch(rws => {
         wx.showToast({
           title: '数据异常，请重试。',
         })
@@ -493,8 +497,8 @@ Page({
     this.onLoad()
   },
 
-  searchDf:function(e){
-    this.setData({searchDown:!this.data.searchDown})
+  searchDf: function (e) {
+    this.setData({ searchDown: !this.data.searchDown })
   },
 
   /**

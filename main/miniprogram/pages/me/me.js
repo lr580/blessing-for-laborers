@@ -159,7 +159,7 @@ Page({
               that.setData({school:res.data[0].school,})
               that.setData({schoolArea:res.data[0].schoolArea,})
               if(res.data[0].newInfo) wx.setTabBarBadge({index: 2,text: String(res.data[0].newInfo),}).catch(ree=>{
-                console.log('too fase')
+                console.log('too fast')
               })
               //console.log('wwwwww')
 

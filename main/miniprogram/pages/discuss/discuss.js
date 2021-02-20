@@ -43,7 +43,6 @@ Page({
     username: [],//所有用户名与id对应列表
     typeDown: false,//搜索栏标签是否下拉中
     searchDown: false,//搜索栏是否展开高级搜索
-    loading:true,//加载中
   },
   //以下为控制弹出层的函数
   showPopup() {
@@ -58,20 +57,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    /*var req = 140
-    var bg = 250
-    for (let i = bg + 1; i <= bg + 90; ++i) {
-      db.collection('post').doc(String(i)).get().then(ree => {
-        if (ree.data.type) {
-          db.collection('post').doc(String(i)).update({ data: { tag: '其他' } }).then(ref => {
-            console.log(++req, i)
-          })
-        }
-      }).catch(rwe=>{
-        console.log('tan', i)
-      })
-    }*/
-
     var dem = {
       hide: false,
     }
@@ -118,6 +103,9 @@ Page({
     delete dem['activeTime']
     var thee = this
     this.setData({ alreadyAll: false })
+    wx.showLoading({
+      title: '加载中',
+    })
     //console.log(dem)
     wx.cloud.database().collection('post').where(dem).limit(this.data.initLoads)
       .orderBy('activeTime', this.data.order).get({
@@ -141,6 +129,7 @@ Page({
               ++fina
               temp[i][1] = ret.data
               if (fina == res.data.length) {
+                wx.hideLoading()
                 thee.setData({
                   postn: res.data.length,
                   posts: temp,
@@ -150,6 +139,7 @@ Page({
               ++fina
               temp[i][1] = modu.fakeUser
               if (fina == res.data.length) {
+                wx.hideLoading()
                 thee.setData({
                   postn: res.data.length,
                   posts: temp,
@@ -159,7 +149,11 @@ Page({
           }
         },
         fail: res => {
-          console.lof('faiff')
+          wx.hideLoading()
+          wx.showToast({
+            title: '加载失败！',
+            icon: 'none',
+          })
           thee.setData({
             postn: 0,
             posts: [],
