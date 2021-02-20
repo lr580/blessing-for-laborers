@@ -20,7 +20,7 @@ Page({
     pdate: [],//正文最后活跃时间
     replys: 0,//回帖数
     Treplys: 0,//未被删除的回帖数
-    reply: [],//回帖的帖子(0)与用户(1)、头像地址(2)、被回复的回帖用户(3)、回帖时间(4)、被回复的回帖帖子(5)、是否被点赞(6)、被回复的回帖所在楼层(7)放在同一个(以数组实现结构体，便于结构体排序)
+    reply: [],//回帖的帖子(0)与用户(1)、头像地址(2)、被回复用户(3)、回帖时间(4)、被回复帖子(5)、是否被点赞(6)放在同一个(以数组实现结构体，便于结构体排序)
     replyer: [],//回帖回帖者(废置)
     rdate: [],
     me: app.globalData.OpenId,//当前用户uid
@@ -205,21 +205,12 @@ Page({
                   break
                 }
               }
-              if (reply[i][5] != 0) {
-                for (let j = 0; j < tpost2.length; ++j) {
-                  if (String(reply[i][5]) == tpost2[j]._id) {
-                    reply[i][5] = tpost2[j]
-                    reply[i][3] = String(tpost2[j].user)
-                    ruser2.push(String(tpost2[j].user))
-                    break
-                  }
-                }
-                for (let j = 0; j < reply.length; ++j) {
-                  if (String(reply[i][0].reply) == reply[j][0]._id) {
-                    //console.log(reply[i][0].reply, tpost2[j])
-                    reply[i][7] = j
-                    break
-                  }
+              if (reply[i][5] != 0) for (let j = 0; j < tpost2.length; ++j) {
+                if (String(reply[i][5]) == tpost2[j]._id) {
+                  reply[i][5] = tpost2[j]
+                  reply[i][3] = String(tpost2[j].user)
+                  ruser2.push(String(tpost2[j].user))
+                  break
                 }
               }
             }
@@ -758,14 +749,21 @@ Page({
   gotoUser: function (e) {
     var ori = e.currentTarget.id.split(',')
     var uid = ori[0]
-    var ann = ori[1] == 'true'//是否匿名
+    var ann = ori[1]=='true'//是否匿名
+    var code
     console.log('gotoUser with', uid, ann)
+    console.log(uid)
     if (!uid) return
     if (ann) return
-
+    if(uid==app.globalData.userID){
+      code=0
+    }
+    else{
+      code=1
+    }
+    console.log("before "+code+" "+uid+" "+app.globalData.userID)
     wx.navigateTo({
-      url: '../changeInfo/changeInfo?id=' + uid,
-      //url: '../me/me?id=' + uid,
+      url: '/pages/info/info?uid='+uid+"&code="+code,
     })
   },
 
