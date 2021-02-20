@@ -1,5 +1,5 @@
 <!--pages/history/history.wxml-->
-<view wx:if="{{loading}}">加载中……</view>
+<view wx:if="{{loading}}"></view>
 <view wx:else>
   <view class="num">共找到{{posts.length}}条浏览记录</view>
   <view wx:if="{{posts.length}}">

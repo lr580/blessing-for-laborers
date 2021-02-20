@@ -20,6 +20,9 @@ Page({
    */
   onLoad: function (options) {
     //页面必须关闭后打开才刷新，否则需要做太多if判断
+    wx.showLoading({
+      title: '加载中',
+    })
     this.setData({
       me: getApp().globalData.userID,
       unfresh: false,
@@ -63,6 +66,7 @@ Page({
             }
           }
         }
+        wx.hideLoading()
         thee.setData({
           posts: p,
           dates: d,
@@ -112,23 +116,7 @@ Page({
           })
         })
       }
-      /*db.collection('post').doc(String(log[i][0])).get().then(ret => {
-        db.collection('user').doc(String(ret.data.user)).get().then(reu => {
-          u[i] = reu.data
-          if (++fin == tg << 1) finz()
-        }).catch(rwu => {
-          u[i] = modu.fakeUser
-          if (++fin == tg << 1) finz()
-        })
-        p[i] = ret.data
-        if (++fin == tg << 1) finz()
-      }).catch(rwt => {
-        fin += 2
-        p[i] = modu.fakePost
-        u[i] = modu.fakeUser
-        if (fin == tg << 1) finz()
-      })
-    }*/
+
     }).catch(rws => {
       wx.showToast({
         title: '账户信息异常！',
