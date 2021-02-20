@@ -43,6 +43,7 @@ Page({
     username: [],//所有用户名与id对应列表
     typeDown: false,//搜索栏标签是否下拉中
     searchDown: false,//搜索栏是否展开高级搜索
+    loading:true,//加载中
   },
   //以下为控制弹出层的函数
   showPopup() {
