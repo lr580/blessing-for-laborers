@@ -1,3 +1,7 @@
 {
-  "usingComponents": {}
+  "usingComponents": {
+    "van-collapse": "/dist/collapse/index",
+   "van-collapse-item": "/dist/collapse-item/index",
+   "van-icon": "/dist/icon/index"
+  }
 }

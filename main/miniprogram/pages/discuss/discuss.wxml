@@ -185,12 +185,12 @@
   </view>
 </view>
 
-<view class="loading" hidden="{{!(alreadyAll||postn<=initLoads)}}">
+<view class="loading" wx:if="{{!(alreadyAll||postn<=initLoads)}}">
   <van-loading color="#1989fa" size="40rpx" vertical>加载中...</van-loading>
 </view>
 
 
-<view hidden="{{alreadyAll||postn<=initLoads}}" class="tip">
+<view hidden="{{!alreadyAll||postn<=initLoads}}" class="tip">
   <image src="/img/tip.png"></image>
   <view>已经到达底端啦！</view>
 </view>

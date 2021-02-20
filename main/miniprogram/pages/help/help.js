@@ -8,10 +8,16 @@ Page({
    * 页面的初始数据
    */
   data: {
+    activeNames: ['1'],
     showDetail:[],//下拉框
     content:[],//同数据库内格式
     fail:false,
     pathtp: "cloud://scnuyjx-7gmvlqwfe64c446a.7363-scnuyjx-7gmvlqwfe64c446a-1304878008/postpic/",
+  },
+  onChange(event) {
+    this.setData({
+      activeNames: event.detail,
+    });
   },
 
   /**

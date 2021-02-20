@@ -38,7 +38,7 @@
     "minifyWXSS": true
   },
   "appid": "wx62bf88f7371aa99a",
-  "projectname": "%E5%AD%A6%E8%88%9F",
+  "projectname": "%E5%AD%A6%E8%88%9F2.20",
   "libVersion": "2.15.0",
   "condition": {
     "plugin": {

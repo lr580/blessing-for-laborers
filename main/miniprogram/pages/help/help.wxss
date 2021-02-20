@@ -64,3 +64,21 @@
 .img{
   height: 800rpx;
 }
+
+.titlepic{
+  display: flex;
+  align-items: center;
+  font-size: 40rpx;
+}
+
+.style{
+  height: 200rpx;
+  font-size: 40rpx;
+  color: darkgray;
+}
+
+.contenttext{
+  font-weight: 600;
+  font-size: 30rpx;
+  color:darkgray;
+}

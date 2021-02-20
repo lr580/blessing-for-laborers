@@ -1,24 +1,28 @@
-<!--miniprogram/pages/help/help.wxml-->
 <view wx:if="{{fail}}">加载失败！</view>
-<view wx:else class="bigbox">
-  <view wx:for="{{content}}" class="box2">
-    <view bindtap="clickDown" id="{{index}}">
-      <view wx:if="{{showDetail[index]}}" class="box">
-        <view class="title2">{{item[0]}}</view>
+  <view wx:else class="bigbox">
+    <van-collapse value="{{activeNames}}" bind:change="onChange">
+  <view wx:for="{{content}}">
+    <van-collapse-item  name="{{index}}">
+      <view class="titlepic" slot="title"><van-icon custom-style="margin-right:20rpx"	 name="info" color="#1989fa" size="40rpx"/>{{item[0]}}</view>
+      <view class="contenttext" wx:for="{{item[1]}}" wx:for-index="i" wx:for-item="v">
+        <view wx:if="{{v[0]==1}}">{{v[1]}}</view>
+        <image wx:if="{{v[0]==3}}" src="{{pathtp+v[1]}}" class="img" mode="aspectFit"></image>
+      </view>
+  </van-collapse-item>
+</view>
+</van-collapse>
+
+
+    <!-- <view bindtap="clickDown" id="{{index}}">
+      <view wx:if="{{showDetail[index]}}" class="box"> -->
+        <!-- <view class="title2">{{item[0]}}</view>
       </view>
       <view wx:else class="box">
         <image src="/img/rightsjx.png" class="tag2"></image>
         <view class="title">{{item[0]}}</view>
-      </view>
+      </view> -->
       
-     <!-- <view>{{showDetail[index]?'(点击收起)':'(点击展开)'}}{{item[0]}}</view>-->
-    </view>
-    <view wx:if="{{showDetail[index]}}" class="content">
-      <view wx:for="{{item[1]}}" wx:for-index="i" wx:for-item="v">
-        <view wx:if="{{v[0]==1}}">{{v[1]}}</view>
-        <image wx:if="{{v[0]==3}}" src="{{pathtp+v[1]}}" class="img" mode="aspectFit"></image>
-      </view>
-    </view>
-    <view class="divline"></view>
-  </view>
+     <!-- <view>{{showDetail[index]?'(点击收起)':'(点击展开)'}}{{item[0]}}</view> -->
+    <!-- </view> -->
+ 
 </view>
