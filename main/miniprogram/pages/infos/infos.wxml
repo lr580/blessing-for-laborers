@@ -18,8 +18,6 @@
 
         <van-cell is-link icon="/img/huifu.png"
           title="{{item[6]?'匿名用户':item[4].nickName}}{{item[2]==1?'回复':'编辑'}}了{{item[2]==1?'':'对'}}您" value="查看详情" title-width="350rpx"/>
-
-        <!-- {{item[5]?'匿名用户':item[4].nickName}}{{item[2]==1?'回复':'编辑'}}了{{item[2]==1?'':'对'}}您的{{item[3].type?'帖子':'回帖'}}{{item[3].type?item[3].title:''}}{{item[2]==1?'':'的回帖'}} -->
       </view>
 
       <view style="margin-left:20rpx" class="time">
