@@ -228,7 +228,12 @@
   text-overflow: ellipsis;
 }
 
-
+.reuserNameS {
+  margin-left: 10rpx;
+  width: 100%;
+  font-size: 30rpx;
+  font-weight: 200;
+}
 
 
 

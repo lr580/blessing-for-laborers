@@ -18,8 +18,8 @@ Page({
     gender: '',
     loadKey: false,
     changeInfokey: false,
-    nwInfo:false,//与全局变量含义一致
-    major:'',
+    nwInfo: false,//与全局变量含义一致
+    major: '',
   },
 
   console1: function () {
@@ -50,9 +50,9 @@ Page({
     })
   },
 
-  gotoInfo:function(){
-    getApp().globalData.hasNewInfo=0
-    wx.removeTabBarBadge({index: 2,})
+  gotoInfo: function () {
+    getApp().globalData.hasNewInfo = 0
+    wx.removeTabBarBadge({ index: 2, })
     wx.navigateTo({
       url: '/pages/infos/infos',
     })
@@ -64,6 +64,7 @@ Page({
     var that = this;
     wx.showLoading({
       title: '加载中',
+      mask: true,
     })
     wx.getUserInfo({
       success: async function (res) {
@@ -101,8 +102,8 @@ Page({
         }).get().then(res => {
           console.log(res.data.length)
           if (res.data.length == 0) {
-            getApp().globalData.hasNewInfo=false
-            that.setData({nwInfo:false})
+            getApp().globalData.hasNewInfo = false
+            that.setData({ nwInfo: false })
             db.collection("user").add({
               data: {
                 userInfo: userInfo,
@@ -119,14 +120,14 @@ Page({
                 publish: [],
                 thumbs: [],
                 history: [],
-                newInfo:false,
-                infos:[],
+                newInfo: false,
+                infos: [],
               }
             }).catch(rww => {
               wx.hideLoading()
               wx.showToast({
                 title: '更新信息失败！',
-                icon:'none',
+                icon: 'none',
               })
             })
             db.collection("user").where({
@@ -147,7 +148,7 @@ Page({
               wx.hideLoading()
               wx.showToast({
                 title: '获取信息失败！',
-                icon:'none',
+                icon: 'none',
               })
             })
           } else {
@@ -159,12 +160,12 @@ Page({
               //console.log('qwq',app.globalData.userID)
               getApp().globalData.me = res.data[0]._id
               //console.log('www',res.data[0].newInfo)
-              getApp().globalData.hasNewInfo=res.data[0].newInfo
-              that.setData({nwInfo:res.data[0].newInfo,})
-              that.setData({major:res.data[0].major,})
-              that.setData({school:res.data[0].school,})
-              that.setData({schoolArea:res.data[0].schoolArea,})
-              if(res.data[0].newInfo) wx.setTabBarBadge({index: 2,text: String(res.data[0].newInfo),}).catch(ree=>{
+              getApp().globalData.hasNewInfo = res.data[0].newInfo
+              that.setData({ nwInfo: res.data[0].newInfo, })
+              that.setData({ major: res.data[0].major, })
+              that.setData({ school: res.data[0].school, })
+              that.setData({ schoolArea: res.data[0].schoolArea, })
+              if (res.data[0].newInfo) wx.setTabBarBadge({ index: 2, text: String(res.data[0].newInfo), }).catch(ree => {
                 console.log('too fast')
               })
               //console.log('wwwwww')
@@ -193,7 +194,7 @@ Page({
                         wx.hideLoading()
                         wx.showToast({
                           title: '修改信息失败！',
-                          icon:'none',
+                          icon: 'none',
                         })
                       })
                     }
@@ -204,14 +205,14 @@ Page({
                 wx.hideLoading()
                 wx.showToast({
                   title: '获取信息失败！',
-                  icon:'none',
+                  icon: 'none',
                 })
               })
             }).catch(rws => {
               wx.hideLoading()
               wx.showToast({
                 title: '获取信息失败！',
-                icon:'none',
+                icon: 'none',
               })
             })
           }
@@ -219,7 +220,7 @@ Page({
           wx.hideLoading()
           wx.showToast({
             title: '获取信息失败，请重启！',
-            icon:'none',
+            icon: 'none',
           })
         })
 

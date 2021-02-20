@@ -106,7 +106,7 @@
                 <image src="{{v[1].avatarUrl}}" wx:else></image>
               </view>
               <view wx:if="{{v[0].anonymity&&me!=v[0].user}}" class="reuserName">匿名用户</view>
-              <view wx:else class="reuserName" bindtap="gotoUser" id="{{[v[0].user,v[0].anonymity&&me!=v[0].user]}}">
+              <view wx:else class="{{v[0].reply?'reuserName':'reuserNameS'}}" bindtap="gotoUser" id="{{[v[0].user,v[0].anonymity&&me!=v[0].user]}}">
                 {{v[1].nickName}}</view>
               <view class="doubleToright" wx:if="{{v[0].reply}}">
                 <image src="/img/doubletoright.png"></image>
