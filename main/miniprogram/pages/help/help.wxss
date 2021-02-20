@@ -78,6 +78,13 @@
 }
 
 .contenttext{
+  font-weight: 420;
+  font-size: 30rpx;
+  color:darkgray;
+  text-indent:2em;
+}
+
+.contenttext2{
   font-weight: 600;
   font-size: 30rpx;
   color:darkgray;
