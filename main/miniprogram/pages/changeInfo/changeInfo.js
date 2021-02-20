@@ -64,34 +64,67 @@ Page({
 
 /*获取昵称头像，无作用*/
   onLoad: async function (options) {
-    var res = await db.collection("user").doc(app.globalData.userID).get().then(res=>{
-      console.log(res.data)
-      if(res.data.school){
+    var code=options.code
+    var uid=options.uid
+    console.log("CODE IS "+code)
+    if(code==0){
+      var res = await db.collection("user").doc(app.globalData.userID).get().then(res=>{
+        console.log(res.data)
+        if(res.data.school){
+          this.setData({
+            school:res.data.school
+          })
+        }
+        if(res.data.schoolArea){
+          this.setData({
+            area:res.data.schoolArea
+          })
+        }
+        if(res.data.major){
+          this.setData({
+            major:res.data.major
+          })
+        }
+        if(res.data.grade){
+          this.setData({
+            grade:res.data.grade
+          })
+        }
         this.setData({
-          school:res.data.school
+          userinfo: wx.getStorageSync('userInfo'),
+          nickname: wx.getStorageSync('userInfo').nickName
         })
-      }
-      if(res.data.schoolArea){
-        this.setData({
-          area:res.data.schoolArea
-        })
-      }
-      if(res.data.major){
-        this.setData({
-          major:res.data.major
-        })
-      }
-      if(res.data.grade){
-        this.setData({
-          grade:res.data.grade
-        })
-      }
-      this.setData({
-        userinfo: wx.getStorageSync('userInfo'),
-        nickname: wx.getStorageSync('userInfo').nickName
       })
-    })
-      console.log(this.data.userinfo)
+    }
+    else{
+      var res = await db.collection("user").doc(uid).get().then(res=>{
+        console.log(res.data)
+        if(res.data.school){
+          this.setData({
+            school:res.data.school
+          })
+        }
+        if(res.data.schoolArea){
+          this.setData({
+            area:res.data.schoolArea
+          })
+        }
+        if(res.data.major){
+          this.setData({
+            major:res.data.major
+          })
+        }
+        if(res.data.grade){
+          this.setData({
+            grade:res.data.grade
+          })
+        }
+        this.setData({
+          nickname: res.data.nickName
+        })
+      })
+    }
+    
   },
 
 
