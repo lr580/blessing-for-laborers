@@ -85,19 +85,23 @@ Page({
       pathtp: getApp().globalData.pathtp,
       opt: options,
     })
-    wx.cloud.database().collection('user').doc(String(this.data.me)).get().then(rer => {
-      this.setData({
-        meo: rer.data,
-        thumbpost: rer.data.thumbs.includes(Number(options.id)),
-        starpost: rer.data.collect.includes(Number(options.id)),
+    if (this.data.me == 0) {
+      this.setData({ meo: lrfx.fakeUser })
+    } else {
+      wx.cloud.database().collection('user').doc(String(this.data.me)).get().then(rer => {
+        this.setData({
+          meo: rer.data,
+          thumbpost: rer.data.thumbs.includes(Number(options.id)),
+          starpost: rer.data.collect.includes(Number(options.id)),
+        })
+      }).catch(rwr => {
+        //未写未登录状态
+        wx.showToast({
+          title: '账号信息异常！',
+        })
+        console.log('?')
       })
-    }).catch(rwr => {
-      //未写未登录状态
-      wx.showToast({
-        title: '账号信息异常！',
-      })
-      console.log('?')
-    })
+    }
     wx.cloud.database().collection('post').doc(options.id).get().then(res => {
       this.setData({
         postt: res.data,
@@ -440,6 +444,7 @@ Page({
 
   browse: function () {
     const cc = wx.cloud.database().collection('user')
+    if (!this.data.me) return
     cc.doc(String(this.data.me)).get().then(res => {
       var log = res.data.browseLog
       var dat = new Date()
@@ -469,6 +474,13 @@ Page({
 
   thumbize: function (e) {
     var u = this.data.me//点赞者uid，即me
+    if (!u) {
+      wx.showToast({
+        title: '请先登录',
+        icon: 'none',
+      })
+      return
+    }
     var pid = Number(e.currentTarget.id) //被点赞帖子id
     var pii = -1 //若是回帖，被点赞帖子的下标，若不是，为-1
     var p = {}//被点赞的帖子对象
@@ -541,6 +553,7 @@ Page({
               })
               wx.showToast({
                 title: "取消点赞成功",
+                icon: 'none',
                 duration: 1500,
               })
             })
@@ -560,6 +573,7 @@ Page({
           }).then(ret => {
             wx.showToast({
               title: "点赞成功",
+              icon: 'none',
               duration: 1500,
             })
             var temp = this.data.postt
@@ -589,6 +603,13 @@ Page({
 
   replyize: function (e) {//自己可以回复自己的帖子或回帖
     var u = this.data.me
+    if (!u) {
+      wx.showToast({
+        title: '请先登录',
+        icon: 'none',
+      })
+      return
+    }
     var pid = this.data.postt.id//主贴
     var cid = Number(e.currentTarget.id)//嵌套回帖
     var reply = 0
@@ -678,11 +699,19 @@ Page({
     if (this.data.starBusy) {
       wx.showToast({
         title: '请勿频繁操作',
+        icon: 'none',
         duration: 1500,
       })
     }
     this.setData({ starBusy: true })
     var u = this.data.me
+    if (!u) {
+      wx.showToast({
+        title: '请先登录',
+        icon: 'none',
+      })
+      return
+    }
     var pid = this.data.postt.id
     var col = this.data.meo.collect
     var dol = []
@@ -703,6 +732,7 @@ Page({
     }).then(res => {
       wx.showToast({
         title: (this.data.starpost ? '取消' : '') + '收藏成功',
+        icon: 'none',
         duration: 1500,
       })
       this.setData({

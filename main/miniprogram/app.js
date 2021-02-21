@@ -25,7 +25,7 @@ App({
       pathtp: "cloud://scnuyjx-7gmvlqwfe64c446a.7363-scnuyjx-7gmvlqwfe64c446a-1304878008/postpic/",//常量,帖子图片绝对路径一部分
       types: ['问答', '交流', '分享', '日志'],//常量,对应1~4(跟下标不对应)
       dayStamp: 86400000,//常量,一天的时间戳大小，已废置
-      userID: 1,//调试状态默认1
+      userID: 0,//调试状态默认1,0代表未登录
       dateBS:'2021-01-25',//搜索默认起始日期
       dateES:'2022-01-01',//搜索默认结束日期
       hasNewInfo:0,//有无新消息

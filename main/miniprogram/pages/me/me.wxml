@@ -33,7 +33,6 @@
 <!-- </van-grid>
 </view> -->
 <van-cell-group>
-
   <van-cell size="large" bindtap='gotoInfo' wx:if="{{nwInfo}}" icon="/img/msgtip.png" title="我的消息" is-link
     value="有{{nwInfo}}条新消息" />
   <van-cell size="large" bindtap='gotoInfo' wx:if="{{!nwInfo}}" icon="/img/msgtip.png" title="我的消息" is-link />

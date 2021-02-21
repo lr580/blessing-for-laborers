@@ -21,6 +21,7 @@ Page({
     changeInfokey: false,
     nwInfo: false,//与全局变量含义一致
     major: '',
+    me: '',
   },
 
   console1: function () {
@@ -28,18 +29,39 @@ Page({
   },
 
   gotoMypost: function () {
+    if (this.data.me == 0) {
+      wx.showToast({
+        title: '请先登录',
+        icon: 'none',
+      })
+      return
+    }
     wx.navigateTo({
       url: '/pages/mypost/mypost',
     })
   },
 
   gotoHistory: function () {
+    if (this.data.me == 0) {
+      wx.showToast({
+        title: '请先登录',
+        icon: 'none',
+      })
+      return
+    }
     wx.navigateTo({
       url: '/pages/history/history',
     })
   },
 
   gotoCollect: function () {
+    if (this.data.me == 0) {
+      wx.showToast({
+        title: '请先登录',
+        icon: 'none',
+      })
+      return
+    }
     wx.navigateTo({
       url: '/pages/collect/collect',
     })
@@ -52,6 +74,13 @@ Page({
   },
 
   gotoInfo: function () {
+    if (this.data.me == 0) {
+      wx.showToast({
+        title: '请先登录',
+        icon: 'none',
+      })
+      return
+    }
     getApp().globalData.hasNewInfo = 0
     wx.removeTabBarBadge({ index: 2, })
     wx.navigateTo({
@@ -63,6 +92,7 @@ Page({
   FgetuserInfo: async function () {
     var openid
     var that = this;
+    this.setData({ me: getApp().globalData.userID })
     wx.getUserInfo({
       success: async function (res) {
         wx.showLoading({
@@ -70,7 +100,7 @@ Page({
           mask: true,
         })
         console.log(res);
-        newAvatarUrl=res.userInfo.avatarUrl
+        newAvatarUrl = res.userInfo.avatarUrl
         var userInfo = res.userInfo
         console.log(userInfo);
         var nickName = userInfo.nickName
@@ -168,13 +198,13 @@ Page({
               if (res.data[0].newInfo) wx.setTabBarBadge({ index: 2, text: String(res.data[0].newInfo), }).catch(ree => {
                 console.log('too fast')
               })
-               console.log(newAvatarUrl)
+              console.log(newAvatarUrl)
               db.collection("user").doc(app.globalData.userID).update({
-                data:{
-                  avatarUrl:newAvatarUrl
+                data: {
+                  avatarUrl: newAvatarUrl
                 }
               })
-           
+
 
 
               var obj = {}
@@ -240,7 +270,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    
+
   },
 
   /**

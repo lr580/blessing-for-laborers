@@ -72,11 +72,11 @@
       </view>
       <text>{{postt.thumbs}}</text>
     </view>
-    <view class="share">
+    <!--<view class="share">
       <view>
         <image src="/img/transmit.png"></image>
       </view>
-    </view>
+    </view>-->
   </view>
 
 </view>
