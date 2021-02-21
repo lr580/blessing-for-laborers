@@ -4,6 +4,8 @@ const _ = db.command
 var userID
 var me
 var hasNewInfo
+var uid
+var code
 
 var app = getApp();
 
@@ -103,27 +105,6 @@ Page({
         schoolArea: res.schoolArea,
       })
       console.log("user_openid " + openid)
-      /*db.collection("user").where({
-        _openid: openid
-      }).get().then(res => {
-          db.collection("user").where({
-            _openid: openid
-          }).get().then(res => {
-            console.log(res.data)
-            app.globalData.userID = res.data[0]._id
-            app.globalData.me = res.data[0]._id
-            app.globalData.hasNewInfo = res.data[0].newInfo
-            that.setData({ nwInfo: Number(res.data[0].newInfo), })
-            //console.log('nwInfo',that.data.nwInfo)
-            that.setData({ major: res.data[0].major, })
-            that.setData({ school: res.data[0].school, })
-            that.setData({ 
-              schoolArea: res.data[0].schoolArea,
-              nickName:nickName,
-             })
-            wx.hideLoading()
-          })
-      })*/
       wx.hideLoading()
     })
   },
@@ -133,8 +114,8 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    var code = Number(options.code)
-    var uid = options.uid
+    code = Number(options.code)
+    uid = options.uid
     userID = app.globalData.userID
     me = app.globalData.me
     hasNewInfo = app.globalData.hasNewInfo
@@ -156,7 +137,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    this.FgetuserInfo(uid)
   },
 
   /**
