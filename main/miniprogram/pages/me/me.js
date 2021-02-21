@@ -121,7 +121,6 @@ Page({
           gender = '未知'
         }
         that.setData({
-          nickName: nickName,
           avatarUrl: avatarUrl,
           gender: gender,
           userCity: userCity,
@@ -134,6 +133,9 @@ Page({
         }).get().then(res => {
           console.log(res.data.length)
           if (res.data.length == 0) {
+            this.setData({
+              nickName: nickName
+            })
             getApp().globalData.hasNewInfo = false
             that.setData({ nwInfo: false })
             db.collection("user").add({
