@@ -249,6 +249,7 @@ Page({
       title: '刷新成功',
       duration: 1500,
     })*/
+    wx.stopPullDownRefresh()
   },
 
   gotoPost: function (e) {

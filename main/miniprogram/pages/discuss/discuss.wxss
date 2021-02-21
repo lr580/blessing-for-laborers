@@ -18,7 +18,7 @@
   right: 10rpx;
   bottom: 0;
   border-radius: 20rpx;
-  z-index: 100;
+  z-index: 1;
 }
 
 
@@ -41,6 +41,10 @@
   font-weight: 600;
   border-radius: 20rpx;
   background-color: white;
+}
+
+.selectState {
+  z-index: 2;
 }
 
 .select2 {
@@ -153,16 +157,16 @@
 
 }
 
-.title text{
+.title text {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
 }
 
-.type{
+.type {
   position: absolute;
   right: 60rpx;
-  z-index: 50;
+  z-index: 0;
 }
 
 .title image {
@@ -170,7 +174,7 @@
   height: 40rpx;
 }
 
-.titleImg{
+.titleImg {
   width: 40rpx;
   height: 40rpx;
   display: flex;

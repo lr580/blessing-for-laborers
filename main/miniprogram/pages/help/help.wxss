@@ -1,5 +1,5 @@
 /* miniprogram/pages/help/help.wxss */
-.divline{
+.divline {
   background: rgb(197, 192, 192);
   height: 5rpx;
   margin-top: 3rpx;
@@ -7,21 +7,22 @@
   margin-left: 5%;
 }
 
-.bigbox{
+.bigbox {
   background-color: white;
   height: 1500rpx;
+
 }
 
-.box{
+.box {
   display: flex;
   width: 100%;
 }
 
-.box2{
+.box2 {
   display: inline;
 }
 
-.tag2{
+.tag2 {
   height: 40rpx;
   width: 40rpx;
   margin-top: 10rpx;
@@ -34,7 +35,7 @@
   font-weight: 550;
   white-space: nowrap;
   margin-left: 20rpx;
-  
+
   width: 400rpx;
 
   overflow: hidden;
@@ -61,31 +62,50 @@
   margin-left: 5%;
 }
 
-.img{
+.img {
   height: 800rpx;
 }
 
-.titlepic{
+.titlepic {
   display: flex;
   align-items: center;
   font-size: 40rpx;
 }
 
-.style{
+.style {
   height: 200rpx;
   font-size: 40rpx;
   color: darkgray;
 }
 
-.contenttext{
-  font-weight: 420;
+.contenttext {
+  font-weight: 300;
   font-size: 30rpx;
-  color:darkgray;
-  text-indent:2em;
+  color: darkgray;
+  text-indent: 2em;
 }
 
-.contenttext2{
-  font-weight: 600;
+.contenttext2 {
+  font-weight: 800;
   font-size: 30rpx;
-  color:darkgray;
+  color: black;
+  margin-left: 60rpx;
+}
+
+.helpText {
+  width: 600rpx;
+  display: flex;
+  flex-direction: column;
+}
+
+.sentence {
+  width: 100%;
+  position: fixed;
+  bottom: 20rpx;
+  z-index: 5;
+  background-color: white;
+}
+
+.guodu {
+  background-color: white;
 }

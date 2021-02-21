@@ -1,15 +1,23 @@
 <view wx:if="{{fail}}">加载失败！</view>
-  <view wx:else class="bigbox">
-    <van-collapse value="{{activeNames}}" bind:change="onChange">
-  <view wx:for="{{content}}">
-    <van-collapse-item  name="{{index}}">
-      <view class="titlepic" slot="title"><van-icon custom-style="margin-right:20rpx"	 name="info" color="#1989fa" size="40rpx"/>{{item[0]}}</view>
-      <view wx:for="{{item[1]}}" wx:for-index="i" wx:for-item="v">
-        <view wx:if="{{v[0]==1}}" class="contenttext" user-select="true">{{v[1]}}</view>
-        <text wx:if="{{v[0]==2}}" class="contenttext2" user-select="true">{{v[1]}}</text><!--加粗型(副标题)-->
-        <image wx:if="{{v[0]==3}}" src="{{pathtp+v[1]}}" class="img" mode="aspectFit" id="{{[index,i]}}" bindtap="bigPicture"></image>
-      </view>
-  </van-collapse-item>
+<view wx:else class="bigbox">
+  <van-collapse value="{{activeNames}}" bind:change="onChange">
+    <view wx:for="{{content}}">
+      <van-collapse-item name="{{index}}">
+        <view class="titlepic" slot="title">
+          <van-icon custom-style="margin-right:20rpx" name="info" color="#1989fa" size="40rpx" />{{item[0]}}</view>
+        <view class="helpText" wx:for="{{item[1]}}" wx:for-index="i" wx:for-item="v">
+          <view wx:if="{{v[0]==1}}" class="contenttext"><text user-select="true">{{v[1]}}</text></view>
+          <view wx:if="{{v[0]==2}}" class="contenttext2"><text user-select="true">{{v[1]}}</text></view>
+          <!--加粗型(副标题)-->
+          <image wx:if="{{v[0]==3}}" src="{{pathtp+v[1]}}" class="img" mode="aspectFit"></image>
+        </view>
+      </van-collapse-item>
+    </view>
+  </van-collapse>
 </view>
-</van-collapse>
-</view>
+<!-- <view class="sentence">
+  <van-divider contentPosition="center"
+    customStyle="color: rgba(0, 0, 0, 0.582); border-color:rgba(0, 0, 0, 0.582); font-size: 12px;">
+    勉之期不止，多获由力耘
+  </van-divider>
+</view> -->

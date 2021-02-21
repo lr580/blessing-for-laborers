@@ -150,7 +150,7 @@
         {{v[0].title}}
       </view>
       <view class="userInfo"><!-- bindtap="gotoUser" id="{{[v[0].user,v[0].anonymity&&me!=v[0].user]}}"-->
-        <view class="userHead" bindtap="gotoUser" id="{{[v[0].user,v[0].anonymity&&me!=v[0].user]}}">
+        <view class="userHead" bindtap="gotoUser">
           <image src="{{pathp+'default.jpg'}}" wx:if="{{v[0].anonymity&&me!=v[0].user}}"></image>
           <image src="{{pathp+v[1].image}}" wx:elif="{{v[1].oldtest}}"></image>
           <image src="{{v[1].avatarUrl}}" wx:else></image>
