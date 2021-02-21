@@ -3,7 +3,7 @@
     <view class="weui-cell__bd">昵称</view>
     <view class="weui-cell__bd">
 
-      <input class="weui-input" placeholder="{{nickname}}"  bindinput=''/>
+      <input class="weui-input" placeholder="{{nickname}}"  bindinput='getNickName'/>
    
     </view>
   </view>
