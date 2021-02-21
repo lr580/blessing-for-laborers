@@ -5,8 +5,8 @@
     <van-collapse-item  name="{{index}}">
       <view class="titlepic" slot="title"><van-icon custom-style="margin-right:20rpx"	 name="info" color="#1989fa" size="40rpx"/>{{item[0]}}</view>
       <view wx:for="{{item[1]}}" wx:for-index="i" wx:for-item="v">
-        <view wx:if="{{v[0]==1}}" class="contenttext">{{v[1]}}</view>
-        <view wx:if="{{v[0]==2}}" class="contenttext2">{{v[1]}}</view><!--加粗型(副标题)-->
+        <view wx:if="{{v[0]==1}}" class="contenttext" user-select="true">{{v[1]}}</view>
+        <text wx:if="{{v[0]==2}}" class="contenttext2" user-select="true">{{v[1]}}</text><!--加粗型(副标题)-->
         <image wx:if="{{v[0]==3}}" src="{{pathtp+v[1]}}" class="img" mode="aspectFit"></image>
       </view>
   </van-collapse-item>
