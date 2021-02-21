@@ -40,6 +40,17 @@ Page({
     })
   },
 
+  getNickName: function(e){
+    this.setData({
+      nickname:e.detail.value
+    })
+    var res= db.collection("user").doc(app.globalData.userID).update({
+      data:{
+        nickName:this.data.nickname
+      }
+    })
+  },
+
   getMajor: function(e){
     this.setData({
       major:e.detail.value
@@ -64,8 +75,14 @@ Page({
 
 /*获取昵称头像，无作用*/
   onLoad: async function (options) {
-    var code=options.code
-    var uid=options.uid
+    var code=0
+    var uid=app.globalData.userID
+    if(options.code){
+      code=options.code
+    }
+    if(options.uid){
+      uid=options.uid
+    }
     console.log("CODE IS "+code)
     if(code==0){
       var res = await db.collection("user").doc(app.globalData.userID).get().then(res=>{
@@ -92,7 +109,7 @@ Page({
         }
         this.setData({
           userinfo: wx.getStorageSync('userInfo'),
-          nickname: wx.getStorageSync('userInfo').nickName
+          nickname: res.data.nickName
         })
       })
     }
