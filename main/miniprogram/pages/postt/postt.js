@@ -205,14 +205,23 @@ Page({
                   break
                 }
               }
-              if (reply[i][5] != 0) for (let j = 0; j < tpost2.length; ++j) {
-                if (String(reply[i][5]) == tpost2[j]._id) {
-                  reply[i][5] = tpost2[j]
-                  reply[i][3] = String(tpost2[j].user)
-                  ruser2.push(String(tpost2[j].user))
-                  break
+              if (reply[i][5] != 0) {
+                for (let j = 0; j < tpost2.length; ++j) {
+                  if (String(reply[i][5]) == tpost2[j]._id) {
+                    reply[i][5] = tpost2[j]
+                    reply[i][3] = String(tpost2[j].user)
+                    ruser2.push(String(tpost2[j].user))
+                    break
+                  }
+                }
+                for (let j = 0; j < reply.length; ++j) {
+                  if (String(reply[i][0].reply) == reply[j][0]._id) {
+                    reply[i][7] = j
+                    break
+                  }
                 }
               }
+
             }
             ruser2 = Array.from(new Set(ruser2))
             var lfin = 0
@@ -229,7 +238,7 @@ Page({
                   }
                 }
               }
-              //console.log('好耶！', reply)
+              console.log('好耶！', reply)
               var tr = 0
               for (let i = 0; i < reply.length; ++i) if (!reply[i][0].hide) ++tr
               thew.setData({
@@ -749,21 +758,21 @@ Page({
   gotoUser: function (e) {
     var ori = e.currentTarget.id.split(',')
     var uid = ori[0]
-    var ann = ori[1]=='true'//是否匿名
+    var ann = ori[1] == 'true'//是否匿名
     var code
     console.log('gotoUser with', uid, ann)
     console.log(uid)
     if (!uid) return
     if (ann) return
-    if(uid==app.globalData.userID){
-      code=0
+    if (uid == app.globalData.userID) {
+      code = 0
     }
-    else{
-      code=1
+    else {
+      code = 1
     }
-    console.log("before "+code+" "+uid+" "+app.globalData.userID)
+    console.log("before " + code + " " + uid + " " + app.globalData.userID)
     wx.navigateTo({
-      url: '/pages/info/info?uid='+uid+"&code="+code,
+      url: '/pages/info/info?uid=' + uid + "&code=" + code,
     })
   },
 
