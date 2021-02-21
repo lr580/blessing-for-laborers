@@ -3,7 +3,7 @@ const db=wx.cloud.database()
 const _=db.command
 var app = getApp();
 var code=0
-var uid=app.globalData.userID
+var uid
 
 Page({
 
@@ -24,14 +24,13 @@ Page({
 
 /*获取昵称头像，无作用*/
   onLoad: async function (options) {
-    if(options.code){
-      code=options.code
+    uid=app.globalData.userID
+    if(options.code==1){
+      code=1
+      uid=options.uid
       this.setData({
         code:code
       })
-    }
-    if(options.uid){
-      uid=options.uid
     }
     console.log("CODE IS "+code)
     console.log("UID IS "+uid)
