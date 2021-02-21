@@ -9,7 +9,8 @@
     "van-dropdown-item": "/dist/dropdown-item",
     "i-load-more": "/iView/load-more/index",
     "van-loading": "/dist/loading/index",
-    "van-empty": "/dist/empty/index"
+    "van-empty": "/dist/empty/index",
+    "van-tag": "/dist/tag/index"
   },
   "enablePullDownRefresh": true,
   "onReachBottomDistance": 100
