@@ -31,7 +31,7 @@
 
 <view wx:else>
   <van-cell-group>
-  <van-cell size="large" bindtap='gotoMypost' icon="/img/mypost.png" title="我的帖子" is-link />
+  <van-cell size="large" bindtap='gotoMypost' icon="/img/mypost.png" title="Ta的帖子" is-link />
   <van-cell size="large" bindtap='gotoCollect' icon="/img/collect!.png" title="收藏列表" is-link />
 </van-cell-group>
 </view>
