@@ -2,6 +2,7 @@
 const db = wx.cloud.database()
 const _ = db.command
 var app = getApp();
+var uid
 Page({
 
   /**
@@ -18,7 +19,7 @@ Page({
 
   getData: async function () {
     //if(this.data.unfresh) return
-    var res = await db.collection("user").doc(app.globalData.userID).get().then(res => {
+    var res = await db.collection("user").doc(uid).get().then(res => {
       this.setData({
         dataArr: res.data.publish
       })
@@ -30,7 +31,10 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: async function (options) {
-
+    uid=app.globalData.userID
+    if(options.code==1){
+      uid=options.uid
+    }
   },
 
   /**
