@@ -33,10 +33,7 @@ App({
       //maxpid:0,
     }
   },
-  /*onShow:function(e){
-    console.log('ggg')
-    const t=this.globalData.hasNewInfo
-    if(t) wx.setTabBarBadge({index: 2,text: String(t),}) 
-    else  wx.removeTabBarBadge({index: 2,})
-  }*/
+  onShareAppMessage:function(e){
+    console.log('ssswww',e)
+  },
 })

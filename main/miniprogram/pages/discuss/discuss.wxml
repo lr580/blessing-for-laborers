@@ -158,7 +158,7 @@
         <image src="/img/title.png"></image>
         (回帖)
       </view>
-      <view class="userInfo">
+      <view class="userInfo" bindtap="gotoUser" id="{{[v[0].user,v[0].anonymity&&me!=v[0].user]}}">
         <view class="userHead">
           <image src="{{pathp+'default.jpg'}}" wx:if="{{v[0].anonymity&&me!=v[0].user}}"></image>
           <image src="{{pathp+v[1].image}}" wx:elif="{{v[1].oldtest}}"></image>

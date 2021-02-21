@@ -1,5 +1,6 @@
 // pages/discuss/discuss.js
 const modu = require('../../lrfx.js')
+const app = getApp()
 const db = wx.cloud.database()
 const _ = db.command
 Page({
@@ -475,6 +476,27 @@ Page({
 
   searchDf: function (e) {
     this.setData({ searchDown: !this.data.searchDown })
+  },
+
+  gotoUser: function (e) {
+    var ori = e.currentTarget.id.split(',')
+    var uid = ori[0]
+    var ann = ori[1] == 'true'//是否匿名
+    var code
+    //console.log('gotoUser with', uid, ann)
+    //console.log(uid)
+    if (!uid) return
+    if (ann) return
+    if (uid == app.globalData.userID) {
+      code = 0
+    }
+    else {
+      code = 1
+    }
+    //console.log("before " + code + " " + uid + " " + app.globalData.userID)
+    wx.navigateTo({
+      url: '/pages/info/info?uid=' + uid + "&code=" + code,
+    })
   },
 
   /**

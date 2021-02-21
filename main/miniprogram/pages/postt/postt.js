@@ -761,8 +761,8 @@ Page({
     var uid = ori[0]
     var ann = ori[1] == 'true'//是否匿名
     var code
-    console.log('gotoUser with', uid, ann)
-    console.log(uid)
+    //console.log('gotoUser with', uid, ann)
+    //console.log(uid)
     if (!uid) return
     if (ann) return
     if (uid == app.globalData.userID) {
@@ -771,7 +771,7 @@ Page({
     else {
       code = 1
     }
-    console.log("before " + code + " " + uid + " " + app.globalData.userID)
+    //console.log("before " + code + " " + uid + " " + app.globalData.userID)
     wx.navigateTo({
       url: '/pages/info/info?uid=' + uid + "&code=" + code,
     })
