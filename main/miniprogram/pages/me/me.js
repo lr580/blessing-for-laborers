@@ -3,6 +3,7 @@ const db = wx.cloud.database()
 const _ = db.command
 
 var app = getApp();
+var newAvatarUrl
 
 Page({
 
@@ -69,6 +70,7 @@ Page({
           mask: true,
         })
         console.log(res);
+        newAvatarUrl=res.userInfo.avatarUrl
         var userInfo = res.userInfo
         console.log(userInfo);
         var nickName = userInfo.nickName
@@ -133,7 +135,6 @@ Page({
             db.collection("user").where({
               _openid: openid
             }).get().then(res => {
-              console.log("THIS　IＳ    " + res)
               getApp().globalData.me = res.data._id
               getApp().globalData.me = res.data[0]._id
               var obj = {}
@@ -157,10 +158,8 @@ Page({
               _openid: openid
             }).get().then(res => {
               app.globalData.userID = res.data[0]._id
-              //console.log('qwq',app.globalData.userID)
-              getApp().globalData.me = res.data[0]._id
-              //console.log('www',res.data[0].newInfo)
-              getApp().globalData.hasNewInfo = res.data[0].newInfo
+              app.globalData.me = res.data[0]._id
+              app.globalData.hasNewInfo = res.data[0].newInfo
               that.setData({ nwInfo: res.data[0].newInfo, })
               that.setData({ major: res.data[0].major, })
               that.setData({ school: res.data[0].school, })
@@ -169,7 +168,14 @@ Page({
               if (res.data[0].newInfo) wx.setTabBarBadge({ index: 2, text: String(res.data[0].newInfo), }).catch(ree => {
                 console.log('too fast')
               })
-              //console.log('wwwwww')
+               console.log(newAvatarUrl)
+              db.collection("user").doc(app.globalData.userID).update({
+                data:{
+                  avatarUrl:newAvatarUrl
+                }
+              })
+           
+
 
               var obj = {}
               obj[res.data[0].nickName] = res.data[0]._id
@@ -234,27 +240,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    /*const cc = db.collection('user')
-    cc.get().then(rer=>{
-      for(let i=0;i<rer.data.length;++i){
-        cc.doc(String(rer.data[i]._id)).update({
-          data:{
-            newInfo:false,
-            infos:[],
-          }
-        }).then(res=>{
-          console.log(i)
-        })
-      }
-    })*/
-    /*db.collection('user').update({
-      data:{
-        newInfo:false,
-        infos:[],
-      }
-    }).then(res=>{
-      console.log(res)
-    })*/
+    
   },
 
   /**
@@ -268,10 +254,6 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    /*const t=getApp().globalData.hasNewInfo
-    if(t) wx.setTabBarBadge({index: 2,text: String(t),}) 
-    else  wx.removeTabBarBadge({index: 2,})
-    console.log('ggg')*/
     this.FgetuserInfo()//调试
   },
 
