@@ -4,7 +4,7 @@
     <view class="weui-cell__bd">昵称</view>
     <view class="weui-cell__bd">
 
-      <input class="weui-input" placeholder="{{nickname}}" wx:if="{{code==0}}" bindinput='getNickName'/>
+      <input class="weui-input" placeholder="{{nickname}}" wx:if="{{code==0}}" bindinput='getNickName' maxlength="16"/>
       <view wx:else class="weui-cell">{{nickname}}</view>
    
     </view>
@@ -16,7 +16,7 @@
     <view class="weui-cell__bd">学校</view>
     <view class="weui-cell__bd">
 
-      <input class="weui-input" placeholder="{{school}}" wx:if="{{code==0}}"  bindinput='getSchool'/>
+      <input class="weui-input" placeholder="{{school}}" wx:if="{{code==0}}"  bindinput='getSchool' maxlength="16"/>
       <view wx:else class="weui-cell">{{school}}</view>
    
     </view>
@@ -28,7 +28,7 @@
     <view class="weui-cell__bd">校区</view>
     <view class="weui-cell__bd">
 
-      <input class="weui-input" placeholder="{{area}}" wx:if="{{code==0}}"  bindinput='getArea'/>
+      <input class="weui-input" placeholder="{{area}}" wx:if="{{code==0}}"  bindinput='getArea' maxlength="16"/>
       <view wx:else class="weui-cell">{{area}}</view>
     </view>
   </view>
@@ -39,7 +39,7 @@
     <view class="weui-cell__bd">专业</view>
     <view class="weui-cell__bd">
 
-      <input class="weui-input"  placeholder="{{major}}" wx:if="{{code==0}}" bindinput ="getMajor"/>
+      <input class="weui-input"  placeholder="{{major}}" wx:if="{{code==0}}" bindinput ="getMajor" maxlength="16"/>
       <view wx:else class="weui-cell">{{major}}</view>
     </view>
   </view>
@@ -50,7 +50,7 @@
     <view class="weui-cell__bd">年级</view>
     <view class="weui-cell__bd">
 
-      <input class="weui-input" placeholder="{{grade}}" wx:if="{{code==0}}" bindinput ="getGrade"/>
+      <input class="weui-input" placeholder="{{grade}}" wx:if="{{code==0}}" bindinput ="getGrade" maxlength="16"/>
       <view wx:else class="weui-cell">{{grade}}</view>
     </view>
   </view>
