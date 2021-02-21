@@ -6,6 +6,7 @@ var me
 var hasNewInfo
 var uid
 var code
+var newAvatarUrl
 
 var app = getApp();
 
@@ -73,14 +74,16 @@ Page({
       title: '加载中',
       mask: true,
     })
+    
+
     console.log('uid', uid)
     db.collection("user").doc(String(uid)).get().then(res => {
       res = res.data
+      var avatarUrl = res.avatarUrl
       var userInfo = res.userInfo
       console.log(userInfo);
       var nickName = res.nickName
       //console.log('nnn', nickName)
-      var avatarUrl = userInfo.avatarUrl
       var userCity = userInfo.city
       var gender = userInfo.gender
       openid = res._openid;
