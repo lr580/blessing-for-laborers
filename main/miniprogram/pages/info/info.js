@@ -111,6 +111,7 @@ Page({
                 that.setData({ major: res.data[0].major, })
                 that.setData({ school: res.data[0].school, })
                 that.setData({ schoolArea: res.data[0].schoolArea, })
+                that.setData({ nickName: res.data[0].nickName, })
                 wx.hideLoading()
               })
           })
