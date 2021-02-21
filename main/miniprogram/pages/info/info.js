@@ -107,7 +107,8 @@ Page({
                 app.globalData.userID = res.data[0]._id
                 app.globalData.me = res.data[0]._id
                 app.globalData.hasNewInfo = res.data[0].newInfo
-                that.setData({ nwInfo: res.data[0].newInfo, })
+                that.setData({ nwInfo: Number(res.data[0].newInfo), })
+                //console.log('nwInfo',that.data.nwInfo)
                 that.setData({ major: res.data[0].major, })
                 that.setData({ school: res.data[0].school, })
                 that.setData({ schoolArea: res.data[0].schoolArea, })
@@ -122,7 +123,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    var code=options.code
+    var code=Number(options.code)
     var uid=options.uid
     userID=app.globalData.userID
     me=app.globalData.me
