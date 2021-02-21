@@ -51,6 +51,29 @@ Page({
     this.setData({showDetail:cd})
   },
 
+  bigPicture: function (e) {
+    var et = e.target.id.split(',')
+    var pid = Number(et[0])
+    var iid = Number(et[1])
+    var imgs = []
+    var ct = this.data.content
+    var obj = ct[pid][1]
+    var cimg = ''
+    //console.log(pid,iid,ct)
+    //console.log(nr)
+    for (let i = 0; i < obj.length; ++i) {
+      if (obj[i][0] == 3) {
+        imgs.push(this.data.pathtp + obj[i][1])
+        if (i == iid) cimg = this.data.pathtp + obj[i][1]
+      }
+    }
+    //console.log(cimg, imgs)
+    wx.previewImage({
+      urls: imgs,
+      current: cimg,
+    })
+  },
+
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

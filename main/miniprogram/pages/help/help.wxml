@@ -7,23 +7,9 @@
       <view wx:for="{{item[1]}}" wx:for-index="i" wx:for-item="v">
         <view wx:if="{{v[0]==1}}" class="contenttext" user-select="true">{{v[1]}}</view>
         <text wx:if="{{v[0]==2}}" class="contenttext2" user-select="true">{{v[1]}}</text><!--加粗型(副标题)-->
-        <image wx:if="{{v[0]==3}}" src="{{pathtp+v[1]}}" class="img" mode="aspectFit"></image>
+        <image wx:if="{{v[0]==3}}" src="{{pathtp+v[1]}}" class="img" mode="aspectFit" id="{{[index,i]}}" bindtap="bigPicture"></image>
       </view>
   </van-collapse-item>
 </view>
 </van-collapse>
-
-
-    <!-- <view bindtap="clickDown" id="{{index}}">
-      <view wx:if="{{showDetail[index]}}" class="box"> -->
-        <!-- <view class="title2">{{item[0]}}</view>
-      </view>
-      <view wx:else class="box">
-        <image src="/img/rightsjx.png" class="tag2"></image>
-        <view class="title">{{item[0]}}</view>
-      </view> -->
-      
-     <!-- <view>{{showDetail[index]?'(点击收起)':'(点击展开)'}}{{item[0]}}</view> -->
-    <!-- </view> -->
- 
 </view>
