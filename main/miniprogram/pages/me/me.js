@@ -62,12 +62,12 @@ Page({
   FgetuserInfo: async function () {
     var openid
     var that = this;
-    wx.showLoading({
-      title: '加载中',
-      mask: true,
-    })
     wx.getUserInfo({
       success: async function (res) {
+        wx.showLoading({
+          title: '加载中',
+          mask: true,
+        })
         console.log(res);
         var userInfo = res.userInfo
         console.log(userInfo);
