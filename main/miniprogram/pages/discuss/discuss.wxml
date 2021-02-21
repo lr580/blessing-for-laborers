@@ -147,12 +147,11 @@
     <view class="postPart" bindtap="gotoPost" id="{{v[0].id}}">
       <view class="title" wx:if="{{v[0].type}}">
         <view class="titleImg">
-        <image src="/img/title.png"></image>
-      </view>
+          <image src="/img/title.png"></image>
+        </view>
         <text>{{v[0].title}}</text>
         <view class="type">
           <van-tag plain type="success">{{types[v[0].type]}}</van-tag>
-          <!-- <text>{{types[v[0].type]}}</text> -->
         </view>
       </view>
       <view class="title" wx:else>
@@ -178,12 +177,15 @@
           <image src="/img/tag.png"></image>
           <text>{{v[0].tag}}</text>
         </view>
-   
+
 
 
         <view class="activity">
           <image src="/img/activity.png"></image>
           <text>{{v[2][0]}}/{{v[2][1]}}/{{v[2][2]}} {{v[2][3]}}:{{v[2][4]}}:{{v[2][5]}}</text>
+        </view>
+        <view>
+          (回帖数){{v[0].comment.length}}
         </view>
         <view class="like">
           <image src="/img/like!.png"></image><text>{{v[0].thumbs}}</text>
