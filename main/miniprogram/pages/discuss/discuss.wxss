@@ -18,6 +18,7 @@
   right: 10rpx;
   bottom: 0;
   border-radius: 20rpx;
+  z-index: 100;
 }
 
 
@@ -142,18 +143,38 @@
 
 
 .title {
+  display: flex;
+  align-items: center;
+  width: 500rpx;
   margin-top: 20rpx;
   margin-left: 20rpx;
   font-size: 45rpx;
   font-weight: 600;
+
+}
+
+.title text{
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
 }
 
+.type{
+  position: absolute;
+  right: 60rpx;
+  z-index: 50;
+}
+
 .title image {
-  width: 30rpx;
-  height: 30rpx;
+  width: 40rpx;
+  height: 40rpx;
+}
+
+.titleImg{
+  width: 40rpx;
+  height: 40rpx;
+  display: flex;
+  align-items: center;
 }
 
 .userHead {
