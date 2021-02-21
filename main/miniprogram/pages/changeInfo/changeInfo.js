@@ -2,8 +2,8 @@
 const db=wx.cloud.database()
 const _=db.command
 var app = getApp();
-var uid
-var code
+var code=0
+var uid=app.globalData.userID
 
 Page({
 
@@ -11,7 +11,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    code:null,
+    code:0,
     userinfo:{ },
     nickname:'无',
     user:null,
@@ -24,8 +24,6 @@ Page({
 
 /*获取昵称头像，无作用*/
   onLoad: async function (options) {
-    code=0
-    uid=app.globalData.userID
     if(options.code){
       code=options.code
       this.setData({
@@ -123,7 +121,6 @@ Page({
     this.setData({
       nickname:e.detail.value
     })
-    console.log("UID IS "+uid)
     var res= db.collection("user").doc(uid).update({
       data:{
         nickName:this.data.nickname
