@@ -130,6 +130,22 @@ Page({
       success(res) {
         //console.log('ssss', res.tempFilePaths)
         var tempPath = res.tempFilePaths
+        if(tempPath.length>9)
+        {
+          wx.showToast({
+            title: '不能一次上传超过9张图片！',
+            icon:'none',
+          })
+          return
+        }
+        if(tempPath.length<=0)
+        {
+          wx.showToast({
+            title: '你没有选中图片！',
+            icon:'none',
+          })
+          return
+        }
         var nums = tempPath.length
         var temp = ths.data.tx
         var pnn = ths.data.picn

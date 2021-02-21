@@ -8,7 +8,7 @@
       <image src="/img/posttitle.png"></image>
     </view>
     <view class="titleText"><input class="titleInput" type="text" placeholder="好标题是成功的第一步" bindinput="inputTitle"
-        value="{{title}}" /></view>
+        value="{{title}}" maxlength="48"/></view>
   </view>
   <van-divider></van-divider>
   <van-cell title="{{'标签：'+tag}}" is-link bind:click="showPopup1" />
@@ -58,7 +58,7 @@
   <view class="send">
     <view class="sendButton">
       <van-button custom-style="margin-bottom:40rpx" round color="linear-gradient(to right, rgb(128, 255, 185), rgb(101, 219, 248))" type="primary"
-        bindtap="publistPost">发表</van-button>
+        bindtap="publistPost">{{!edit?'发表':'保存'}}</van-button>
     </view>
   </view>
 </view>
