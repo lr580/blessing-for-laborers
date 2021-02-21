@@ -222,7 +222,7 @@
   display: -webkit-box;
   word-break: break-all;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: 1;
   overflow: hidden;
   flex-wrap: wrap;
   text-overflow: ellipsis;
@@ -235,22 +235,29 @@
   font-weight: 200;
 }
 
+.floorText {
+  flex-wrap: nowrap;
+}
 
 
 .bereuserName {
-  margin-left: 10rpx;
-  width: 150rpx;
+  display: flex;
+  flex-direction: row;
+  width: 300rpx;
   font-size: 30rpx;
   font-weight: 200;
+}
+
+.namePart {
+  width: 150rpx;
   display: -webkit-box;
   word-break: break-all;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: 1;
   overflow: hidden;
   flex-wrap: wrap;
   text-overflow: ellipsis;
 }
-
 
 .reuserInfo image {
   width: 60rpx;
@@ -259,10 +266,10 @@
 }
 
 .doubleToright image {
-  margin-left: 50rpx;
-  margin-right: 50rpx;
-  height: 50rpx;
-  width: 50rpx;
+  margin-left: 5rpx;
+  margin-right: 5rpx;
+  height: 80rpx;
+  width: 80rpx;
   border-radius: 0;
 }
 
@@ -320,11 +327,27 @@
   color: darkgray;
   position: absolute;
   left: 650rpx;
+  display: flex;
+  align-items: center;
 }
 
 .floor image {
-  width: 30rpx;
-  height: 30rpx;
+  width: 40rpx;
+  height: 40rpx;
+}
+
+.floor2 {
+  font-size: 30rpx;
+  width: 130rpx;
+  color: darkgray;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+}
+
+.floor2 image {
+  width: 40rpx;
+  height: 40rpx;
 }
 
 .time image {

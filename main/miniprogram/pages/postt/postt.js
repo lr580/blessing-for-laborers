@@ -238,7 +238,7 @@ Page({
                   }
                 }
               }
-              console.log('好耶！', reply)
+              //console.log('好耶！', reply)
               var tr = 0
               for (let i = 0; i < reply.length; ++i) if (!reply[i][0].hide) ++tr
               thew.setData({
@@ -617,6 +617,7 @@ Page({
     var rr = ''
     if (cid != this.data.postt.id) for (let i = 0; i < this.data.reply.length; ++i) if (cid == this.data.reply[i][0].id) {
       if (this.data.reply[i][5] == undefined) continue
+      if (this.data.reply[i][3] == undefined) continue
       reply = this.data.reply[i][5].id
       if (this.data.reply[i][5].anonymity && this.data.me != this.data.reply[i][5].user) rr = '匿名用户'
       else rr = this.data.reply[i][3].nickName

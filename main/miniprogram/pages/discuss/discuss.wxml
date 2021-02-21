@@ -165,6 +165,7 @@
           <image src="{{v[1].avatarUrl}}" wx:else></image>
         </view>
         <view class="nickName" wx:if="{{v[0].anonymity&&me!=v[0].user}}">匿名用户</view>
+        <view class="nickName" wx:elif="{{v[0].anonymity&&me==v[0].user}}">(匿名){{v[1].nickName}}</view>
         <view class="nickName" wx:else>{{v[1].nickName}}</view>
       </view>
       <view class="content">

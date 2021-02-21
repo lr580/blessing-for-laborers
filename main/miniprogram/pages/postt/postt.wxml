@@ -19,6 +19,7 @@
       </view>
       <view class="userName">
         <text user-select="true" wx:if="{{postt.anonymity&&me!=postt.user}}">匿名用户</text>
+        <text user-select="true" wx:if="{{postt.anonymity&&me==postt.user}}">(匿名){{poster.nickName}}</text>
         <text user-select="true" wx:else>{{poster.nickName}}</text>
       </view>
     </view>
@@ -106,23 +107,36 @@
                 <image src="{{v[1].avatarUrl}}" wx:else></image>
               </view>
               <view wx:if="{{v[0].anonymity&&me!=v[0].user}}" class="reuserName">匿名用户</view>
+              <view wx:if="{{v[0].anonymity&&me==v[0].user}}" class="{{v[0].reply?'reuserName':'reuserNameS'}}">(匿名){{v[1].nickName}}</view>
               <view wx:else class="{{v[0].reply?'reuserName':'reuserNameS'}}" bindtap="gotoUser"
                 id="{{[v[0].user,v[0].anonymity&&me!=v[0].user]}}">
                 {{v[1].nickName}}</view>
               <view class="doubleToright" wx:if="{{v[0].reply}}">
                 <image src="/img/doubletoright.png"></image>
-                <view class="floor">
-                  <image src="/img/floor.png"></image>
-                  <text wx:if="{{descTime}}">{{replys-v[7]}}楼</text>
-                  <text wx:else>{{v[7]+1}}楼</text>
-                  <!--<text wx:else>{{replys-v[7]}}楼</text>-->
-                </view>
+
               </view>
+
               <view wx:if="{{v[0].reply&&v[5].hide}}" class="bereuserName">(原楼层已删除)</view>
               <view wx:elif="{{v[0].reply &&(!v[5].anonymity||me==v[5].user)}}" class="bereuserName" bindtap="gotoUser"
-                id="{{[v[0].user,v[0].anonymity&&me!=v[0].user]}}">{{v[3].nickName}}
+                id="{{[v[0].user,v[0].anonymity&&me!=v[0].user]}}">
+
+                <view class="floor2">
+                  <image src="/img/floor2.png"></image>
+                  <text wx:if="{{descTime}}">{{replys-v[7]}}楼</text>
+                  <text wx:else>{{v[7]+1}}楼</text>
+                </view>
+                <view class="namePart" wx:if="{{!v[5].anonymity}}">{{v[3].nickName}}</view>
+                <view class="namePart" wx:elif="{{v[5].anonymity&&me==v[5].user}}">(匿名){{v[3].nickName}}</view>
+                <view class="namePart" wx:elif="{{v[5].anonymity&&me!=v[5].user}}">匿名用户</view>
               </view>
-              <view wx:elif="{{v[0].reply&&v[5].anonymity&&me!=v[5].user}}" class="bereuserName"> 匿名用户</view>
+              <view wx:elif="{{v[0].reply&&v[5].anonymity&&me!=v[5].user}}" class="bereuserName">
+                <view class="floor2">
+                  <image src="/img/floor2.png"></image>
+                  <text class="floorText" wx:if="{{descTime}}">{{replys-v[7]}}楼</text>
+                  <text wx:else>{{v[7]+1}}楼</text>
+                </view>
+                <view class="namePart"> 匿名用户</view>
+              </view>
               <view class="floor">
                 <image src="/img/floor.png"></image>
                 <text wx:if="{{descTime}}">{{replys-i}}楼</text>
