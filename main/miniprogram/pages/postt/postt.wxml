@@ -19,7 +19,7 @@
       </view>
       <view class="userName">
         <text user-select="true" wx:if="{{postt.anonymity&&me!=postt.user}}">匿名用户</text>
-        <text user-select="true" wx:if="{{postt.anonymity&&me==postt.user}}">(匿名){{poster.nickName}}</text>
+        <text user-select="true" wx:elif="{{postt.anonymity&&me==postt.user}}">(匿名){{poster.nickName}}</text>
         <text user-select="true" wx:else>{{poster.nickName}}</text>
       </view>
     </view>

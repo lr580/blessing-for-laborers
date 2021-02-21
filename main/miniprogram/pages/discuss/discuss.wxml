@@ -185,9 +185,9 @@
           <image src="/img/activity.png"></image>
           <text>{{v[2][0]}}/{{v[2][1]}}/{{v[2][2]}} {{v[2][3]}}:{{v[2][4]}}:{{v[2][5]}}</text>
         </view>
-        <view>
+        <!--<view>
           (回帖数){{v[0].comment.length}}
-        </view>
+        </view>-->
         <view class="like">
           <image src="/img/like!.png"></image><text>{{v[0].thumbs}}</text>
         </view>
