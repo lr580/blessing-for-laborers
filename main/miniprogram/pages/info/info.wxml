@@ -16,7 +16,6 @@
     </view>
   </navigator>
 </block>
-{{nwInfo}} {{!code}} {{nwInfo&&!code}}
 <view wx:if="{{code==0}}">
   <van-cell-group >
    
