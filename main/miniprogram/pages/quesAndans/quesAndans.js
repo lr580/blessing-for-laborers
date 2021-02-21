@@ -282,7 +282,7 @@ Page({
         url: '/pages/postt/postt?id=' + String(e.currentTarget.id),
       })
     }
-    this.setData({ unfresh: true })
+    //this.setData({ unfresh: true })
   },
 
   selectType: function (e) {
