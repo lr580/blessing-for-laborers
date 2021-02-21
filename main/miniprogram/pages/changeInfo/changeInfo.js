@@ -2,12 +2,16 @@
 const db=wx.cloud.database()
 const _=db.command
 var app = getApp();
+var uid
+var code
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+    code:null,
     userinfo:{ },
     nickname:'无',
     user:null,
@@ -18,72 +22,21 @@ Page({
   },
 
 
-  getSchool: function(e){
-    this.setData({
-      school:e.detail.value
-    })
-    var res= db.collection("user").doc(app.globalData.userID).update({
-      data:{
-        school:this.data.school
-      }
-    })
-  },
-
-  getArea: function(e){
-    this.setData({
-      area:e.detail.value
-    })
-    var res= db.collection("user").doc(app.globalData.userID).update({
-      data:{
-        schoolArea:this.data.area
-      }
-    })
-  },
-
-  getNickName: function(e){
-    this.setData({
-      nickname:e.detail.value
-    })
-    var res= db.collection("user").doc(app.globalData.userID).update({
-      data:{
-        nickName:this.data.nickname
-      }
-    })
-  },
-
-  getMajor: function(e){
-    this.setData({
-      major:e.detail.value
-    })
-    var res= db.collection("user").doc(app.globalData.userID).update({
-      data:{
-        major:this.data.major
-      }
-    })
-  },
-
-  getGrade: function(e){
-    this.setData({
-      grade:e.detail.value
-    })
-    var res= db.collection("user").doc(app.globalData.userID).update({
-      data:{
-        grade:this.data.grade
-      }
-    })
-  },
-
 /*获取昵称头像，无作用*/
   onLoad: async function (options) {
-    var code=0
-    var uid=app.globalData.userID
+    code=0
+    uid=app.globalData.userID
     if(options.code){
       code=options.code
+      this.setData({
+        code:code
+      })
     }
     if(options.uid){
       uid=options.uid
     }
     console.log("CODE IS "+code)
+    console.log("UID IS "+uid)
     if(code==0){
       var res = await db.collection("user").doc(app.globalData.userID).get().then(res=>{
         console.log(res.data)
@@ -144,6 +97,62 @@ Page({
     
   },
 
+  getSchool: function(e){
+    this.setData({
+      school:e.detail.value
+    })
+    var res= db.collection("user").doc(uid).update({
+      data:{
+        school:this.data.school
+      }
+    })
+  },
+
+  getArea: function(e){
+    this.setData({
+      area:e.detail.value
+    })
+    var res= db.collection("user").doc(uid).update({
+      data:{
+        schoolArea:this.data.area
+      }
+    })
+  },
+
+  getNickName: function(e){
+    this.setData({
+      nickname:e.detail.value
+    })
+    console.log("UID IS "+uid)
+    var res= db.collection("user").doc(uid).update({
+      data:{
+        nickName:this.data.nickname
+      }
+    })
+  },
+
+  getMajor: function(e){
+    this.setData({
+      major:e.detail.value
+    })
+    var res= db.collection("user").doc(uid).update({
+      data:{
+        major:this.data.major
+      }
+    })
+  },
+
+  getGrade: function(e){
+    this.setData({
+      grade:e.detail.value
+    })
+    var res= db.collection("user").doc(uid).update({
+      data:{
+        grade:this.data.grade
+      }
+    })
+  },
+
 
   openAlert:function(e){
     wx.showToast({
@@ -168,7 +177,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    
   },
 
   /**
