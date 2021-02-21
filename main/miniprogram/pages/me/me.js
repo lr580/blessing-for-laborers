@@ -165,6 +165,7 @@ Page({
               that.setData({ major: res.data[0].major, })
               that.setData({ school: res.data[0].school, })
               that.setData({ schoolArea: res.data[0].schoolArea, })
+              that.setData({ nickName: res.data[0].nickName, })
               if (res.data[0].newInfo) wx.setTabBarBadge({ index: 2, text: String(res.data[0].newInfo), }).catch(ree => {
                 console.log('too fast')
               })
