@@ -3,6 +3,8 @@ const db = wx.cloud.database()
 const _ = db.command
 var app = getApp();
 var uid
+var code=0
+
 Page({
 
   /**
@@ -32,10 +34,12 @@ Page({
    */
   onLoad: async function (options) {
     uid = app.globalData.userID
-    console.log('qwq', options, options.code, options.uid)
     if (options.code == 1) {
       uid = options.uid
+      code = options.code
     }
+    console.log("UID IS "+options.uid)
+    console.log("CODE IS "+options.code)
   },
 
   /**
@@ -49,44 +53,75 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: async function () {
+    var mypost=[]
+    this.getData()
+    var alluser
+    var res=await db.collection("user").get().then(res=>{
+      alluser=res.data
+    })
+    // console.log(this.data.dataArr)
     if (this.data.unfresh) return //禁止重复加载
     //由于onshow的意思是当(从隐藏到显示而不是从关闭到打开)
     //其实以下内容应该放onLoad的，但上一行代码已经弥补这个故障了
     //页面必须关闭后打开才刷新，否则需要做太多if判断
-    this.setData({ types: ['回帖'].concat(getApp().globalData.types) })
+    var res = await this.getData()
     wx.showLoading({
       title: '加载中...',
     })
-    var res = await this.getData()
-    var p = 0
-    for (var i = 0, len = this.data.dataArr.length; i < len; i++) {
-      var res = await db.collection("post").doc(String(this.data.dataArr[i])).get().then(res => {
-        var type = null
-        var day = res.data.activeTime.getDate()
-        var year = res.data.activeTime.getFullYear()
-        var month = res.data.activeTime.getMonth() + 1//月份从0开始算
-        if (month < 10) { month = "0" + String(month) }
-        var hour = res.data.activeTime.getHours()
-        if (hour < 10) { hour = "0" + String(hour) }
-        var min = res.data.activeTime.getMinutes()
-        if (min < 10) { min = "0" + String(min) }
-        var sec = res.data.activeTime.getSeconds()
-        if (sec < 10) { sec = "0" + String(sec) }
-        console.log(year + " " + month + " " + day + "  " + hour + " " + min + " " + sec)
-        if (res.data.type == 1) { type = "问答" }
-        else if (res.data.type == 2) { type = "交流" }
-        else if (res.data.type == 3) { type = "分享" }
-        else { type = "日志" }
-        this.data.mypost.push({ title: res.data.title, tag: res.data.tag, activeTime: year + "/" + month + "/" + day + " " + hour + ":" + min + ":" + sec, type: res.data.type, fatherPost: res.data.fatherPost, id: res.data.id })
-        if (i == len - 1) {
-          wx.hideLoading(),
-            this.setData({
-              mypost: this.data.mypost
-            })
-        }
+    var postowner
+    var tempDataArr
+    var now=0
+    for (var i = 0, len = this.data.dataArr.length; i < len; i=i+20) {
+      tempDataArr=this.data.dataArr.slice(now)
+      if(tempDataArr.length>=20){
+        tempDataArr=tempDataArr.slice(now,now+20)
+        now=now+20
+      }
+      for(var k=0;k<tempDataArr.length;k++){
+        tempDataArr[k]=String(tempDataArr[k])
+      }
+      
+      var res=await db.collection("post").where({ _id: _.in(tempDataArr) }).get().then(res=>{
+        tempDataArr=res.data
       })
+      for(var j=0;j<tempDataArr.length;j++){
+        postowner=tempDataArr[j].user
+        for(var l=0;l<alluser.length;l++){
+          if(alluser[l]._id==postowner){
+            postowner=alluser[l].nickName
+            break
+          }
+        }
+          var type = null
+          var day = tempDataArr[j].activeTime.getDate()
+          var year = tempDataArr[j].activeTime.getFullYear()
+          var month = tempDataArr[j].activeTime.getMonth() + 1//月份从0开始算
+          if (month < 10) { month = "0" + String(month) }
+          var hour = tempDataArr[j].activeTime.getHours()
+          if (hour < 10) { hour = "0" + String(hour) }
+          var min = tempDataArr[j].activeTime.getMinutes()
+          if (min < 10) { min = "0" + String(min) }
+          var sec = tempDataArr[j].activeTime.getSeconds()
+          if (sec < 10) { sec = "0" + String(sec) }
+          if (tempDataArr[j].type == 1) { type = "问答" }
+          else if (tempDataArr[j].type == 2) { type = "交流" }
+          else if (tempDataArr[j].type == 3) { type = "分享" }
+          else { type = "日志" }
+          if(tempDataArr[j].title=="" && code==1){
+            console.log("CODE "+code )
+            tempDataArr[j].title="Ta的回复"
+          }
+          if(tempDataArr[j].title=="" && code==0){
+            console.log("CODE "+code)
+            tempDataArr[j].title="我的回复"
+          }
+          mypost.push({ title: tempDataArr[j].title, tag: tempDataArr[j].tag, activeTime: year + "/" + month + "/" + day + " " + hour + ":" + min + ":" + sec, type: type, postowner: postowner, id: tempDataArr[j]._id })
+      }
     }
-
+      this.setData({
+        mypost:mypost.reverse()
+      })
+      wx.hideLoading()
   },
 
   gotoPost: function (e) {
