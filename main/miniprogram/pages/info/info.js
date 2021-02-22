@@ -36,7 +36,7 @@ Page({
 
   gotoMypost: function () {
     wx.navigateTo({
-      url: '/pages/mypost/mypost',
+      url: '/pages/mypost/mypost?code='+code+"&uid="+uid,
     })
   },
 
@@ -48,7 +48,7 @@ Page({
 
   gotoCollect: function () {
     wx.navigateTo({
-      url: '/pages/collect/collect',
+      url: '/pages/collect/collect?code'+code+"&uid="+uid,
     })
   },
 
