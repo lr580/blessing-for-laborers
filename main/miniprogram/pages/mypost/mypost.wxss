@@ -1,31 +1,27 @@
 /* pages/mypost/mypost.wxss */
-.box{
-  margin-top: 0rpx;
-  background-color: white;
-  margin-left: 0%;
-  margin-right: 0%;
-  height: 140rpx;
-  width: 100%;
-}
-
 .bigbox{
-  background-color: white;
-  height: 140rpx;
+  background-color: rgb(253, 253, 253);
+  height: 120rpx;
+  border: 0 solid rgb(130, 240, 255);
+  margin-bottom: 20rpx;
+  margin-left: 15rpx;
+  margin-right: 15rpx;
+  border-radius: 20rpx;
 }
 
-.top{
+.titlePart{
   margin-top: 5rpx;
   display: flex;
+  align-items: center;
 }
 
 .title {
   margin-top: 5rpx;
-  font-size: 40rpx;
-  font-weight: 550;
+  font-size: 35rpx;
+  font-weight: 600;
   white-space: nowrap;
   margin-left: 20rpx;
-  width: 400rpx;
-
+  width: 600rpx;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -42,18 +38,20 @@
 }
 
 .down{
+  margin-right: 20rpx;
+  margin-left: 20rpx;
   margin-top: 10rpx;
   display: flex;
+  align-items: center;
 }
 
 .time{
   right: 8%;
-  position: absolute;
-  height: 50rpx;
   display: flex;
-  color: rgb(95, 89, 89);
-  font-size: 30rpx;
-  font-weight: 400;
+  position: absolute;
+}
+.time2{
+  margin-left: 63%;
 }
 
 .tag{
@@ -61,15 +59,15 @@
   height: 50rpx;
   display: flex;
   color: rgb(95, 89, 89);
-  font-size: 30rpx;
+  font-size: 18rpx;
   font-weight: 400;
 }
 
 .tag2{
   margin-top: 15rpx;
   margin-left: 20rpx;
-  height: 50rpx;
-  width: 50rpx;
+  height: 35rpx;
+  width: 35rpx;
 }
 
 
@@ -96,14 +94,12 @@
   background: rgb(179, 174, 174);
   height: 1rpx;
 }
-
+/* 
 .time2{
   right: 8%;
   position: absolute;
-  height: 50rpx;
   display: flex;
   color: rgb(95, 89, 89);
-  font-size: 30rpx;
-  font-weight: 400;
-  margin-top: 20rpx;
-}
+  font-size: 20rpx;
+  font-weight: 200;
+} */

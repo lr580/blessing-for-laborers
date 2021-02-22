@@ -3,10 +3,10 @@
   margin-top: 20rpx;
   background-color: white;
   margin-left: 5%;
-  height: 200rpx;
+  height: 170rpx;
   width: 90%;
-  border-radius: 10rpx;
-  border: 5rpx solid rgba(117, 115, 115, 0.527);
+  border-radius: 20rpx;
+  border: 0rpx solid rgba(117, 115, 115, 0.527);
 }
 
 .top{
@@ -15,14 +15,22 @@
 }
 
 .title {
-  margin-top: 5rpx;
-  font-size: 40rpx;
-  font-weight: 550;
-  white-space: nowrap;
   margin-left: 20rpx;
+  display: flex;
+  align-items: center;
+}
 
+.title image{
+  width: 40rpx;
+  height: 40rpx;
+}
+
+.title text{
+  font-weight: 600;
+  font-size: 40rpx;
+  white-space: nowrap;
+  margin-left: 10rpx;
   width: 400rpx;
-
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -39,18 +47,14 @@
 }
 
 .down{
-  margin-top: 10rpx;
+  margin-left: 20rpx;
   display: flex;
+  align-items: center;
 }
 
 .time{
-  right: 8%;
   position: absolute;
-  height: 50rpx;
-  display: flex;
-  color: rgb(95, 89, 89);
-  font-size: 30rpx;
-  font-weight: 400;
+  right: 8%;
 }
 
 .tag{
@@ -63,26 +67,23 @@
 }
 
 .nickName {
-  font-size: 30rpx;
+  display: flex;
+  align-items: center;
   margin-left: 20rpx;
-  font-weight: 400;
-  margin-top: 0rpx;
-  width: 500rpx;
+}
+
+.nickName image{
+  width: 30rpx;
+  height: 30rpx;
+}
+
+.nickName text{
+  font-size: 30rpx;
+  font-weight: 200;
+  width: 400rpx;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
   color: rgb(95, 89, 89);
-  width: 400rpx;
-
   overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.divline{
-  margin-top: 1rpx;
-  background: grey;
-  width: 90%;
-  margin-left: 5%;
-  height: 5rpx;
 }

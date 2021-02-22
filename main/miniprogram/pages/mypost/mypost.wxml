@@ -1,32 +1,45 @@
-<view class="num" wx:if="{{flag==1}}" >共找到{{mypost.length}}个帖子</view>
+
+<van-divider
+  contentPosition="center"
+  customStyle="color: darkgrey; border-color: darkgrey; font-size: 14px;"
+>
+共找到{{mypost.length}}个帖子
+</van-divider>
 <view wx:for="{{mypost}}" class="bigbox">
   <view bindtap="gotoPost" id="{{item.id}}" class="">
     <view wx:if="{{item.type}}">
-      <view class="divline"></view>
-      <view class="top">
-        <image src="/img/discuss!.png" class="tag2"></image>
+      <view class="titlePart">
+        <view>
+        <image src="/img/mytitle.png" class="tag2"></image>
+      </view>
         <view class="title">{{item.title}}</view>
-        <view class="type">{{types[item.type]}}</view>
+        <van-tag class="type"  color="#67f1cc"  type="primary">{{types[item.type]}}</van-tag>
+        <!-- <view class="type">{{types[item.type]}}</view> -->
       </view>
 
 
       <view class="down">
-        <view class="tag">{{item.tag}}</view>
-        <view class="time">{{item.activeTime}}</view>
+        <van-tag color="rgb(130, 240, 255)" round type="warning">{{item.tag}}</van-tag>
+        <!-- <view class="tag">{{item.tag}}</view> -->
+        <van-tag color="rgba(117, 115, 115, 0.267)" class="time" round type="primary">{{item.activeTime}}</van-tag>
+        <!-- <view class="time">{{item.activeTime}}</view> -->
       </view>
     </view>
 
     <view wx:else>
-      <view class="divline"></view>
-      <view class="top">
-        <image src="/img/dicuss.png" class="tag2"></image>
-        <view class="title">{{item.title}}
-          <view class="time2">{{item.activeTime}}</view>
-        </view>
+
+      <view class="titlePart">
+        <view>
+        <image src="/img/myhf.png" class="tag2"></image>
       </view>
-        
+        <view class="title">{{item.title}}
+        </view>
+
+      </view>
+      <view class="down">
+      <van-tag  color="rgba(117, 115, 115, 0.267)" class="time2" round type="primary">{{item.activeTime}}</van-tag>
     </view>
-    
+  </view>
   </view>
   <text decode="true">&ensp;</text>
   
