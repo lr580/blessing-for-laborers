@@ -99,10 +99,10 @@ Page({
           title: '加载中',
           mask: true,
         })
-        console.log(res);
+        //console.log(res);
         newAvatarUrl = res.userInfo.avatarUrl
         var userInfo = res.userInfo
-        console.log(userInfo);
+        //console.log(userInfo);
         var nickName = userInfo.nickName
         var avatarUrl = userInfo.avatarUrl
         var userCity = userInfo.city
@@ -125,13 +125,14 @@ Page({
           gender: gender,
           userCity: userCity,
           loadKey: true,
-          changeInfokey: true
+          changeInfokey: true,
+          //me: getApp().globalData.userID,
         })
-        console.log(openid)
+        //console.log(openid)
         db.collection("user").where({
           _openid: openid
         }).get().then(res => {
-          console.log(res.data.length)
+          //console.log(res.data.length)
           if (res.data.length == 0) {
             this.setData({
               nickName: nickName
@@ -169,6 +170,8 @@ Page({
             }).get().then(res => {
               getApp().globalData.me = res.data._id
               getApp().globalData.me = res.data[0]._id
+              getApp().globalData.userID = res.data._id
+              that.setData({ me: getApp().globalData.userID, })
               var obj = {}
               obj[res.data[0].nickName] = res.data[0]._id
               db.collection('global').doc('username').update({
@@ -185,13 +188,14 @@ Page({
               })
             })
           } else {
-            console.log("用户已存在")
+            //console.log("用户已存在")
             db.collection("user").where({
               _openid: openid
             }).get().then(res => {
               app.globalData.userID = res.data[0]._id
               app.globalData.me = res.data[0]._id
               app.globalData.hasNewInfo = res.data[0].newInfo
+              that.setData({ me: getApp().globalData.userID, })
               that.setData({ nwInfo: res.data[0].newInfo, })
               that.setData({ major: res.data[0].major, })
               that.setData({ school: res.data[0].school, })
@@ -200,7 +204,7 @@ Page({
               if (res.data[0].newInfo) wx.setTabBarBadge({ index: 2, text: String(res.data[0].newInfo), }).catch(ree => {
                 console.log('too fast')
               })
-              console.log(newAvatarUrl)
+              //console.log(newAvatarUrl)
               db.collection("user").doc(app.globalData.userID).update({
                 data: {
                   avatarUrl: newAvatarUrl

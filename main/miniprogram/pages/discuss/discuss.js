@@ -121,11 +121,17 @@ Page({
             })
             return
           }
+          var tuser = []
+          var ruser = []
+          const ex = 20
 
           for (let i = 0; i < res.data.length; ++i) {
             temp[i][0] = res.data[i]
+            tuser.push(String(res.data[i].user))
             temp[i][2] = modu.dateArr(res.data[i].activeTime)
             temp[i][3] = modu.getABS(res.data[i].content)
+          //}
+
             wx.cloud.database().collection('user').doc(String(res.data[i].user)).get().then(ret => {
               ++fina
               temp[i][1] = ret.data
@@ -146,7 +152,7 @@ Page({
                   posts: temp,
                 })
               }
-            })
+            })//*/
           }
         },
         fail: res => {
