@@ -1,7 +1,7 @@
 // pages/discuss/discuss.js
 var modu = require('../../lrfx.js')
 const db = wx.cloud.database()
-const _  = db.command
+const _ = db.command
 const app = getApp()
 Page({
 
@@ -127,33 +127,63 @@ Page({
             return
           }
           //console.log(res.data.length)
+          var tuser = []
+          var ruser = []
 
           for (let i = 0; i < res.data.length; ++i) {
             temp[i][0] = res.data[i]
+            temp[i][1] = String(res.data[i].user)
+            tuser.push(String(res.data[i].user))
             temp[i][2] = modu.dateArr(res.data[i].activeTime)
             temp[i][3] = modu.getABS(res.data[i].content)
-            wx.cloud.database().collection('user').doc(String(res.data[i].user)).get().then(ret => {
-              ++fina
-              temp[i][1] = ret.data
-              if (fina == res.data.length) {
-                wx.hideLoading()
-                thee.setData({
-                  postn: res.data.length,
-                  posts: temp,
-                })
-              }
-            }).catch(rwt => {
-              ++fina
-              temp[i][1] = modu.fakeUser
-              if (fina == res.data.length) {
-                wx.hideLoading()
-                thee.setData({
-                  postn: res.data.length,
-                  posts: temp,
-                })
-              }
-            })
           }
+          tuser = Array.from(new Set(tuser))
+          wx.cloud.database().collection('user').where({ _id: _.in(tuser) }).get().then(ree => {
+            ruser = ree.data
+            //console.log('rrr', ruser)
+            for (let i = 0; i < res.data.length; ++i) {
+              for (let j = 0; j < ruser.length; ++j) {
+                //console.log(i, j, ruser[j], temp[i])
+                if (ruser[j]._id == temp[i][1]) {
+
+                  temp[i][1] = ruser[j]
+                  break
+                }
+              }
+            }
+            wx.hideLoading()
+            thee.setData({
+              postn: res.data.length,
+              posts: temp,
+            })
+          }).catch(rwe => {
+            wx.showToast({
+              title: '加载失败',
+              icon: "none",
+            })
+          })
+          /*wx.cloud.database().collection('user').doc(String(res.data[i].user)).get().then(ret => {
+            ++fina
+            temp[i][1] = ret.data
+            if (fina == res.data.length) {
+              wx.hideLoading()
+              thee.setData({
+                postn: res.data.length,
+                posts: temp,
+              })
+            }
+          }).catch(rwt => {
+            ++fina
+            temp[i][1] = modu.fakeUser
+            if (fina == res.data.length) {
+              wx.hideLoading()
+              thee.setData({
+                postn: res.data.length,
+                posts: temp,
+              })
+            }
+          })
+        }*/
         },
         fail: res => {
           wx.hideLoading()
@@ -215,33 +245,64 @@ Page({
         if (!res.data.length) this.setData({ alreadyAll: true }), wx.hideLoading()
 
         for (let i = 0; i < res.data.length; ++i) temp[i] = []
+        var tuser = []
+        var ruser = []
 
         for (let i = 0; i < res.data.length; ++i) {
           temp[i][0] = res.data[i]
+          temp[i][1] = String(res.data[i].user)
+          tuser.push(String(res.data[i].user))
           temp[i][2] = modu.dateArr(res.data[i].activeTime)
           temp[i][3] = modu.getABS(res.data[i].content)
-          wx.cloud.database().collection('user').doc(String(res.data[i].user)).get().then(ret => {
-            ++fina
-            temp[i][1] = ret.data
-            if (fina == res.data.length) {
-              wx.hideLoading()
-              this.setData({
-                postn: this.data.postn + res.data.length,
-                posts: this.data.posts.concat(temp),
-              })
-            }
-          }).catch(rwt => {
-            ++fina
-            temp[i][1] = modu.fakeUser
-            if (fina == res.data.length) {
-              wx.hideLoading()
-              this.setData({
-                postn: this.data.postn + res.data.length,
-                posts: this.data.posts.concat(temp),
-              })
-            }
-          })
         }
+        tuser = Array.from(new Set(tuser))
+        wx.cloud.database().collection('user').where({ _id: _.in(tuser) }).get().then(ree => {
+          ruser = ree.data
+          //console.log('rrr', ruser)
+          for (let i = 0; i < res.data.length; ++i) {
+            for (let j = 0; j < ruser.length; ++j) {
+              //console.log(i, j, ruser[j], temp[i])
+              if (ruser[j]._id == temp[i][1]) {
+
+                temp[i][1] = ruser[j]
+                break
+              }
+            }
+          }
+          //console.log('TMDFSL', temp)
+          wx.hideLoading()
+          this.setData({
+            postn: res.data.length + this.data.postn,
+            posts: this.data.posts.concat(temp),
+          })
+        }).catch(rwe => {
+          wx.showToast({
+            title: '加载失败',
+            icon: "none",
+          })
+        })
+        /*wx.cloud.database().collection('user').doc(String(res.data[i].user)).get().then(ret => {
+          ++fina
+          temp[i][1] = ret.data
+          if (fina == res.data.length) {
+            wx.hideLoading()
+            this.setData({
+              postn: this.data.postn + res.data.length,
+              posts: this.data.posts.concat(temp),
+            })
+          }
+        }).catch(rwt => {
+          ++fina
+          temp[i][1] = modu.fakeUser
+          if (fina == res.data.length) {
+            wx.hideLoading()
+            this.setData({
+              postn: this.data.postn + res.data.length,
+              posts: this.data.posts.concat(temp),
+            })
+          }
+        })
+      }*/
       }).catch(rws => {
         wx.showToast({
           title: '数据异常，请重试。',
@@ -504,8 +565,8 @@ Page({
     this.setData({ searchDown: !this.data.searchDown })
   },
 
-  onShareAppMessage:function(e){
-    console.log('wwwssss',e)
+  onShareAppMessage: function (e) {
+    console.log('wwwssss', e)
   },
 
   gotoUser: function (e) {
