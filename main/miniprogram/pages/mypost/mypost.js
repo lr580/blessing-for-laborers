@@ -11,6 +11,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    flag: 0,
     mypost: [],
     dataArr: [],
     name: null,
@@ -118,8 +119,10 @@ Page({
           mypost.push({ title: tempDataArr[j].title, tag: tempDataArr[j].tag, activeTime: year + "/" + month + "/" + day + " " + hour + ":" + min + ":" + sec, type: type, postowner: postowner, id: tempDataArr[j]._id })
       }
     }
+      
       this.setData({
-        mypost:mypost.reverse()
+        mypost:mypost.reverse(),
+        flag:1
       })
       wx.hideLoading()
   },
