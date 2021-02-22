@@ -92,7 +92,7 @@ Page({
         }
       })
     }
-    console.log(this.data.datacollect)
+    //console.log(this.data.datacollect)
   },
 
   gotoPost: function (e) {
