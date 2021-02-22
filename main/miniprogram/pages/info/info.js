@@ -36,7 +36,7 @@ Page({
 
   gotoMypost: function () {
     wx.navigateTo({
-      url: '/pages/mypost/mypost?code='+code+"&uid="+uid,
+      url: '/pages/mypost/mypost?code=' + code + "&uid=" + uid,
     })
   },
 
@@ -48,7 +48,7 @@ Page({
 
   gotoCollect: function () {
     wx.navigateTo({
-      url: '/pages/collect/collect?code'+code+"&uid="+uid,
+      url: '/pages/collect/collect?code=' + code + "&uid=" + uid,
     })
   },
 
@@ -74,7 +74,7 @@ Page({
       title: '加载中',
       mask: true,
     })
-    
+
 
     console.log('uid', uid)
     db.collection("user").doc(String(uid)).get().then(res => {

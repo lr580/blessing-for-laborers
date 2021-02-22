@@ -34,6 +34,7 @@ Page({
     if(options.code==1){
       uid=options.uid
     }
+    //console.log(uid,options)
   },
 
   /**
