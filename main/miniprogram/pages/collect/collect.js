@@ -9,6 +9,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    flag:0,
     datacollect: [],
     dataArr: ["wu"],
     name: null,
@@ -107,7 +108,8 @@ Page({
       }
     }
       this.setData({
-        datacollect: collect.reverse()
+        datacollect: collect.reverse(),
+        flag:1
       })
       wx.hideLoading()
   },
