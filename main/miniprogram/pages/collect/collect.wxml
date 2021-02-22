@@ -1,3 +1,4 @@
+<view class="num" wx:if="{{flag==1}}" >共找到{{mypost.length}}个帖子</view>
 <view wx:for="{{datacollect}}">
   <view bindtap="gotoPost" id="{{item.id}}" class="box">
     
