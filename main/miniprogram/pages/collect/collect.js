@@ -10,7 +10,7 @@ Page({
    */
   data: {
     datacollect: [],
-    dataArr: [],
+    dataArr: ["wu"],
     name: null,
     tag: null,
     tutle: null,//title?tutle?
@@ -31,10 +31,11 @@ Page({
    */
   onLoad:function (options) {
     uid=app.globalData.userID
+    console.log("UID IS "+options.uid)
+    console.log("CODE IS "+options.code)
     if(options.code==1){
       uid=options.uid
     }
-    //console.log(uid,options)
   },
 
   /**
@@ -48,6 +49,13 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: async function () {
+    var collect=[]
+    this.getData()
+    var alluser
+    var res=await db.collection("user").get().then(res=>{
+      alluser=res.data
+    })
+    // console.log(this.data.dataArr)
     if (this.data.unfresh) return //禁止重复加载
     //由于onshow的意思是当(从隐藏到显示而不是从关闭到打开)
     //其实以下内容应该放onLoad的，但上一行代码已经弥补这个故障了
@@ -57,42 +65,51 @@ Page({
       title: '加载中...',
     })
     var postowner
-
-    for (var i = 0, len = this.data.dataArr.length; i < len; i++) {
-
-      var res = await db.collection("post").doc(String(this.data.dataArr[i])).get().then(res => {
-        postowner = res.data.user
+    var tempDataArr
+    var now=0
+    for (var i = 0, len = this.data.dataArr.length; i < len; i=i+20) {
+      tempDataArr=this.data.dataArr.slice(now)
+      if(tempDataArr.length>=20){
+        tempDataArr=tempDataArr.slice(now,now+20)
+        now=now+20
+      }
+      for(var k=0;k<tempDataArr.length;k++){
+        tempDataArr[k]=String(tempDataArr[k])
+      }
+      
+      var res=await db.collection("post").where({ _id: _.in(tempDataArr) }).get().then(res=>{
+        tempDataArr=res.data
       })
-      var res = await db.collection("user").doc(String(postowner)).get().then(res => {
-        postowner = res.data.nickName
-      })
-
-      var res = await db.collection("post").doc(String(this.data.dataArr[i])).get().then(res => {
-        var type = null
-        var day = res.data.activeTime.getDate()
-        var year = res.data.activeTime.getFullYear()
-        var month = res.data.activeTime.getMonth() + 1//月份从0开始算
-        if (month < 10) { month = "0" + String(month) }
-        var hour = res.data.activeTime.getHours()
-        if (hour < 10) { hour = "0" + String(hour) }
-        var min = res.data.activeTime.getMinutes()
-        if (min < 10) { min = "0" + String(min) }
-        var sec = res.data.activeTime.getSeconds()
-        if (sec < 10) { sec = "0" + String(sec) }
-        if (res.data.type == 1) { type = "问答" }
-        else if (res.data.type == 2) { type = "交流" }
-        else if (res.data.type == 3) { type = "分享" }
-        else { type = "日志" }
-        this.data.datacollect.push({ title: res.data.title, tag: res.data.tag, activeTime: year + "/" + month + "/" + day + " " + hour + ":" + min + ":" + sec, type: type, postowner: postowner, id: res.data.id })
-        if (i == len - 1) {
-          wx.hideLoading(),
-            this.setData({
-              datacollect: this.data.datacollect
-            })
+      for(var j=0;j<tempDataArr.length;j++){
+        postowner=tempDataArr[j].user
+        for(var l=0;l<alluser.length;l++){
+          if(alluser[l]._id==postowner){
+            postowner=alluser[l].nickName
+            break
+          }
         }
-      })
+          var type = null
+          var day = tempDataArr[j].activeTime.getDate()
+          var year = tempDataArr[j].activeTime.getFullYear()
+          var month = tempDataArr[j].activeTime.getMonth() + 1//月份从0开始算
+          if (month < 10) { month = "0" + String(month) }
+          var hour = tempDataArr[j].activeTime.getHours()
+          if (hour < 10) { hour = "0" + String(hour) }
+          var min = tempDataArr[j].activeTime.getMinutes()
+          if (min < 10) { min = "0" + String(min) }
+          var sec = tempDataArr[j].activeTime.getSeconds()
+          if (sec < 10) { sec = "0" + String(sec) }
+          if (tempDataArr[j].type == 1) { type = "问答" }
+          else if (tempDataArr[j].type == 2) { type = "交流" }
+          else if (tempDataArr[j].type == 3) { type = "分享" }
+          else { type = "日志" }
+          collect.push({ title: tempDataArr[j].title, tag: tempDataArr[j].tag, activeTime: year + "/" + month + "/" + day + " " + hour + ":" + min + ":" + sec, type: type, postowner: postowner, id: tempDataArr[j]._id })
+      }
     }
-    //console.log(this.data.datacollect)
+      this.setData({
+        datacollect: collect.reverse()
+      })
+      wx.hideLoading()
   },
 
   gotoPost: function (e) {
