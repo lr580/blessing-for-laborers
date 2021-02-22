@@ -107,15 +107,18 @@ Page({
           if (tempDataArr[j].type == 1) { type = "问答" }
           else if (tempDataArr[j].type == 2) { type = "交流" }
           else if (tempDataArr[j].type == 3) { type = "分享" }
-          else { type = "日志" }
+          else if (tempDataArr[j].type == 4) { type = "日志" }
           if(tempDataArr[j].title=="" && code==1){
-            console.log("CODE "+code )
             tempDataArr[j].title="Ta的回复"
           }
           if(tempDataArr[j].title=="" && code==0){
-            console.log("CODE "+code)
             tempDataArr[j].title="我的回复"
+          }            
+          console.log(tempDataArr)
+          if(tempDataArr[j].type==0){
+            tempDataArr[j]._id=String(tempDataArr[j].fatherPost)
           }
+          console.log(tempDataArr[j]._id)
           mypost.push({ title: tempDataArr[j].title, tag: tempDataArr[j].tag, activeTime: year + "/" + month + "/" + day + " " + hour + ":" + min + ":" + sec, type: type, postowner: postowner, id: tempDataArr[j]._id })
       }
     }
@@ -185,4 +188,3 @@ Page({
 
   }
 })
-
