@@ -36,8 +36,10 @@
         </view>
 
       </view>
-      <view class="down">
-      <van-tag  color="rgba(117, 115, 115, 0.267)" class="time2" round type="primary">{{item.activeTime}}</van-tag>
+      <view class="down2">
+        <view>
+              <van-tag  color="rgba(117, 115, 115, 0.267)" class="time2" round type="primary">{{item.activeTime}}</van-tag>
+            </view>
     </view>
   </view>
   </view>

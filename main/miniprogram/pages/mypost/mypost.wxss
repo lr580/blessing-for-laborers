@@ -40,7 +40,16 @@
 .down{
   margin-right: 20rpx;
   margin-left: 20rpx;
-  margin-top: 10rpx;
+  margin-top: 5rpx;
+  display: flex;
+  align-items: center;
+  margin-bottom: 2rpx;
+}
+
+.down2{
+  margin-right: 20rpx;
+  margin-left: 20rpx;
+  margin-top: 8rpx;
   display: flex;
   align-items: center;
 }
@@ -51,7 +60,9 @@
   position: absolute;
 }
 .time2{
-  margin-left: 63%;
+  right: 8%;
+  display: flex;
+  position: absolute;
 }
 
 .tag{
