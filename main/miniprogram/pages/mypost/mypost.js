@@ -39,8 +39,8 @@ Page({
       uid = options.uid
       code = options.code
     }
-    console.log("UID IS "+options.uid)
-    console.log("CODE IS "+options.code)
+    //console.log("UID IS "+options.uid)
+    //console.log("CODE IS "+options.code)
   },
 
   /**
@@ -109,16 +109,17 @@ Page({
           else if (tempDataArr[j].type == 3) { type = "分享" }
           else if (tempDataArr[j].type == 4) { type = "日志" }
           if(tempDataArr[j].title=="" && code==1){
-            tempDataArr[j].title="Ta的回复"
+            //console.log(uid==getApp().globalData.userID, uid, getApp().globalData.userID)
+            tempDataArr[j].title=(uid==getApp().globalData.userID)?"我的回复":'Ta的回复'
           }
           if(tempDataArr[j].title=="" && code==0){
             tempDataArr[j].title="我的回复"
           }            
-          console.log(tempDataArr)
+          //console.log(tempDataArr)
           if(tempDataArr[j].type==0){
             tempDataArr[j]._id=String(tempDataArr[j].fatherPost)
           }
-          console.log(tempDataArr[j]._id)
+          //console.log(tempDataArr[j]._id)
           mypost.push({ title: tempDataArr[j].title, tag: tempDataArr[j].tag, activeTime: year + "/" + month + "/" + day + " " + hour + ":" + min + ":" + sec, type: type, postowner: postowner, id: tempDataArr[j]._id })
       }
     }

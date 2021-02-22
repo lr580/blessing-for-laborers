@@ -31,7 +31,7 @@ Page({
   },
 
   console1: function () {
-    console.log(1)
+    //console.log(1)
   },
 
   gotoMypost: function () {
@@ -76,12 +76,12 @@ Page({
     })
 
 
-    console.log('uid', uid)
+    //console.log('uid', uid)
     db.collection("user").doc(String(uid)).get().then(res => {
       res = res.data
       var avatarUrl = res.avatarUrl
       var userInfo = res.userInfo
-      console.log(userInfo);
+      //console.log(userInfo);
       var nickName = res.nickName
       //console.log('nnn', nickName)
       var userCity = userInfo.city
@@ -107,7 +107,7 @@ Page({
         school: res.school,
         schoolArea: res.schoolArea,
       })
-      console.log("user_openid " + openid)
+      //console.log("user_openid " + openid)
       wx.hideLoading()
     })
   },

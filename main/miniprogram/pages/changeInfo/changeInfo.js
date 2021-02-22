@@ -32,11 +32,11 @@ Page({
         code:code
       })
     }
-    console.log("CODE IS "+code)
-    console.log("UID IS "+uid)
+    //console.log("CODE IS "+code)
+    //console.log("UID IS "+uid)
     if(code==0){
       var res = await db.collection("user").doc(app.globalData.userID).get().then(res=>{
-        console.log(res.data)
+        //console.log(res.data)
         if(res.data.school){
           this.setData({
             school:res.data.school
@@ -65,7 +65,7 @@ Page({
     }
     else{
       var res = await db.collection("user").doc(uid).get().then(res=>{
-        console.log(res.data)
+        //console.log(res.data)
         if(res.data.school){
           this.setData({
             school:res.data.school

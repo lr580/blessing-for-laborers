@@ -32,8 +32,8 @@ Page({
    */
   onLoad:function (options) {
     uid=app.globalData.userID
-    console.log("UID IS "+options.uid)
-    console.log("CODE IS "+options.code)
+    //console.log("UID IS "+options.uid)
+    //console.log("CODE IS "+options.code)
     if(options.code==1){
       uid=options.uid
     }
