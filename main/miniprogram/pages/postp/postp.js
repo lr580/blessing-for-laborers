@@ -372,7 +372,7 @@ Page({
       })
       return
     }
-    //this.setData({ me: 1 })//调试
+    //this.setData({ me: 'b00064a7602b2871053146a9467ff34b' })//调试
     this.setData({ busy: true })
     var thee = this
     wx.cloud.database().collection('user').doc(String(this.data.me)).get().then(res => {

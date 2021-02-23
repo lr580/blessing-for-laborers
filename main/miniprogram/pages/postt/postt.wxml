@@ -107,7 +107,7 @@
                 <image src="{{v[1].avatarUrl}}" wx:else></image>
               </view>
               <view wx:if="{{v[0].anonymity&&me!=v[0].user}}" class="reuserName">用户</view> <!--恒false分支-->
-              <view wx:if="{{v[0].anonymity&&me==v[0].user}}" class="{{v[0].reply?'reuserName':'reuserNameS'}}">(匿名){{v[1].nickName}}</view> <!--恒false分支-->
+              <view wx:if="{{v[0].anonymity&&me==v[0].user}}" class="{{v[0].reply?'reuserName':'reuserNameS'}}">{{v[1].nickName}}</view> <!--恒false分支-->
               <view wx:else class="{{v[0].reply?'reuserName':'reuserNameS'}}" bindtap="gotoUser"
                 id="{{[v[0].user,v[0].anonymity&&me!=v[0].user]}}">
                 {{v[1].nickName}}</view>
@@ -118,7 +118,7 @@
 
               <view wx:if="{{v[0].reply&&v[5].hide}}" class="bereuserName">(原楼层已删除)</view>
               <view wx:elif="{{v[0].reply &&(!v[5].anonymity||me==v[5].user)}}" class="bereuserName" bindtap="gotoUser"
-                id="{{[v[0].user,v[0].anonymity&&me!=v[0].user]}}">
+                id="{{[v[5].user,v[5].anonymity&&me!=v[5].user]}}">
 
                 <view class="floor2">
                   <image src="/img/floor2.png"></image>
