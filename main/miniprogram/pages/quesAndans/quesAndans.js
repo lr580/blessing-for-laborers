@@ -62,6 +62,15 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    /*var fin = 0
+    var bg = 400
+    for (let i = bg + 1; i <= bg + 50; ++i) {
+      db.collection('post').doc(String(i)).remove().then(reh => {
+        console.log(++fin, i)
+      }).catch(rwh => {
+        console.log('fail', i)
+      })
+    }*/
     var dem = {
       hide: false,
     }

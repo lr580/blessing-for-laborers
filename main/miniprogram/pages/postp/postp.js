@@ -74,8 +74,8 @@ Page({
       this.setData({meo:re0.data})
       if(!re0.data.realName)
       {
-        wx.navigateBack()
         getApp().globalData.noRealNote=true
+        wx.navigateBack()
         wx.showToast({
           title: '您尚未实名，不能发帖！',
           icon:'none',
