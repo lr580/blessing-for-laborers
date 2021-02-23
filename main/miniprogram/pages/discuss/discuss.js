@@ -115,6 +115,7 @@ Page({
           var temp = []//读取数据暂存
           for (let i = 0; i < res.data.length; ++i) temp[i] = []
           if (res.data.length == 0) {
+            wx.hideLoading()
             thee.setData({
               postn: 0,
               posts: [],
@@ -124,7 +125,7 @@ Page({
           var tuser = []
           var ruser = []
           const ex = 20//实质无用
-
+          if(!res.data.length) wx.hideLoading()
           for (let i = 0; i < res.data.length; ++i) {
             temp[i][0] = res.data[i]
             temp[i][1] = String(res.data[i].user)
@@ -247,6 +248,7 @@ Page({
         var tuser = []
         var ruser = []
 
+        if(!res.data.length) wx.hideLoading()
         for (let i = 0; i < res.data.length; ++i) {
           temp[i][0] = res.data[i]
           temp[i][2] = modu.dateArr(res.data[i].activeTime)

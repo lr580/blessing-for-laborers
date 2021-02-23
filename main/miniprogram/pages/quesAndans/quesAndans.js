@@ -139,6 +139,7 @@ Page({
           var tuser = []
           var ruser = []
 
+          if(!res.data.length) wx.hideLoading()
           for (let i = 0; i < res.data.length; ++i) {
             temp[i][0] = res.data[i]
             temp[i][1] = String(res.data[i].user)
@@ -257,6 +258,7 @@ Page({
         var tuser = []
         var ruser = []
 
+        if(!res.data.length) wx.hideLoading()
         for (let i = 0; i < res.data.length; ++i) {
           temp[i][0] = res.data[i]
           temp[i][1] = String(res.data[i].user)
