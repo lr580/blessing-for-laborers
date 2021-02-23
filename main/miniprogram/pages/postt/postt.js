@@ -748,12 +748,12 @@ Page({
  */
   onShow: function () {
     var fr = this.data.unfresh
-    if(getApp().globalData.noRealNote)
-    {
-      getApp().globalData.noRealNote=false
+    if (getApp().globalData.noRealNote) {
+      getApp().globalData.noRealNote = false
       wx.showToast({
         title: '您尚未实名，无法回帖！',
-        icon:'none',
+        icon: 'none',
+        duration: 3000,
       })
     }
     if (fr) {
