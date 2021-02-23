@@ -1,33 +1,30 @@
-<van-divider
-  contentPosition="center"
-  customStyle="color: darkgrey; border-color: darkgrey; font-size: 14px;"
->
-共找到{{datacollect.length}}个帖子
+<van-divider contentPosition="center" customStyle="color: darkgrey; border-color: darkgrey; font-size: 14px;">
+  共找到{{datacollect.length}}个帖子
 </van-divider>
 
 <!-- <view class="num" wx:if="{{flag==1}}" >共找到{{datacollect.length}}个帖子</view> -->
 <view wx:for="{{datacollect}}">
   <view bindtap="gotoPost" id="{{item.id}}" class="box">
-    
+
     <view class="top">
-       <view class="title">
-         <image src="/img/mytitle.png"></image>
-         <text>{{item.title}}</text>
-         <van-tag class="type"  color="#67f1cc"  type="primary">{{item.type}}</van-tag>
-        </view>
-       <!-- <view class="type">{{item.type}}</view> -->
+      <view class="title">
+        <image src="/img/mytitle.png"></image>
+        <text>{{item.title}}</text>
+        <van-tag class="type" color="#67f1cc" type="primary">{{item.type}}</van-tag>
+      </view>
+      <!-- <view class="type">{{item.type}}</view> -->
     </view>
-    
+
     <view class="nickName">
       <image src="/img/user.png"></image>
       <text>{{item.postowner}}</text>
     </view>
     <view class="divline"></view>
     <view class="down">
-      <van-tag  color="rgb(130, 240, 255)"  type="primary">{{item.tag}}</van-tag>
+      <van-tag color="rgb(130, 240, 255)" type="primary">{{item.tag}}</van-tag>
       <!-- <view class="tag">{{item.tag}}</view> -->
-      <van-tag  color="rgba(117, 115, 115, 0.267)" class="time"  type="primary">{{item.activeTime}} </van-tag>
-       <!-- <view class="time">{{item.activeTime}}</view> -->
+      <van-tag color="rgba(117, 115, 115, 0.267)" class="time" type="primary">{{item.activeTime}} </van-tag>
+      <!-- <view class="time">{{item.activeTime}}</view> -->
     </view>
 
     <!--调试用，请忽略{{item.id}}-->

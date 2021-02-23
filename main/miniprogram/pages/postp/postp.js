@@ -11,7 +11,7 @@ Page({
     pid: 0,//当前申请到的帖子id(0为未申请，-1申请失败)
     pub: false,//是否成功发帖
     picn: 0,//当前上传了多少张图片
-    anonymity: false,//是否匿名发布
+    anonymity: false,//是否匿名发布，(最新版本：已经确保强制不允许)
     tx: [[1, '']],//单元
     pathtp: '',//路径，见全局变量
     activeTx: -1,//当前鼠标点中第几个单元(从0开始算)
@@ -109,7 +109,7 @@ Page({
           pubTime: res.data.releaseTime,
           title: res.data.title,
           tag: res.data.tag,
-          anonymity: res.data.anonymity,
+          anonymity:false,//anonymity: res.data.anonymity,
           comment: res.data.comment,
           thumbs: res.data.thumbs,
         })
@@ -283,11 +283,11 @@ Page({
   },
 
   switchAnonymity: function (e) {
-    this.setData({ anonymity: e.detail.value })
+    this.setData({ anonymity:false  })/*e.detail.value */
   },
 
   switchCB: function (e) {
-    this.setData({ anonymity: e.detail.value.includes('anonymity') })
+    this.setData({ anonymity: false })/*e.detail.value.includes('anonymity')*/
   },
 
   inputText: function (e) {
@@ -375,7 +375,7 @@ Page({
         thumbs: this.data.thumbs,
         type: this.data.type,
         reply: this.data.reply,
-        anonymity: this.data.anonymity,
+        anonymity: false,//this.data.anonymity,
         user: this.data.me,//修复了发帖人不对应的BUG
         title: this.data.title,
         content: nr,
@@ -397,7 +397,7 @@ Page({
             console.log('succc', thee.data.me, poster)
             if (thee.data.me != poster) { //thee.data.me!=poster
               var replyType = thee.data.edit ? 2 : 1
-              var po = thee.data.anonymity ? 0 : thee.data.me
+              var po = thee.data.anonymity ? 0 : thee.data.me//恒false
               var io = [nowTime, false, replyType, fo, po, fo]
               wx.cloud.database().collection('user').doc(String(poster)).update({
                 data: {
@@ -418,7 +418,7 @@ Page({
             console.log('succc', thee.data.me, poster)
             if (thee.data.me != poster) { //thee.data.me!=poster
               var replyType = thee.data.edit ? 2 : 1
-              var po = thee.data.anonymity ? 0 : thee.data.me
+              var po = thee.data.anonymity ? 0 : thee.data.me//恒false
               var io = [nowTime, false, replyType, thee.data.reply, po, fp]
               wx.cloud.database().collection('user').doc(String(poster)).update({
                 data: {

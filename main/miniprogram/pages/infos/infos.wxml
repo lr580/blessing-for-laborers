@@ -17,7 +17,7 @@
       <view wx:if="{{item[2]==1||item[2]==2}}">
 
         <van-cell is-link icon="/img/huifu.png"
-          title="{{item[6]?'匿名用户':item[4].nickName}}{{item[2]==1?'回复':'编辑'}}了{{item[2]==1?'':'对'}}您" value="查看详情" title-width="350rpx"/>
+          title="{{item[6]?'用户':item[4].nickName}}{{item[2]==1?'回复':'编辑'}}了{{item[2]==1?'':'对'}}您" value="查看详情" title-width="350rpx"/>
       </view>
 
       <view style="margin-left:20rpx" class="time">

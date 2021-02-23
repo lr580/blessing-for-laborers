@@ -59,9 +59,9 @@
           <text style="margin-left:20rpx">搜索发帖者用户名：</text>
           <input style="margin-left:40rpx" type="text" placeholder="任意发帖者" bindinput="inputUser" value="{{userS}}" />
         </view>
-        <checkbox-group style="margin-left:40rpx" bindchange="switchAN">
+        <!--该功能已删除<checkbox-group style="margin-left:40rpx" bindchange="switchAN">
           <checkbox value="anonymityS" checked="{{anonymityS}}">包含匿名用户</checkbox>
-        </checkbox-group>
+        </checkbox-group>-->
       </view>
 
 
@@ -151,12 +151,12 @@
       </view>
       <view class="userInfo"><!-- bindtap="gotoUser" id="{{[v[0].user,v[0].anonymity&&me!=v[0].user]}}"-->
         <view class="userHead" bindtap="gotoUser">
-          <image src="{{pathp+'default.jpg'}}" wx:if="{{v[0].anonymity&&me!=v[0].user}}"></image>
+          <image src="{{pathp+'default.jpg'}}" wx:if="{{v[0].anonymity&&me!=v[0].user}}"></image><!--恒false分支-->
           <image src="{{pathp+v[1].image}}" wx:elif="{{v[1].oldtest}}"></image>
           <image src="{{v[1].avatarUrl}}" wx:else></image>
         </view>
-        <view class="nickName" wx:if="{{v[0].anonymity&&me!=v[0].user}}">匿名用户</view>
-        <view class="nickName" wx:elif="{{v[0].anonymity&&me==v[0].user}}">(匿名){{v[1].nickName}}</view>
+        <view class="nickName" wx:if="{{v[0].anonymity&&me!=v[0].user}}">用户</view><!--恒false分支-->
+        <view class="nickName" wx:elif="{{v[0].anonymity&&me==v[0].user}}">{{v[1].nickName}}</view><!--恒false分支-->
         <view class="nickName" wx:else>{{v[1].nickName}}</view>
       </view>
       <view class="content">

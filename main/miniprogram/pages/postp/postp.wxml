@@ -49,11 +49,11 @@
         </view>
       </button>
     </view>
-    <view class="switcgCB">
+    <!--<view class="switcgCB">
       <checkbox-group bindchange="switchCB">
         <checkbox value="anonymity" checked="{{anonymity}}">匿名发布</checkbox>
       </checkbox-group>
-    </view>
+    </view> 已经删除匿名发帖功能-->
   </view>
   <view class="send">
     <view class="sendButton">
