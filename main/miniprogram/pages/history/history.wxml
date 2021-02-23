@@ -35,5 +35,7 @@
       </view>
     </view>
   </view>
-  <view wx:else>空空如也，赶紧去浏览帖子吧！</view>
+  <view wx:else>
+    <van-empty description="空空如也，赶紧去浏览帖子吧！" />
+  </view>
 </view>

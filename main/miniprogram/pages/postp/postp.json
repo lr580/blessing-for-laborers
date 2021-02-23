@@ -3,6 +3,7 @@
     "van-popup": "/dist/popup",
     "van-cell": "/dist/cell",
     "van-button": "/dist/button",
-    "van-divider": "/dist/divider"
+    "van-divider": "/dist/divider",
+    "van-empty": "/dist/empty/index"
   }
 }
