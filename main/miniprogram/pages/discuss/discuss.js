@@ -346,9 +346,9 @@ Page({
     this.setData({ type: Number(e.currentTarget.id) })
     var ty = Number(e.currentTarget.id)
     var dem = this.data.dem
-
+    const _ = wx.cloud.database().command
     if (!ty) {
-      dem['type'] = wx.cloud.database().command.neq(0)
+      dem['type'] = _.neq(0).and(_.neq(1))
     } else {
       dem['type'] = ty
     }
