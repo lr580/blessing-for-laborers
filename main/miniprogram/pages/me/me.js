@@ -93,6 +93,7 @@ Page({
     var openid
     var that = this;
     this.setData({ me: getApp().globalData.userID })
+    //console.log(13)
     wx.getUserInfo({
       success: async function (res) {
         wx.showLoading({
@@ -137,6 +138,7 @@ Page({
             this.setData({
               nickName: nickName
             })
+            console.log('14')
             getApp().globalData.hasNewInfo = false
             that.setData({ nwInfo: false })
             db.collection("user").add({
@@ -261,9 +263,74 @@ Page({
           }
         }).catch(rws => {
           wx.hideLoading()
-          wx.showToast({
-            title: '获取信息失败，请重启！',
-            icon: 'none',
+          that.setData({
+            nickName: nickName
+          })
+          console.log('15')
+          /*db.collection('global').doc('default').get().then(rei=>{
+
+          })*/
+          getApp().globalData.hasNewInfo = false
+          that.setData({ nwInfo: false })
+          db.collection("user").add({
+            data: {
+              userInfo: userInfo,
+              nickName: nickName,
+              avatarUrl: avatarUrl,
+              userCity: userCity,
+              gender: gender,
+              grade: "",
+              major: "",
+              school: "",
+              schoolArea: "",
+              browseLog: [],
+              collect: [],
+              publish: [],
+              thumbs: [],
+              history: [],
+              newInfo: false,
+              infos: [],
+            }
+          }).then(rez => {
+            console.log('16')
+            db.collection("user").where({
+              _openid: openid
+            }).get().then(res => {
+              //getApp().globalData.me = res.data._id
+              //console.log(res.data)
+              getApp().globalData.me = res.data[0]._id
+              getApp().globalData.userID = res.data[0]._id
+              that.setData({
+                me: getApp().globalData.userID,
+              })
+              var obj = {}
+              obj[res.data[0].nickName] = res.data[0]._id
+              db.collection('global').doc('username').update({
+                data: obj
+              }).then(ret => {
+                wx.hideLoading()
+                console.log('suc add to global')
+              })
+              wx.navigateTo({
+                url: '/pages/changeInfo/changeInfo',
+              })
+              wx.showToast({
+                title: '初始化成功，请填写自己的详细信息！',
+                icon: 'none',
+              })
+            }).catch(rwt => {
+              wx.hideLoading()
+              wx.showToast({
+                title: '获取信息失败！',
+                icon: 'none',
+              })
+            })
+          }).catch(rwz => {
+            wx.hideLoading()
+            wx.showToast({
+              title: '初始化信息失败！',
+              icon: 'none',
+            })
           })
         })
 

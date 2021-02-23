@@ -74,7 +74,6 @@ Page({
           users: u,
         })
       }
-      if (tg == 0) finz() //修复了bug
       for (let i = 0; i < log.length; ++i) {
         d[i] = log[i][1]
         log[i][1] = new Date(log[i][1]['$date'])
@@ -88,6 +87,7 @@ Page({
       const rru = Math.ceil(needU.length / et)
       const rrp = Math.ceil(needP.length / et)
       tg = rru + rrp
+      if (tg == 0) finz() //修复了bug
       for (let i = 0; i < rru; ++i) {
         var temp = []
         var len = (i + 1) * et < needU.length ? (i + 1) * et : needU.length
