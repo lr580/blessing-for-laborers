@@ -31,3 +31,6 @@
     <text decode="true">&ensp;</text>
   </view>
 </view>
+<view wx:if="{{!datacollect.length}}">
+  <van-empty description="暂无收藏的帖子。" />
+</view>

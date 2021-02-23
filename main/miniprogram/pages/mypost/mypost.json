@@ -1,6 +1,7 @@
 {
   "usingComponents": {
     "van-divider": "/dist/divider/index",
-    "van-tag": "/dist/tag/index"
+    "van-tag": "/dist/tag/index",
+    "van-empty": "/dist/empty/index"
   }
 }

@@ -1,19 +1,15 @@
-
-<van-divider
-  contentPosition="center"
-  customStyle="color: darkgrey; border-color: darkgrey; font-size: 14px;"
->
-共找到{{mypost.length}}个帖子
+<van-divider contentPosition="center" customStyle="color: darkgrey; border-color: darkgrey; font-size: 14px;">
+  共找到{{mypost.length}}个帖子
 </van-divider>
 <view wx:for="{{mypost}}" class="bigbox">
   <view bindtap="gotoPost" id="{{item.id}}" class="">
     <view wx:if="{{item.type}}">
       <view class="titlePart">
         <view>
-        <image src="/img/mytitle.png" class="tag2"></image>
-      </view>
+          <image src="/img/mytitle.png" class="tag2"></image>
+        </view>
         <view class="title">{{item.title}}</view>
-        <van-tag class="type"  color="#67f1cc"  type="primary">{{types[item.type]}}</van-tag>
+        <van-tag class="type" color="#67f1cc" type="primary">{{types[item.type]}}</van-tag>
         <!-- <view class="type">{{types[item.type]}}</view> -->
       </view>
 
@@ -30,19 +26,21 @@
 
       <view class="titlePart">
         <view>
-        <image src="/img/myhf.png" class="tag2"></image>
-      </view>
+          <image src="/img/myhf.png" class="tag2"></image>
+        </view>
         <view class="title">{{item.title}}
         </view>
 
       </view>
       <view class="down2">
         <view>
-              <van-tag  color="rgba(117, 115, 115, 0.267)" class="time2" round type="primary">{{item.activeTime}}</van-tag>
-            </view>
+          <van-tag color="rgba(117, 115, 115, 0.267)" class="time2" round type="primary">{{item.activeTime}}</van-tag>
+        </view>
+      </view>
     </view>
   </view>
-  </view>
   <text decode="true">&ensp;</text>
-  
+</view>
+<view wx:if="{{!mypost.length}}">
+  <van-empty description="暂无发帖。" />
 </view>
