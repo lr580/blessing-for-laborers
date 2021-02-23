@@ -25,7 +25,7 @@ Page({
   },
 
   console1: function () {
-    console.log(1)
+    //console.log(1)
   },
 
   gotoMypost: function () {
@@ -159,6 +159,7 @@ Page({
                 history: [],
                 newInfo: false,
                 infos: [],
+                realName:'',
               }
             }).catch(rww => {
               wx.hideLoading()
@@ -290,6 +291,7 @@ Page({
               history: [],
               newInfo: false,
               infos: [],
+              realName:'',
             }
           }).then(rez => {
             console.log('16')

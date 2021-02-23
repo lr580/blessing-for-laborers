@@ -18,7 +18,8 @@ Page({
     area: '无',
     major:'无',
     grade:'无',
-    school:'无'
+    school:'无',
+    realName:'无',
   },
 
 
@@ -57,9 +58,14 @@ Page({
             grade:res.data.grade
           })
         }
+        if(res.data.realName){
+          this.setData({
+            realName:res.data.realName
+          })
+        }
         this.setData({
           userinfo: wx.getStorageSync('userInfo'),
-          nickname: res.data.nickName
+          nickname: res.data.nickName,
         })
       })
     }
@@ -84,6 +90,11 @@ Page({
         if(res.data.grade){
           this.setData({
             grade:res.data.grade
+          })
+        }
+        if(res.data.realName){
+          this.setData({
+            realName:res.data.realName
           })
         }
         this.setData({
@@ -145,6 +156,28 @@ Page({
     var res= db.collection("user").doc(uid).update({
       data:{
         grade:this.data.grade
+      }
+    })
+  },
+
+  getRealName: function(e){
+    this.setData({
+      realName:e.detail.value
+    })
+    //console.log('qwq', this.data.realName)
+    const fx = new RegExp('.*[^\u4e00-\u9fa5]+.*','img')
+    var nn = this.data.realName
+    if(nn.search(fx)==0)
+    {
+      wx.showToast({
+        title: '实名只能包含中文汉字',
+        icon:'none',
+      })
+      return
+    }
+    var res= db.collection("user").doc(uid).update({
+      data:{
+        realName:this.data.realName
       }
     })
   },

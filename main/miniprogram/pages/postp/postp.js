@@ -32,6 +32,7 @@ Page({
     thumbs: 0,//编辑帖子时可能不为0的点赞数
     types: [],//帖子类型
     fatherType: 1,//帖子父类类别
+    meo:[],//当前用户对象
   },
 
   //前端使用
@@ -59,6 +60,33 @@ Page({
       type: Number(options.type),
       edit: options.edit == 'true',
       types: getApp().globalData.types,
+    })
+    if(this.data.me==0)
+    {
+      wx.navigateBack()
+      wx.showToast({
+        title: '未登录！',
+        icon:'none',
+      })
+      return
+    }
+    wx.cloud.database().collection('user').doc(String(this.data.me)).get().then(re0=>{
+      this.setData({meo:re0.data})
+      if(!re0.data.realName)
+      {
+        wx.navigateBack()
+        wx.showToast({
+          title: '您尚未实名，不能发帖！',
+          icon:'none',
+        })
+      }
+    }).catch(rw0=>{
+      wx.navigateBack()
+      wx.showToast({
+        title: '读取用户信息失败！',
+        icon:'none',
+      })
+      return
     })
     if (!this.data.type) {
       this.setData({
