@@ -88,7 +88,8 @@ Page({
     })
   },
 
-  suc_fx: async function(res){
+  suc_fx: async function (res) {
+    // console.log('res', res)
     var openid
     var that = this
     wx.showLoading({
@@ -354,7 +355,36 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    // var fake = { userInfo: { avatarUrl: '', city: '', country: '', gender: 1, language: '', nickName: '', province: '' } }
+    // this.suc_fx(fake)
+    // db.collection()
+    var thee = this
+    wx.cloud.callFunction({
+      name: 'getOpenId',
+    }).then(res => {
+      var openid = res.result.userInfo.openId
+      // console.log(openid,res.result)
+      db.collection('user').where({
+        _openid: openid
+      }).get().then(ret => {
+        if (ret.data.length != 0) {
+          // console.log(ret.data[0].userInfo)
+          thee.suc_fx({ userInfo: ret.data[0].userInfo })
+        }
+      }).catch(rwt => {
+        console.log('读取用户集合失败！', rwt)
+        wx.showToast({
+          title: '读取用户集合失败！',
+          icon: 'none',
+        })
+      })
+    }).catch(rws => {
+      console.log('使用openid失败！', rws)
+      wx.showToast({
+        title: '获取openid失败，请检查您的网络！',
+        icon: 'none',
+      })
+    })
   },
 
   /**
