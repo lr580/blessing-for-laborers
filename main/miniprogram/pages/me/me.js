@@ -168,6 +168,37 @@ Page({
           //     icon: 'none',
           //   })
           // }, 1000);
+          db.collection("user").where({
+            _openid: openid
+          }).get().then(res => {
+            // if(res.data.length==0){
+            //   console.log('no user')
+            //   return
+            // }
+            // getApp().globalData.me = res.data._id
+            // console.log(res.data)
+            var obj = {}
+            if (1) { //res.data.length != 0
+              getApp().globalData.me = res.data[0]._id
+              getApp().globalData.userID = res.data[0]._id
+              that.setData({ me: getApp().globalData.userID, })
+              obj[res.data[0].nickName] = res.data[0]._id
+            }
+  
+            db.collection('global').doc('username').update({
+              data: obj
+            }).then(ret => {
+              wx.hideLoading()
+              //console.log('suc add to global')
+            })
+          }).catch(rwr => {
+            console.log(rwr)
+            wx.hideLoading()
+            wx.showToast({
+              title: '获取信息失败！',
+              icon: 'none',
+            })
+          })
         }).catch(rww => {
           wx.hideLoading()
           wx.showToast({
@@ -175,37 +206,7 @@ Page({
             icon: 'none',
           })
         })
-        db.collection("user").where({
-          _openid: openid
-        }).get().then(res => {
-          // if(res.data.length==0){
-          //   console.log('no user')
-          //   return
-          // }
-          // getApp().globalData.me = res.data._id
-          console.log(res.data)
-          var obj = {}
-          if (1) { //res.data.length != 0
-            getApp().globalData.me = res.data[0]._id
-            getApp().globalData.userID = res.data[0]._id
-            that.setData({ me: getApp().globalData.userID, })
-            obj[res.data[0].nickName] = res.data[0]._id
-          }
-
-          db.collection('global').doc('username').update({
-            data: obj
-          }).then(ret => {
-            wx.hideLoading()
-            //console.log('suc add to global')
-          })
-        }).catch(rwr => {
-          console.log(rwr)
-          wx.hideLoading()
-          wx.showToast({
-            title: '获取信息失败！',
-            icon: 'none',
-          })
-        })
+        
       } else {
         //console.log("用户已存在")
         db.collection("user").where({
