@@ -28,6 +28,7 @@
       "outputPath": ""
     },
     "enableEngineNative": false,
+    "bundle": false,
     "useIsolateContext": true,
     "useCompilerModule": true,
     "userConfirmedUseCompilerModuleSwitch": false,
@@ -37,7 +38,7 @@
     "minifyWXSS": true
   },
   "appid": "wx62bf88f7371aa99a",
-  "projectname": "学舟Ark",
+  "projectname": "%E5%AD%A6%E8%88%9FArk",
   "libVersion": "2.15.0",
   "condition": {
     "plugin": {

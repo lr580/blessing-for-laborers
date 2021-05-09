@@ -70,6 +70,7 @@
   margin-right: 50rpx;
   display: flex;
   align-items: center;
+  width: 80%;
 }
 
 .stateBody {
@@ -78,11 +79,15 @@
   background-color: white;
   border-top: 4rpx solid darkgray;
   z-index: 100;
+  height: 150rpx;
+  display: flex;
+  align-items: center;
 }
 
 
 .switcgCB {
-  margin-left: 300rpx;
+margin-left: 200rpx;
+  width: 200rpx;
 }
 
 .addPhoto image {
@@ -104,9 +109,9 @@
 }
 
 .sendButton {
-  width: 750rpx;
+  /* width: 750rpx; */
   display: flex;
-  margin-left: 60rpx;
+
 }
 .send{
   background-color: white;
