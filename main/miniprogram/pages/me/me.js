@@ -183,6 +183,7 @@ Page({
           //   return
           // }
           // getApp().globalData.me = res.data._id
+          console.log(res.data)
           var obj = {}
           if (1) { //res.data.length != 0
             getApp().globalData.me = res.data[0]._id
