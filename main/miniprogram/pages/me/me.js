@@ -169,7 +169,7 @@ Page({
           _openid: openid
         }).get().then(res => {
           getApp().globalData.me = res.data._id
-          getApp().globalData.me = res.data[0]._id
+          // getApp().globalData.me = res.data[0]._id
           getApp().globalData.userID = res.data._id
           that.setData({ me: getApp().globalData.userID, })
           var obj = {}
@@ -181,6 +181,7 @@ Page({
             //console.log('suc add to global')
           })
         }).catch(rwr => {
+          console.log(rwr)
           wx.hideLoading()
           wx.showToast({
             title: '获取信息失败！',
