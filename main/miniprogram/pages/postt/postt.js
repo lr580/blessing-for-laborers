@@ -618,7 +618,7 @@ Page({
     var fty = this.data.postt.type
     if (cid != this.data.postt.id) for (let i = 0; i < this.data.reply.length; ++i) if (cid == this.data.reply[i][0].id) {
       reply = this.data.reply[i][0].id
-      if (this.data.reply[i][0].anonymity && this.data.me != this.data.reply[i][0].user) rr = '用户' //该分支恒false
+      if (this.data.reply[i][0].anonymity && this.data.me != this.data.reply[i][0].user) rr = '匿名用户' //
       else rr = this.data.reply[i][1].nickName
     }
     wx.navigateTo({
@@ -640,7 +640,7 @@ Page({
       if (this.data.reply[i][5] == undefined) continue
       if (this.data.reply[i][3] == undefined) continue
       reply = this.data.reply[i][5].id
-      if (this.data.reply[i][5].anonymity && this.data.me != this.data.reply[i][5].user) rr = '用户' //该分支恒false
+      if (this.data.reply[i][5].anonymity && this.data.me != this.data.reply[i][5].user) rr = '匿名用户' //
       else rr = this.data.reply[i][3].nickName
     }
 
@@ -797,7 +797,7 @@ Page({
   gotoUser: function (e) {
     var ori = e.currentTarget.id.split(',')
     var uid = ori[0]
-    var ann = false //ori[1] == 'true'//是否匿名，恒为实名
+    var ann = ori[1] == 'true'//是否匿名 //false
     var code
     //console.log('gotoUser with', uid, ann)
     //console.log(uid)

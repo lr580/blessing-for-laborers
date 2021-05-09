@@ -13,13 +13,13 @@
 
     <view class="user" bindtap="gotoUser" id="{{[poster._id,postt.anonymity&&me!=postt.user]}}">
       <view class="userHead">
-        <image src="{{pathp+'default.jpg'}}" wx:if="{{postt.anonymity&&me!=postt.user}}"></image> <!--恒false分支-->
-        <image src="{{pathp+pathq}}" wx:elif="{{poster.oldtest}}"></image> <!--恒false分支-->
+        <image src="{{pathp+'default.jpg'}}" wx:if="{{postt.anonymity&&me!=postt.user}}"></image> <!---->
+        <image src="{{pathp+pathq}}" wx:elif="{{poster.oldtest}}"></image> <!---->
         <image src="{{poster.avatarUrl}}" wx:else></image>
       </view>
       <view class="userName">
-        <text user-select="true" wx:if="{{postt.anonymity&&me!=postt.user}}">用户</text> <!--恒false分支-->
-        <text user-select="true" wx:elif="{{postt.anonymity&&me==postt.user}}">{{poster.nickName}}</text> <!--恒false分支-->
+        <text user-select="true" wx:if="{{postt.anonymity&&me!=postt.user}}">匿名用户</text> <!---->
+        <text user-select="true" wx:elif="{{postt.anonymity&&me==postt.user}}">(匿名){{poster.nickName}}</text> <!---->
         <text user-select="true" wx:else>{{poster.nickName}}</text>
       </view>
     </view>
@@ -101,13 +101,13 @@
         <view wx:if="{{!v[0].hide}}">
           <view class="repostBody">
             <view class="reuserInfo" wx:if="{{v[0].reply}}!=0">
-              <view class="reuserHead" bindtap="gotoUser" id="{{[v[0].user,v[0].anonymity&&me!=v[0].user]}}"> <!--恒false分支-->
-                <image src="{{pathp+'default.jpg'}}" wx:if="{{v[0].anonymity&&me!=v[0].user}}"></image> <!--恒false分支-->
+              <view class="reuserHead" bindtap="gotoUser" id="{{[v[0].user,v[0].anonymity&&me!=v[0].user]}}"> <!---->
+                <image src="{{pathp+'default.jpg'}}" wx:if="{{v[0].anonymity&&me!=v[0].user}}"></image> <!---->
                 <image src="{{pathp+v[2]}}" wx:elif="{{v[1].oldtest}}"></image>
                 <image src="{{v[1].avatarUrl}}" wx:else></image>
               </view>
-              <view wx:if="{{v[0].anonymity&&me!=v[0].user}}" class="reuserName">用户</view> <!--恒false分支-->
-              <view wx:if="{{v[0].anonymity&&me==v[0].user}}" class="{{v[0].reply?'reuserName':'reuserNameS'}}">{{v[1].nickName}}</view> <!--恒false分支-->
+              <view wx:if="{{v[0].anonymity&&me!=v[0].user}}" class="reuserName">匿名用户</view> <!---->
+              <view wx:if="{{v[0].anonymity&&me==v[0].user}}" class="{{v[0].reply?'reuserName':'reuserNameS'}}">(匿名){{v[1].nickName}}</view> <!---->
               <view wx:else class="{{v[0].reply?'reuserName':'reuserNameS'}}" bindtap="gotoUser"
                 id="{{[v[0].user,v[0].anonymity&&me!=v[0].user]}}">
                 {{v[1].nickName}}</view>
@@ -126,8 +126,8 @@
                   <text wx:else>{{v[7]+1}}楼</text>
                 </view>
                 <view class="namePart" wx:if="{{!v[5].anonymity}}">{{v[3].nickName}}</view>
-                <view class="namePart" wx:elif="{{v[5].anonymity&&me==v[5].user}}">{{v[3].nickName}}</view> <!--恒false分支-->
-                <view class="namePart" wx:elif="{{v[5].anonymity&&me!=v[5].user}}">用户</view> <!--恒false分支-->
+                <view class="namePart" wx:elif="{{v[5].anonymity&&me==v[5].user}}">(匿名){{v[3].nickName}}</view> <!---->
+                <view class="namePart" wx:elif="{{v[5].anonymity&&me!=v[5].user}}">匿名用户</view> <!---->
               </view>
               <view wx:elif="{{v[0].reply&&v[5].anonymity&&me!=v[5].user}}" class="bereuserName">
                 <view class="floor2">
@@ -135,7 +135,7 @@
                   <text class="floorText" wx:if="{{descTime}}">{{replys-v[7]}}楼</text>
                   <text wx:else>{{v[7]+1}}楼</text>
                 </view>
-                <view class="namePart"> 用户</view> <!--恒false分支-->
+                <view class="namePart"> 匿名用户</view> <!---->
               </view>
               <view class="floor">
                 <image src="/img/floor.png"></image>
