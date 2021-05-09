@@ -168,9 +168,9 @@ Page({
         db.collection("user").where({
           _openid: openid
         }).get().then(res => {
-          getApp().globalData.me = res.data._id
-          // getApp().globalData.me = res.data[0]._id
-          getApp().globalData.userID = res.data._id
+          // getApp().globalData.me = res.data._id
+          getApp().globalData.me = res.data[0]._id
+          getApp().globalData.userID = res.data[0]._id
           that.setData({ me: getApp().globalData.userID, })
           var obj = {}
           obj[res.data[0].nickName] = res.data[0]._id
