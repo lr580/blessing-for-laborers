@@ -49,14 +49,17 @@
         </view>
       </button>
     </view>
+    <van-button round  color="linear-gradient(to right, rgb(128, 255, 185), rgb(101, 219, 248))" type="primary"
+      bindtap="publistPost" style="width:200rpx">{{!edit?'发表':'保存'}}</van-button>
     <view class="switcgCB">
       <checkbox-group bindchange="switchCB">
-        <checkbox value="anonymity" checked="{{anonymity}}">匿名发布</checkbox>
+        <checkbox value="anonymity" checked="{{anonymity}}">匿名</checkbox>
       </checkbox-group>
     </view> <!--已经恢复匿名发帖功能-->
+    <view class="sendButton">
+    
   </view>
-  <view class="sendButton">
-    <van-button round color="linear-gradient(to right, rgb(128, 255, 185), rgb(101, 219, 248))" type="primary"
-      bindtap="publistPost">{{!edit?'发表':'保存'}}</van-button>
+ 
   </view>
+ 
 </view>
