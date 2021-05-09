@@ -158,6 +158,16 @@ Page({
             infos: [],
             realName: '',
           }
+        }).then(rew => {
+          // setTimeout(() => {
+          //   wx.navigateTo({
+          //     url: '/pages/changeInfo/changeInfo',
+          //   })
+          //   wx.showToast({
+          //     title: '初始化成功，请填写自己的详细信息！',
+          //     icon: 'none',
+          //   })
+          // }, 1000);
         }).catch(rww => {
           wx.hideLoading()
           wx.showToast({
@@ -173,11 +183,14 @@ Page({
           //   return
           // }
           // getApp().globalData.me = res.data._id
-          getApp().globalData.me = res.data[0]._id
-          getApp().globalData.userID = res.data[0]._id
-          that.setData({ me: getApp().globalData.userID, })
           var obj = {}
-          obj[res.data[0].nickName] = res.data[0]._id
+          if (1) { //res.data.length != 0
+            getApp().globalData.me = res.data[0]._id
+            getApp().globalData.userID = res.data[0]._id
+            that.setData({ me: getApp().globalData.userID, })
+            obj[res.data[0].nickName] = res.data[0]._id
+          }
+
           db.collection('global').doc('username').update({
             data: obj
           }).then(ret => {
