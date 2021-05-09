@@ -168,10 +168,10 @@ Page({
         db.collection("user").where({
           _openid: openid
         }).get().then(res => {
-          if(res.data.length==0){
-            console.log('no user')
-            return
-          }
+          // if(res.data.length==0){
+          //   console.log('no user')
+          //   return
+          // }
           // getApp().globalData.me = res.data._id
           getApp().globalData.me = res.data[0]._id
           getApp().globalData.userID = res.data[0]._id
